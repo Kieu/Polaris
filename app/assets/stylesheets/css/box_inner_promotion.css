@@ -1,0 +1,71 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+div.check-group {
+
+    float: left;
+    margin-left: 12px;
+    margin-top: 7px;
+    width: 190px;
+}
+div.check-group li {
+	padding: 0 0 34px;
+
+	}
+div.check-group input {
+	display: none;
+}
+div.check-group label {
+   background: url("/assets/btn_box_add.gif") no-repeat scroll 0 0 transparent;
+    float: right;
+    height: 28px;
+    padding: 0 5px;
+    text-indent: -9999px;
+    width: 55px;
+}
+div.check-group div:first-child label {
+	-webkit-border-top-left-radius: 7px;
+	-webkit-border-bottom-left-radius: 7px;
+	-moz-border-radius-topleft: 7px;
+	-moz-border-radius-bottomleft: 7px;
+}
+div.check-group div:last-child label {
+	-webkit-border-top-right-radius: 7px;
+	-webkit-border-bottom-right-radius: 7px;
+	-moz-border-radius-topright: 7px;
+	-moz-border-radius-bottomright: 7px;
+}
+div.check-group label.checked {
+	  background: url("/assets/btn_box_dl.gif") no-repeat scroll 0 0 transparent;
+    float: right;
+    height: 28px;
+    padding: 0 5px;
+    text-indent: -9999px;
+    width: 55px;	
+}
+ div.check-group label::-moz-selection, div.check-group label::selection {
+ background: transparent;
+}
+.check_txt{
+	float:left;
+	}
+
+#sample-chart{
+	clear:both;
+	width:100%; 
+	height:200px; 
+}
+.sample-chart{
+	clear:both;
+	width:100%; 
+	height:200px; 
+}
+
+
+.box02 .f_arrow{
+    background: url("/assets/icon_arrow.png") no-repeat scroll 168px center / 12px auto transparent;
+    padding: 1px 0 1px 14px;
+    text-align: left;
+    text-indent: 0;
+	}

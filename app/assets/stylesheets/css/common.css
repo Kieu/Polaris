@@ -1,0 +1,449 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* ==========================================================================
+    全体
+   ========================================================================== */
+
+*{
+margin: 0;
+padding: 0;
+}
+
+body {
+font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+color: #3d3d3d;
+font-size: 14px;
+}
+
+a:hover{
+	opacity:0.7;
+}
+/*#promotion_tables {
+    width: 100%;
+    overflow: hidden;
+    overflow-x:scroll ;
+}
+*/
+/*p img:hover{
+	opacity:0.7;
+}*/
+#promotion_delete
+{
+   border: 0px;
+   cursor: pointer;
+}
+#cautionBox{
+    margin:0 auto;
+    width: 500px;
+    height: 220px;
+    -webkit-border-radius: 13px;
+    -moz-border-radius: 13px;
+    border-radius: 13px;
+    background-color: #f1f1f1;
+    border: 4px #333 solid;
+}
+
+#cautionBox p.del_message{
+    margin: auto;
+    margin-bottom: 10px;
+    width: 420px;
+}
+
+#cautionBox .clientName{
+    font-weight: bold;
+    margin: 0 auto;
+    text-align: center;
+    color: #F63;
+    width: 200px;
+    height: 30px;
+    border-bottom: 1px solid #F63;
+    border-top: 1px solid #F63;
+    padding-top: 10px;
+}
+
+.clear{
+	clear:both;
+	}
+
+.d-none{
+	display: none;
+}
+p.h2{
+	font-size: 16px;
+	font-weight: bold;
+	color: #3e5869;
+    margin-top:0px;
+}
+
+/* ==========================================================================
+    ヘッダー(ロゴ)
+   ========================================================================== */
+
+#header{
+	height: 50px;
+}
+
+#headerInner{
+	margin: 0 auto;
+	width: 95%;
+}
+
+#headerInner h1{
+	height: 50px;
+	width: 130px;
+	float: left;
+	text-indent: -9999px;
+	background: url(/assets/logo_polaris.png) no-repeat;
+	background-position: 0 13px;
+}
+
+/* ==========================================================================
+    ナビ
+   ========================================================================== */
+
+#nav{
+	clear: both;
+	width: 100%;
+	height: 38px;
+	background-color: #0087a9;
+}
+
+#navInner{
+	margin: 0 auto;
+	width: 95%;
+	height: 38px;
+	}
+
+.nav ul{
+	width:570px;
+	overflow:hidden;
+	position:relative;
+}
+
+.nav ul li{
+	margin: 0;
+	padding: 0;
+	height:38px;
+	float:left;
+}
+
+.nav ul li a{
+	opacity:10;
+}
+
+.nav ul li img{
+	display:block;
+}
+
+.nav ul li a{
+	display:block;
+}
+
+/* ==========================================================================
+    パンくず
+   ========================================================================== */
+.contentNavi li{
+	font-weight: bold;
+	float:left;
+	color:#3e5869;
+	font-size:12px;
+    margin: 0px 0px 0px 0px;
+	/*padding:  0 0 20px 0;*/
+	letter-spacing: 0.1em;
+}
+
+.contentNavi li.pre{
+	color: #F63;
+}
+.crumb {
+    margin: -20px 0px 0px 275px;
+}
+.crumb_logs {
+
+}
+
+/* ==========================================================================
+    header上部
+   ========================================================================== */
+
+#personal{
+	margin: 0;
+	padding: 0;
+	float:right;
+	margin-top: 15px;
+}
+#personal ul{
+}
+
+#personal ul li{
+	margin:0;
+	padding:0;
+	display:inline;
+}
+
+#personal ul li a{
+	color: #F60;
+}
+
+#personal ul li p{
+	display:inline;
+}
+
+#personal ul li a img:hover{
+	opacity:0.7
+}
+
+/* ==========================================================================
+    サイド
+   ========================================================================== */
+
+
+#sidebar {
+    float: left;
+    margin-left: 50px;
+    min-height: 500px;
+    width: 260px;
+}
+#clienetlist_box {
+    background-color: #F1F1F1;
+    border-radius: 8px 8px 8px 8px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    margin-top: 10px;
+    min-height: 315px;
+    max-height: 315px;
+    overflow: hidden;
+}
+table.sidebar tbody td a.active {
+    text-decoration: underline !important;
+}
+#clienetlist_box dl {
+    padding: 10px;
+}
+.borderTop{
+	border-top:1px solid #c1c1c1;
+}
+
+
+#searchform {
+    background: url("/assets/img_search_form.gif") no-repeat scroll -2px 0 transparent;
+    display: block;
+    height: 35px;
+    position: relative;
+    width: 225px;
+}
+#keywords {
+    border: 1px solid #FFFFFF;
+    color: #AAAAAA;
+    left: 15px;
+    position: absolute;
+    top: 4px;
+    width: 170px;
+}
+#keywords:focus {
+    color: #333333;
+}
+#searchBtn {
+    left: 193px;
+    position: absolute;
+    top: 7px;
+}
+table.sidebar {
+    width: 240px;
+}
+table.sidebar .current{
+	color: #0087a9;
+	text-decoration: underline;
+}
+
+table.sidebar tbody {
+    width: 240px;
+}
+table.sidebar tbody tr {
+    border-bottom: 1px solid #C1C1C1;
+    height: 28px;
+    width: 240px;
+}
+table.sidebar tbody th.edit {
+    background-image: url("/assets/img_edit.png");
+    height: 28px;
+    text-indent: -9999px;
+    width: 25px;
+}
+table.sidebar tbody th a {
+    display: block;
+    height: 28px;
+    opacity: 0.7;
+    width: 25px;
+}
+table.sidebar tbody td a {
+    color: #3E5869;
+    text-decoration: none;
+}
+table.sidebar tbody td {
+    color: #3E5869;
+    font-size: 14px;
+    font-weight: bold;
+    height: 28px;
+    padding-left: 3px;
+    vertical-align: middle;
+    overflow: hidden;
+    width: 400px;
+    display:table-cell;
+}
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    background: #F1F1F1;
+    border: 1px solid gray;
+}
+/* IE 6 doesn't support max-height
+* we use height instead, but this forces the menu to always be this tall
+*/
+* html .ui-autocomplete {
+    height: 200px;
+    background: #F1F1F1;
+}
+
+/* ==========================================================================
+    フッター
+   ========================================================================== */
+
+#footer{
+	clear: both;
+	margin: 0 auto;
+	border-top:#0b8eb0 1px solid;
+	width: 95%;
+	font-size:12px;	
+	text-align: center;
+}
+
+#footerInner{
+	margin: 15px 0 20px;
+}
+
+#footerInner ul{
+}
+
+#footerInner ul li{
+	color: #0b8eb0;
+	font-weight: bold;
+	text-decoration: underline;
+	padding: 15px;
+	display: inline;
+}
+
+#footerInner ul li a{
+	color: #0b8eb0;
+}
+
+#copyright{
+	font-size:12px;
+}
+
+#copyright p{
+	display: inline;
+	vertical-align: top;
+}
+
+.entrydate_box {
+    clear: both;
+    left: 9px;
+    position: absolute;
+    top: 35px;
+    overflow: hidden;
+    height: 300px;
+}
+.entrydate_table {
+    float: left;
+    font-size: 11px;
+    font-weight: normal;
+    margin: 5px 0 0 5px;
+    width: 500px;
+}
+.file_name {
+    text-align: left;
+    width: 230px;
+}
+.capacity {
+    text-align: left;
+    width: 90px;
+}
+.daily {
+    text-align: left;
+    width: 90px;
+}
+
+.c_orange {
+    color: #E76813;
+    font-weight: bold;
+    text-align: right;
+    width: 100px;
+}
+.c_blue {
+    color: #0087A9;
+    font-weight: bold;
+    text-align: right;
+    width: 100px;
+}
+.c_black {
+    color: #000000;
+    font-weight: bold;
+    text-align: right;
+    width: 100px;
+}
+.entrydate_box li {
+    background-color: white;
+    border: 1px solid;
+    clear: both;
+    height: 50px;
+    margin: 10px 0 0;
+    width: 615px;
+}
+.btn_cancel {
+    float: right;
+    margin: 10px 5px 0 0;
+    width: 90px;
+}
+.btn_download {
+    float: right;
+    margin: 10px 5px 0 0;
+    width: 90px;
+}
+
+
+/* ==========================================================================
+    便利クラス
+   ========================================================================== */
+
+.fl-l{float: left;}
+.fl-r{float: right;}
+
+.ta-l{text-align: left;}
+.ta-c{	text-align: center;}
+.ta-r{text-align: right;}
+
+.ml-5{margin-left: 5px;}
+.ml-10{margin-left: 10px;}
+.ml-15{margin-left: 15px;}
+.ml-20{margin-left: 20px;}
+
+.mt-5{margin-top: 5px;}
+.mt-10{margin-top: 10px;}
+.mt-0{margin-top: -10px; border: 0px;background: transparent;width: 45px;height: 30px;z-index: 100;cursor: pointer}
+.mt-15{margin-top: 15px;}
+.mt-20{margin-top: 20px;}
+
+.mr-5{margin-right: 5px;}
+.mr10{margin-right: 10px;}
+.mr-15{margin-right: 15px;}
+.mr-20{margin-right: 20px;}
+
+.mb-5{margin-bottom: 5px;}
+.mb-10{margin-bottom: 10px;}
+.mb-15{margin-bottom: 15px;}
+.mb-20{margin-bottom: 20px;}

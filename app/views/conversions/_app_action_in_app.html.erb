@@ -1,0 +1,75 @@
+<tr>
+  <th class="disabled"><label for="conversion_OS指定："><%= I18n.t("conversion.conversion_category.app.os.label") %></label></th>
+  <td class="disabled" colspan="2"><label>
+    <input type="radio" value="1" name="conversion1[os]" id="conversion_os_1" disabled="disabled"><%= I18n.t("conversion.conversion_category.app.os.ios") %>
+  </label></td>
+  <td class="disabled" colspan="2"><label>
+    <input type="radio" value="2" name="conversion1[os]" id="conversion_os_2" disabled="disabled"><%= I18n.t("conversion.conversion_category.app.os.android") %>
+  </label></td>
+</tr>
+<tr>
+  <th class="disabled"><label for="conversion_計測媒体："><%= I18n.t("conversion.conversion_category.app.conversion_mode.label") %></label></th>
+  <td class="disabled"><label>
+    <input type="radio" value="0" name="conversion1[conversion_mode]" id="conversion_conversion_mode_0" disabled="disabled"><%= I18n.t("conversion.conversion_category.app.conversion_mode.all") %>
+  </label></td>
+  <td class="disabled"><label>
+    <input type="radio" value="1" name="conversion1[conversion_mode]" id="conversion_conversion_mode_1" disabled="disabled"><%= I18n.t("conversion.conversion_category.app.conversion_mode.facebook") %>
+  </label></td>
+  <td class="disabled"><label>
+    <input type="radio" value="2" name="conversion1[conversion_mode]" id="conversion_conversion_mode_2" disabled="disabled"><%= I18n.t("conversion.conversion_category.app.conversion_mode.other") %>
+  </label></td>
+  <td>&nbsp;</td>
+</tr>
+<tr>
+  <th class="disabled"><a href="#"><img src="/assets/icon_help.gif"></a><label for="conversion_重複排除："><%= I18n.t("conversion.conversion_category.app.duplicate.label") %></label></th>
+  <td class="disabled"><label>
+    <input type="radio" value="1" name="conversion1[duplicate]" id="conversion_duplicate_1" disabled="disabled"><%= I18n.t("conversion.conversion_category.app.duplicate.label1") %>
+  </label></td>
+  <td class="disabled"><label>
+    <input type="radio" value="0" name="conversion1[duplicate]" id="conversion_duplicate_0" disabled="disabled"><%= I18n.t("conversion.conversion_category.app.duplicate.label2") %>
+  </label></td>
+  <td colspan="2">&nbsp;</td>
+</tr>
+<tr>
+  <th class="disabled"><label for="conversion_計測方法："><%= I18n.t("conversion.conversion_category.app.track_method.label") %></label></th>
+  <td class="disabled"><label>
+    <input type="radio" value="2" name="conversion1[track_method]" id="conversion_track_method_1" disabled="disabled"><%= I18n.t("conversion.conversion_category.app.track_method.white") %>
+  </label></td>
+  <td class="disabled"><label>
+    <input type="radio" value="3" name="conversion1[track_method]" id="conversion_track_method_2" disabled="disabled"><%= I18n.t("conversion.conversion_category.app.track_method.welcome") %>
+  </label></td>
+  <td class="disabled" colspan="2"><label>
+    <input type="radio" value="4" name="conversion1[track_method]" id="conversion_track_method_3" disabled="disabled"><%= I18n.t("conversion.conversion_category.app.track_method.custom.label") %></label>
+    <input type="text" size="30" placeholder="<%= I18n.t("conversion.conversion_category.app.track_method.custom.url") %>" name="conversion1[url]" id="url" disabled="disabled" class="urlBox">
+  </td>
+</tr>
+<tr>
+  <th><%= f.label I18n.t("conversion.conversion_category.app.session.label") %></th>
+  <td colspan="3">
+    <%= f.text_field :session_period, maxlength: 2, class: "input-text prevent_change" %>
+  </td>
+  <td id="percent" style="margin-left: -62px; position: absolute; margin-top: 13px;">
+  	<%= I18n.t("conversion.conversion_category.app.session.day")%>
+  </td>
+</tr>
+<tr>
+  <th><%= f.label t("conversion.unique_definition") %></th>
+  <td colspan="4">
+    <%= f.select :unique_def, t("conversions.unique_definition").each_with_index.map {|name, index| [name, index + 1]}, {}, {class: "prevent_change"} %>
+  </td>
+</tr>
+<tr>
+  <th><%= I18n.t("conversion.conversion_category.app.option.label")%><br /><%= f.label I18n.t("conversion.conversion_category.app.sale_unit_price") %></th>
+  <td colspan="4"><br />
+    <%= f.text_field :sale_unit_price, maxlength: 10, placeholder: "￥", class: "input-text prevent_change" %>
+  </td>
+</tr>
+<tr>
+  <th><%= f.label t("conversion.conversion_category.app.reward_form.label") %></th>
+  <td colspan="2"><label>
+    <%= f.radio_button :reward_form, 1, checked: true, class: "prevent_change" %><%= I18n.t("conversion.conversion_category.app.reward_form.straight_line_type")%>
+  </label></td>
+  <td colspan="2"><label>
+    <%= f.radio_button :reward_form, 2, class: "prevent_change" %><%= I18n.t("conversion.conversion_category.app.reward_form.declining_balance_type")%>
+  </label></td>
+</tr>

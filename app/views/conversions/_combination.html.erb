@@ -1,0 +1,196 @@
+    		<tbody id="cv_category_box">
+				<tr>
+				<th width="135px">パターン：
+					
+				<input type="hidden" id="current_id" value="<%= (@cv_list && @cv_list.count > 2) ? @cv_list.count : 2 %>" />
+
+				<script type="text/javascript">
+					function set_value(name, id, kind, current_id) {
+						$('#cv' + current_id).val(id);
+						$('#cv_kind' + current_id).val(kind);
+						$('#cv_category' + current_id).val(name);
+						$('.submenu').hide();
+						$('#categorymenu' + current_id).hide();
+					}
+					function change_kind_box(id) {
+						$('#kind_box').html($('#cv_box'+id).html());
+					}
+					function add_category1() {
+						$('#current_id').val(parseInt($('#current_id').val())+1);
+						var current_category = "category" + $('#current_id').val();
+						console.log(current_category);
+						var current_menu = "categorymenu" + $('#current_id').val();
+						var html = '<tr><th></th><td></td><td><select width="40px" name="op[]" width="30px"  class="ta-c mcdropdown_spacing prevent_change" ><option value="+">+</option><option value="-">-</option><option value="×">×</option><option value="÷">÷</option></select></td>';
+						html += '<td><input type="text" class="prevent_change" id="cv_'+current_category+'" name="'+current_category+'"><ul id="' + current_menu + '" class="mcdropdown_menu">';
+						
+						<% @conversions.each do |conversion| %>
+						<% if conversion.id != params[:id]%>
+							html += '<li rel="1"><%= short_ja_name(conversion.conversion_name)%><ul>';
+							<% Settings.conversion_kind.each_with_index.map {|name, index|  %>
+						  		html += '<a href="javascript:void(0)" onclick="set_value(\'<%= conversion.conversion_name + ":" + t(name[1]) %>\', <%= conversion.id%>, <%= index+1 %>, ' + $('#current_id').val() + ');" class="result_click_left" id="conversion_left_<%= conversion.id %>"><li rel="' + <%=index+3%>+ '"><%= t(name[1]) %></li></a>';
+						  		
+						  	<% } %>
+						  	html += '</ul></li>';
+						<% end %>
+						<% end %>
+				      	html +=	"</ul><input type='hidden' name='cv[]' id='cv" + $('#current_id').val() + "' value='' class='prevent_change'/><input type='hidden' name='cv_kind[]' id='cv_kind" + $('#current_id').val() + "' value='' class='prevent_change'/></td></tr>";
+						
+						$('#cv_category_box').append(html);
+						window.jQuery = window.$ = jQueryTemp;
+						$("#cv_" + current_category).mcDropdown("#" + current_menu);
+						window.jQuery = window.$ = jQueryOriginal;
+					}
+				</script>
+
+					</th>
+				<td width="205px">
+					<input type="text" name="cv_category1" class="prevent_change" id="cv_category1" value="" />
+					<input type="hidden" name="cv_kind[]" id="cv_kind1" value="<%= (@cv_kind_list && @cv_kind_list[0]['id']) ? @cv_kind_list[0]['id'] : '' %>" class="prevent_change"/>
+                    <input type="hidden" name="cv[]" value="<%= (@cv_list && @cv_list[0]['id']) ? @cv_list[0]['id'] : '' %>" id="cv1" class="prevent_change"/>
+					<ul id="categorymenu1" class="mcdropdown_menu">
+						<% @conversions.each do |conversion| %>
+						<% if conversion.id != params[:id]%>
+						<li rel="1">
+							<%= short_ja_name(conversion.conversion_name)%>
+							<ul>
+								<% Settings.conversion_kind.each_with_index.map {|name, index|  %>
+								<a href="javascript:void(0)" onclick="set_value('<%= conversion.conversion_name + ":" + t(name[1]) %>', <%= conversion.id%>, <%= index+1 %>, 1);" class="result_click_left" id="conversion_left_<%= conversion.id %>"><li rel="<%=index+3%>">
+									<%= t(name[1]) %>
+									
+								</li>
+								</a>
+								<% } %>
+							</ul>
+						</li>
+						<% end %>
+						<% end %>
+					</ul></td>
+					<td width="40px"><select width="40px" name="op[]" class="ta-c mcdropdown_spacing prevent_change">
+						<option value="+" <% if @op_list && @op_list[0] == '+'%> selected="selected" <% end %>>+</option>
+		                <option value="-" <% if @op_list && @op_list[0] == '-'%> selected="selected" <% end %>>-</option>
+		                <option value="×" <% if @op_list && @op_list[0] == '×'%> selected="selected" <% end %>>×</option>
+		                <option value="÷" <% if @op_list && @op_list[0] == '÷'%> selected="selected" <% end %>>÷</option>
+						</select></td>
+					<td width="200px"><input type="text" name="cv_category2" class="prevent_change" id="cv_category2" value="" />
+						<input type="hidden" name="cv_kind[]" id="cv_kind2" value="<%= (@cv_kind_list && @cv_kind_list[1]) ? @cv_kind_list[1]['id'] : '' %>" />
+                    <input type="hidden" name="cv[]" value="<%= (@cv_list && @cv_list[1]) ? @cv_list[1]['id'] : '' %>" id="cv2" />
+						<ul id="categorymenu2" class="mcdropdown_menu">
+							<% @conversions.each do |conversion| %>
+							<% if conversion.id != params[:id]%>
+							<li rel="1">
+								<%= short_ja_name(conversion.conversion_name)%>
+								<ul>
+									<% Settings.conversion_kind.each_with_index.map {|name, index|  %>
+									<a href="javascript:void(0)" onclick="set_value('<%= conversion.conversion_name + ":" + t(name[1]) %>', <%= conversion.id%>, <%= index+1 %>, 2);" class="result_click_left" id="conversion_left_<%= conversion.id %>">
+										<li rel="' + <%=index+3%>+ '"><%= t(name[1]) %>
+									</li></a>
+									<% } %>
+								</ul>
+							</li>
+							<% end %>
+							<% end %>
+						</ul></td>
+					<td></td>
+				</tr>
+				
+				<% if @cv_list && @cv_list.count > 0 %>
+				<%
+					script_input_values = Hash.new
+							
+				%>	
+				<% @cv_list.each do |idx, cv| %>
+				<% if idx > 1%>
+				<tr>
+				<th></th>
+				<td></td>
+				<td><select width="40px" name="op[]" class="ta-c mcdropdown_spacing prevent_change" >
+						<option value="+" <% if @op_list[idx-1] == '+'%> selected="selected" <% end %>>+</option>
+		                <option value="-" <% if @op_list[idx-1] == '-'%> selected="selected" <% end %>>-</option>
+		                <option value="×" <% if @op_list[idx-1] == '×'%> selected="selected" <% end %>>×</option>
+		                <option value="÷" <% if @op_list[idx-1] == '÷'%> selected="selected" <% end %>>÷</option>
+					</select></td>
+				<td>
+					<%
+						input_values = (@cv_list && @cv_list[idx]) ? @cv_list[idx]['name']: ""
+						input_values += (@cv_kind_list && @cv_kind_list[idx] && @cv_kind_list[idx]['name'].strip != "") ? ":" + @cv_kind_list[idx]['name']: ""
+						script_input_values.store(idx+1, input_values)
+						
+					%>					
+					
+					<input type="text" name="cv_category<%= idx + 1 %>" class="cv" id="cv_category<%= idx + 1 %>" value="<%= (@cv_list && @cv_list[idx]) ? @cv_list[idx]['name']: ""  %><%= (@cv_kind_list && @cv_kind_list[idx]) ? ":" + @cv_kind_list[idx]['name']: ""  %>" >
+					<input type="hidden" name="cv_kind[]" id="cv_kind<%= idx + 1 %>" value="<%= (@cv_kind_list && @cv_kind_list[idx]) ? @cv_kind_list[idx]['id']: "" %>" class="prevent_change"/>
+                    <input type="hidden" name="cv[]" value="<%= cv['id']%>" id="cv<%= idx +1%>" class="prevent_change"/>
+					<ul id="categorymenu<%= idx + 1 %>" class="mcdropdown_menu">
+						<% @conversions.each do |conversion| %>
+						<% if conversion.id != params[:id]%>
+						<li rel="1">
+							<%= short_ja_name(conversion.conversion_name)%>
+							<ul class="submenu">
+								<% Settings.conversion_kind.each_with_index.map {|name, index|  %>
+								<li rel="' + <%=index+3%>+ '"><a href="javascript:void(0)" onclick="set_value('<%= conversion.conversion_name + ":" + t(name[1]) %>', <%= conversion.id%>, <%= index+1 %>, <%= idx + 1 %>);" class="result_click_left" id="conversion_left_<%= conversion.id %>">
+									<%= t(name[1]) %>
+								</li>
+								<% } %>
+							</ul>
+						</li>
+						<% end %>
+						<% end %>
+					</ul></td>
+				<td><script type="text/javascript">
+					window.jQuery = window.$ = jQueryTemp;
+					$("#cv_category<%= idx + 1 %>").mcDropdown("#categorymenu<%= idx + 1 %>");
+					
+					window.jQuery = window.$ = jQueryOriginal;
+					
+				</script></td>
+				</tr>
+				<% end %>
+				<% end %>
+				<% end %>
+				
+			</tbody>
+			<tbody>
+				<% if @conversion.errors['conversion_combine'].count > 0%>
+				<tr>
+					<th></th>
+					<td colspan="4">
+					<span class="text-validationError"><%=@conversion.errors['conversion_combine'][0] %></span>
+					</td>
+				</tr>
+				<% end %>
+				<% if flash[:combine_error]%>
+				<tr>
+					<th></th>
+					<td colspan="4">
+					<span class="text-validationError"><%= flash[:combine_error] %></span>
+					</td>
+				</tr>
+				<% end %>
+				<tr>
+					<th></th>
+					<td><script type="text/javascript">
+					window.jQuery = window.$ = jQueryTemp;
+					$("#cv_category1").mcDropdown("#categorymenu1");
+					$("#cv_category2").mcDropdown("#categorymenu2");
+					window.jQuery = window.$ = jQueryOriginal;
+					<%
+						if script_input_values && script_input_values.count > 0
+							script_input_values.each do |value|
+					%>
+						$("#cv_category<%= value[0] %>").val('<%= value[1] %>');
+					<%
+							end
+						end
+					%>
+					<% if @cv_list && @cv_list[0] && @cv_list[0]['name'] != ''%>
+						$("#cv_category1").val('<%= @cv_list[0]['name'] + ":" +  @cv_kind_list[0]['name'] %>');
+					<% end %>
+					<% if @cv_list && @cv_list[1] && @cv_list[1]['name'] != ''%>
+						$("#cv_category2").val('<%= @cv_list[1]['name'] + ":" +  @cv_kind_list[1]['name'] %>');
+					<% end %>
+					</script></td>
+					<td></td>
+					<td><input type="button" value="<%= I18n.t("conversion.combination.add") %>" onclick="add_category1();"></td>
+				</tr>
+			</tbody>
+			

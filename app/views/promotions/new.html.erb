@@ -1,0 +1,60 @@
+<% provide(:title, I18n.t("promotion.title.add")) %>
+<script type="text/javascript">
+$(function(){
+	prevent_change = "<%= @prevent %>";
+	$(".prevent_change").change(function(){
+		prevent_change = "1"
+	})
+})
+</script>
+<%= render "layouts/prevent_change_page_new" %>
+<%= stylesheet_link_tag "css/common" %>
+<% if flash[:error] %>
+  <div><%= flash[:error] %></div>
+<% end %>
+<% content_for :sidebar do %>
+    <%= render partial: "layouts/sidebar", locals: {object: @array_promotion} %>
+<% end %>
+  <ul class="contentNavi">
+    <li class="pre"><%= link_to short_ja_name(@client.client_name), clients_path(client_id: @client.id), title: "#{@client.client_name}" %></li>
+    <li>&gt;</li>
+    <li><%= I18n.t("promotion.crumb_add")%></li>
+  </ul>
+  <div class="clear"></div>
+<%= form_for(@promotion) do |f| %>
+    <%= hidden_field_tag :client_id, params[:client_id] %>
+    <div class="regist_form">
+      <table class="client_info">
+        <tbody>
+        <tr>
+          <th><%= f.label I18n.t("promotion.promotion_name") %></th>
+          <td colspan="2"><%= f.text_field :promotion_name, maxlength: 255, style: "width: 250px", class: "prevent_change",tabindex: 1 %></td>
+        </tr>
+        <tr>
+          <th style="width: 200px;"><%= f.label I18n.t("promotion.roman_name") %></th>
+          <td colspan="2"><%= f.text_field :roman_name, maxlength: 255, style: "width: 250px", class: "prevent_change", tabindex: 2%></td>
+        </tr>
+        <tr>
+          <th><%= f.label I18n.t("promotion.category") %></th>
+          <td colspan="2">
+            <%= f.select :promotion_category_id,
+                         t(".category").each_with_index.map {|name, index| [name,index]}, {}, {class: "prevent_change", tabindex: 3} %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= f.label I18n.t("promotion.tracking_period.label") %></th>
+          <td style="width: 250px"><%= f.text_field :tracking_period, maxlength: 2, style: "width: 250px", class: "prevent_change", tabindex: 4 %></td>
+          <td style="padding-left: 0"> <%= I18n.t("promotion.tracking_period.day") %></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="submit_area">
+        <input type="image" src="/assets/btn_done.gif" id="btn_done"  tabindex = 5>
+        <% if @array_promotion.length > 0 %>
+        	<p><%= link_to raw('<img align="right" alt="キャンセル" src="/assets/btn_cancel.gif" tabindex="6">'), promotions_path(promotion_id: @promotion.id, client_id: @client_id) %></p>
+        <% else %>
+        	<p><%= link_to raw('<img align="right" alt="キャンセル" src="/assets/btn_cancel.gif" tabindex="6">'), clients_path(client_id: @client_id) %></p>
+        <% end %>
+      </div>
+    </div><!-- /."regist_form end-->
+<% end %>

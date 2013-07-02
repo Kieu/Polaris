@@ -1,0 +1,310 @@
+<table border="1" bordercolor="#b5b5b5" cellpadding="0" class="promotion_table" id="promotion_table">
+<tr>
+	<td rowspan="2" class="table_header"><div style="width: 150px;"><%= I18n.t("promotion.media") %></div></td>
+	<td rowspan="2" class="table_header"><div style="width: 220px;"><%= I18n.t("promotion.account") %></td>
+	<% Settings.promotions_options.each_with_index do |option, index|%>
+		<% if cookies[:promotion][index] == "1" %>
+			<%= content_tag(:td, rowspan: "2", class: "table_header") do %>
+				<% content_tag(:div, option, style: "width: 100px;") %>
+			<% end %>
+		<% end %>
+	<% end %>
+	<% @conversions.each do |conversion|%>
+		<% colspan = cal_col_cv(conversion.id) %>
+		<%= content_tag(:td, short_ja_name(conversion.conversion_name), colspan: colspan, class: "table_header") if colspan > 0 %>
+	<% end %>
+</tr>
+<tr>
+	<% @conversions.each do |conversion|%>
+		<% colspan = cal_cv(conversion.id) %>
+		<% Settings.conversions_options.each_with_index do |option, index1|%>
+			<% if colspan > 0 && cookies[("conversion" + conversion.id.to_s).to_sym][index1] == "1" %>
+				<%= content_tag(:td, I18n.t(Settings.conversions_options[index1]), class: "table_header") do %>
+					<% content_tag(:div, I18n.t(Settings.conversions_options[index1]), style: "width: 100px;") %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+</tr>
+<tr>
+	<td class="header_total"></td>
+	<td class="header_total"></td>
+	<% val = @promotion_results["total_promotion"] %>
+	<% if cookies[:promotion][0] == "1" %>
+		<td class="header_total align_right"><%= val[Settings.promotions_sums[0]].nil? ? "0" : val[Settings.promotions_sums[0]].to_s %></td>
+	<% end %>
+	<% if cookies[:promotion][1] == "1" %>
+		<td class="header_total align_right"><%= val[Settings.promotions_sums[1]].nil? ? "0" : val[Settings.promotions_sums[1]].to_s %></td>
+	<% end %>
+	<% if cookies[:promotion][2] == "1" %>
+		<td class="header_total align_right"><%= val[Settings.promotions_sums[2]].nil? ? "" : val[Settings.promotions_sums[2]].to_s+"%" %></td>
+	<% end %>
+	<% if cookies[:promotion][3] == "1" %>
+		<td class="header_total align_right">¥<%= val[Settings.promotions_sums[3]].nil? ? "0" : val[Settings.promotions_sums[3]].to_s %></td>
+	<% end %>
+	<% if cookies[:promotion][4] == "1" %>
+		<td class="header_total align_right"><%= val[Settings.promotions_sums[4]].nil? ? "" : val[Settings.promotions_sums[4]].to_s %></td>
+	<% end %>
+	<% if cookies[:promotion][5] == "1" %>
+		<td class="header_total align_right"><%= val[Settings.promotions_sums[5]].nil? ? "" : "¥"+val[Settings.promotions_sums[5]].to_s %></td>
+	<% end %>
+	<% @conversions.each do |conversion|%>
+		<% val = @promotion_results["total_conversion"+conversion.id.to_s] %>
+		<% if val.nil? %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][0] == "1" %>
+				<td class="header_total align_right">0</td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][1] == "1" %>
+				<td class="header_total align_right">0</td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][2] == "1" %>
+				<td class="header_total align_right">0</td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][3] == "1" %>
+				<td class="header_total align_right"></td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][4] == "1" %>
+				<td class="header_total align_right"></td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][5] == "1" %>
+				<td class="header_total align_right">0</td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][6] == "1" %>
+				<td class="header_total align_right">¥0</td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][7] == "1" %>
+				<td class="header_total align_right"></td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][8] == "1" %>
+				<td class="header_total align_right">¥0</td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][9] == "1" %>
+				<td class="header_total align_right"></td>
+			<% end %>
+		<% else %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][0] == "1" %>
+				<td class="header_total align_right"><%= val[Settings.conversions_sums[0]].nil? ? "0" : val[Settings.conversions_sums[0]]  %></td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][1] == "1" %>
+				<td class="header_total align_right"><%= val[Settings.conversions_sums[1]].nil? ? "0" : val[Settings.conversions_sums[1]]  %></td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][2] == "1" %>
+				<td class="header_total align_right"><%= val[Settings.conversions_sums[2]].nil? ? "0" : val[Settings.conversions_sums[2]]  %></td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][3] == "1" %>
+				<td class="header_total align_right"><%= val[Settings.conversions_sums[3]].nil? ? "" : val[Settings.conversions_sums[3]].to_s + "%" %></td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][4] == "1" %>
+				<td class="header_total align_right"><%= val[Settings.conversions_sums[4]].nil? ? "" : "¥" + val[Settings.conversions_sums[4]].to_s  %></td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][5] == "1" %>
+				<td class="header_total align_right"><%= val[Settings.conversions_sums[5]].nil? ? "0" : val[Settings.conversions_sums[5]]  %></td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][6] == "1" %>
+				<td class="header_total align_right">¥<%= val[Settings.conversions_sums[6]].nil? ? "0" : val[Settings.conversions_sums[6]].to_s  %></td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][7] == "1" %>
+				<td class="header_total align_right"><%= val[Settings.conversions_sums[7]].nil? ? "" : val[Settings.conversions_sums[7]].to_s + "%"  %></td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][8] == "1" %>
+				<td class="header_total align_right">¥<%= val[Settings.conversions_sums[8]].nil? ? "0" : val[Settings.conversions_sums[8]]  %></td>
+			<% end %>
+			<% if cookies[("conversion" + conversion.id.to_s).to_sym][9] == "1" %>
+				<td class="header_total align_right"><%= val[Settings.conversions_sums[9]].nil? ? "" : val[Settings.conversions_sums[9]].to_s + "%"  %></td>
+			<% end %>
+		<% end%>
+	<% end %>
+</tr>
+<% Settings.media_category.each do |category| %>
+	<tr>
+    	<td class="category_header align_center"><%= I18n.t(category[1]) %></td>
+		<td class="category_header align_center">Total</td>
+		<% val = @promotion_results[category[1]+"_total"] %>
+			<% if val.nil? %>
+				<% if cookies[:promotion][0] == "1" %>
+					<td class="category_header align_right">0</td>
+				<% end %>
+				<% if cookies[:promotion][1] == "1" %>
+					<td class="category_header align_right">0</td>
+				<% end %>
+				<% if cookies[:promotion][2] == "1" %>
+					<td class="category_header align_right"></td>
+				<% end %>
+				<% if cookies[:promotion][3] == "1" %>
+					<td class="category_header align_right">¥0</td>
+				<% end %>
+				<% if cookies[:promotion][4] == "1" %>
+					<td class="category_header align_right"></td>
+				<% end %>
+				<% if cookies[:promotion][5] == "1" %>
+					<td class="category_header align_right">¥0</td>
+				<% end %>
+			<% else %>
+				<% if cookies[:promotion][0] == "1" %>
+					<td class="category_header align_right"><%= val[Settings.promotions_sums[0]].nil? ? "0" : val[Settings.promotions_sums[0]].to_s %></td>
+				<% end %>
+				<% if cookies[:promotion][1] == "1" %>
+					<td class="category_header align_right"><%= val[Settings.promotions_sums[1]].nil? ? "0" : val[Settings.promotions_sums[1]].to_s %></td>
+				<% end %>
+				<% if cookies[:promotion][2] == "1" %>
+					<td class="category_header align_right"><%= val[Settings.promotions_sums[2]].nil? ? "" : val[Settings.promotions_sums[2]].to_s+"%" %></td>
+				<% end %>
+				<% if cookies[:promotion][3] == "1" %>
+					<td class="category_header align_right">¥<%= val[Settings.promotions_sums[3]].nil? ? "0" : val[Settings.promotions_sums[3]].to_s %></td>
+				<% end %>
+				<% if cookies[:promotion][4] == "1" %>
+					<td class="category_header align_right"><%= val[Settings.promotions_sums[4]].nil? ? "" : val[Settings.promotions_sums[4]].to_s %></td>
+				<% end %>
+				<% if cookies[:promotion][5] == "1" %>
+					<td class="category_header align_right"><%= val[Settings.promotions_sums[5]].nil? ? "" : "¥"+val[Settings.promotions_sums[5]].to_s %></td>
+				<% end %>
+			<% end %>
+		<% @conversions.each do |conversion|%>
+			<% val = @promotion_results[category[1]+ "_conversion" + conversion.id.to_s + "_total"] %>
+			<% if val.nil? %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][0] == "1" %>
+					<td class="category_header align_right">0</td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][1] == "1" %>
+					<td class="category_header align_right">0</td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][2] == "1" %>
+					<td class="category_header align_right">0</td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][3] == "1" %>
+					<td class="category_header align_right"></td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][4] == "1" %>
+					<td class="category_header align_right"></td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][5] == "1" %>
+					<td class="category_header align_right">0</td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][6] == "1" %>
+					<td class="category_header align_right">¥0</td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][7] == "1" %>
+					<td class="category_header align_right"></td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][8] == "1" %>
+					<td class="category_header align_right">¥0</td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][9] == "1" %>
+					<td class="category_header align_right"></td>
+				<% end %>
+			<% else %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][0] == "1" %>
+				<td class="category_header align_right"><%= val[Settings.conversions_sums[0]].nil? ? "0" : val[Settings.conversions_sums[0]]  %></td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][1] == "1" %>
+					<td class="category_header align_right"><%= val[Settings.conversions_sums[1]].nil? ? "0" : val[Settings.conversions_sums[1]]  %></td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][2] == "1" %>
+					<td class="category_header align_right"><%= val[Settings.conversions_sums[2]].nil? ? "0" : val[Settings.conversions_sums[2]]  %></td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][3] == "1" %>
+					<td class="category_header align_right"><%= val[Settings.conversions_sums[3]].nil? ? "" : val[Settings.conversions_sums[3]].to_s + "%" %></td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][4] == "1" %>
+					<td class="category_header align_right"><%= val[Settings.conversions_sums[4]].nil? ? "" : "¥" + val[Settings.conversions_sums[4]].to_s  %></td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][5] == "1" %>
+					<td class="category_header align_right"><%= val[Settings.conversions_sums[5]].nil? ? "0" : val[Settings.conversions_sums[5]]  %></td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][6] == "1" %>
+					<td class="category_header align_right">¥<%= val[Settings.conversions_sums[6]].nil? ? "0" : val[Settings.conversions_sums[6]].to_s  %></td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][7] == "1" %>
+					<td class="category_header align_right"><%= val[Settings.conversions_sums[7]].nil? ? "" : val[Settings.conversions_sums[7]].to_s + "%"  %></td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][8] == "1" %>
+					<td class="category_header align_right">¥<%= val[Settings.conversions_sums[8]].nil? ? "0" : val[Settings.conversions_sums[8]]  %></td>
+				<% end %>
+				<% if cookies[("conversion" + conversion.id.to_s).to_sym][9] == "1" %>
+					<td class="category_header align_right"><%= val[Settings.conversions_sums[9]].nil? ? "" : val[Settings.conversions_sums[9]].to_s + "%"  %></td>
+				<% end %>
+			<% end %>
+		<% end %>
+	</tr>
+    <% @media_list[category[1].to_s+"_media"].each_with_index do |media, index| %>
+		<% @account_list["media"+media.id.to_s+"_account"].each_with_index do |account, index1| %>
+		<tr>
+			<% if index1 == 0 %>
+				<%= content_tag(:td, rowspan: @account_list["media"+media.id.to_s+"_account"].count) do %>
+					<% content_tag(:div, short_ja_name(media.media_name), title: media.media_name) %>
+				<% end %>
+			<% end %>
+			<% unless current_user.client? %>
+            	<td><div title="<%= account.account_name %>"><%= link_to short_ja_name(account.account_name), edit_account_path(account, promotion_id: @promotion_id) %></div></td>
+            <% else %>
+            	<td><div title="<%= account.account_name %>"><%= short_ja_name(account.account_name) %></div></td>
+            <% end %>
+            <% val = @promotion_results["account"+account.id.to_s+"_promotion"] %>
+            <% if val.nil? %>
+            	<% Settings.promotions_sums.each_with_index do |option, index2|%>
+            		<%= content_tag(:td, "") if cookies[:promotion][index2] == "1" %>
+            	<% end %>
+            <% else %>
+            	<% if cookies[:promotion][0] == "1" %>
+					<td class="align_right"><%= val[Settings.promotions_sums[0]].nil? ? "" : val[Settings.promotions_sums[0]].to_s %></td>
+				<% end %>
+				<% if cookies[:promotion][1] == "1" %>
+					<td class="align_right"><%= val[Settings.promotions_sums[1]].nil? ? "" : val[Settings.promotions_sums[1]].to_s %></td>
+				<% end %>
+				<% if cookies[:promotion][2] == "1" %>
+					<td class="align_right"><%= val[Settings.promotions_sums[2]].nil? ? "-" : val[Settings.promotions_sums[2]].to_s+"%" %></td>
+				<% end %>
+				<% if cookies[:promotion][3] == "1" %>
+					<td class="align_right">¥<%= val[Settings.promotions_sums[3]].nil? ? "" : val[Settings.promotions_sums[3]].to_s %></td>
+				<% end %>
+				<% if cookies[:promotion][4] == "1" %>
+					<td class="align_right"><%= val[Settings.promotions_sums[4]].nil? ? "-" : val[Settings.promotions_sums[4]].to_s %></td>
+				<% end %>
+				<% if cookies[:promotion][5] == "1" %>
+					<td class="align_right"><%= val[Settings.promotions_sums[5]].nil? ? "-" : "¥"+val[Settings.promotions_sums[5]].to_s %></td>
+				<% end %>
+            <% end %>
+            <% @conversions.each do |conversion|%>
+            	<% val = @promotion_results["account"+account.id.to_s+"_conversion"+conversion.id.to_s] %>
+            	<% if val.nil? %>
+            		<% Settings.conversions_sums.each_with_index do |option, index2|%>
+            			<%= content_tag(:td, "") if cookies[("conversion" + conversion.id.to_s).to_sym][index2] == "1"%>
+					<% end %>
+				<% else %>
+					<% if cookies[("conversion" + conversion.id.to_s).to_sym][0] == "1" %>
+						<td class="align_right"><%= val[Settings.conversions_sums[0]].nil? ? "0" : val[Settings.conversions_sums[0]]  %></td>
+					<% end %>
+					<% if cookies[("conversion" + conversion.id.to_s).to_sym][1] == "1" %>
+						<td class="align_right"><%= val[Settings.conversions_sums[1]].nil? ? "0" : val[Settings.conversions_sums[1]]  %></td>
+					<% end %>
+					<% if cookies[("conversion" + conversion.id.to_s).to_sym][2] == "1" %>
+						<td class="align_right"><%= val[Settings.conversions_sums[2]].nil? ? "0" : val[Settings.conversions_sums[2]]  %></td>
+					<% end %>
+					<% if cookies[("conversion" + conversion.id.to_s).to_sym][3] == "1" %>
+						<td class="align_right"><%= val[Settings.conversions_sums[3]].nil? ? "-" : val[Settings.conversions_sums[3]].to_s + "%" %></td>
+					<% end %>
+					<% if cookies[("conversion" + conversion.id.to_s).to_sym][4] == "1" %>
+						<td class="align_right"><%= val[Settings.conversions_sums[4]].nil? ? "-" : "¥" + val[Settings.conversions_sums[4]].to_s  %></td>
+					<% end %>
+					<% if cookies[("conversion" + conversion.id.to_s).to_sym][5] == "1" %>
+						<td class="align_right"><%= val[Settings.conversions_sums[5]].nil? ? "0" : val[Settings.conversions_sums[5]]  %></td>
+					<% end %>
+					<% if cookies[("conversion" + conversion.id.to_s).to_sym][6] == "1" %>
+						<td class="align_right">¥<%= val[Settings.conversions_sums[6]].nil? ? "0" : val[Settings.conversions_sums[6]].to_s  %></td>
+					<% end %>
+					<% if cookies[("conversion" + conversion.id.to_s).to_sym][7] == "1" %>
+						<td class="align_right"><%= val[Settings.conversions_sums[7]].nil? ? "-" : val[Settings.conversions_sums[7]].to_s + "%"  %></td>
+					<% end %>
+					<% if cookies[("conversion" + conversion.id.to_s).to_sym][8] == "1" %>
+						<td class="align_right">¥<%= val[Settings.conversions_sums[8]].nil? ? "0" : val[Settings.conversions_sums[8]]  %></td>
+					<% end %>
+					<% if cookies[("conversion" + conversion.id.to_s).to_sym][9] == "1" %>
+						<td class="align_right"><%= val[Settings.conversions_sums[9]].nil? ? "-" : val[Settings.conversions_sums[9]].to_s + "%"  %></td>
+					<% end %>
+				<% end %>
+			<% end %>
+        </tr>
+        <% end %>
+    <% end %>
+<% end %>
+</table>

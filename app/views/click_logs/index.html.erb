@@ -1,0 +1,331 @@
+<% provide(:title, I18n.t("log.title.click_logs")) %>
+<%= stylesheet_link_tag "css/logs" %>
+<%= stylesheet_link_tag "css/colorbox" %>
+<%= stylesheet_link_tag "css/common" %>
+<%= stylesheet_link_tag "css/box_inner_log" %>
+<style>
+    .flexigrid div.hDiv th, div.colCopy {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+    #clicklogs {
+        width: 100% !important;
+    }
+</style>
+<% if flash[:error] %>
+	<div><%= flash[:error] %></div>
+<% end %>
+<% content_for :sidebar do %>
+    <%= render partial: "layouts/sidebar", locals: {object: @promotions} %>
+<% end %>
+<%= render partial: "layouts/option_log_page" %>
+
+<ul class="contentNavi">
+  <div class = "crumb_logs">
+  	<% unless current_user.client? %>
+		<li class="pre"><%= link_to short_ja_name(@promotion.client.client_name), clients_path(client_id: @promotion.client.id) %> </li>
+	<% else %>
+		<li class="pre"><%= short_ja_name(@promotion.client.client_name) %></li>
+	<% end %>
+	
+	<li>&gt;</li>
+	<li><%= link_to short_ja_name(@promotion.promotion_name), promotions_path(promotion_id: @promotion.id, client_id: @promotion.client.id) %></li>
+	<li>&gt;</li>
+	<li><%= I18n.t("log.crumb_click")%></li>
+  </div>
+</ul>
+
+<div style="float:right">
+	<div class="selectarea">
+		<ul>
+			<li> <%= I18n.t("log.media_category")%>
+				<%= select_tag 'media_category_id', "<option value = "">#{I18n.t("click_logs.all")}</option><option value = 1 >#{I18n.t(Settings.media_category[1])}</option><option value = 2 >#{I18n.t(Settings.media_category[2])}</option><option value = 3 >#{I18n.t(Settings.media_category[3])}</option>".html_safe, class: "input-text" %>
+			</li>
+			<li> <%= I18n.t("log.account_name")%>
+				<%= select_tag 'account_id', content_tag(:option,I18n.t("click_logs.all"),:value=>"")+options_from_collection_for_select(@array_account, 'id', 'account_name'), class: "input-text" %> <br>
+			</li>
+		</ul>
+	</div>
+	<div class="date" id="date_area"><%= I18n.t("log.today_text")%><br />
+		<input id="datepicker" type="text" readonly="readonly" value="<%= @start_date +" ~ "+ @end_date %>" name="datepicker">&#9660;
+      <div class="fl-r-log">
+        <p><a class="inline_logs" href="#inline_logs"><img src="/assets/btn_dl_option.gif"  /></a>
+          <a id="download_csv"><img src="/assets/btn_dl_report.gif"  /></a></p>
+      </div>
+	</div>
+</div>
+<div class="clear"></div>
+<div id="conversion_inner">
+	<!--タブ切り替え-->
+	<ul class="ui-tabs-nav">
+		<li class="">
+			<%= link_to(conversion_promotion_logs_path(promotion_id: @promotion.id)) do %>
+			  <span><%= I18n.t("cv_logs.label")%></span>
+			<% end %>
+		</li>
+		<li class="ui-tabs-selected">
+			<%= link_to(click_logs_path(promotion_id: @promotion.id)) do %>
+			  <span><%= I18n.t("click_logs.label")%></span>
+			<% end %>
+		</li>
+	</ul>
+	<div id="ui-tab">
+		<div id="fragment-1" class="ui-tabs-hide">
+		</div>
+		<div id="fragment-2" class="ui-tabs-panel">
+			<div id="graph">
+
+			</div>
+			<div class="w_box">
+			<table id="clicklogs" class="newTable06 fixcolumn" style="background: grey" ></table>
+			</div>
+			
+		</div>
+		
+	</div>
+	<!--/タブ切り替え-->
+</div>
+<script type="text/javascript">
+	
+	var term = $('#datepicker').val();
+    var d = term.split(' ~ ');
+    if (d[0].length > 1)
+    	start_date = d[0];
+    else
+    	start_date = <%= @start_date %>
+    if (d[1].length > 1)
+    	end_date = d[1];
+    else
+    	end_date = <%= @end_date %>
+
+	
+	function showColumn(tbl, colIndex, visible) {
+	    $(tbl).flexToggleCol(colIndex, visible);
+	}
+	$('#download_csv').click(function(){
+        var term = $('#datepicker').val();
+	    var d = term.split(' ~ ');
+	    if (d[0].length > 1)
+	    	start_date = d[0];
+	    else
+	    	start_date = <%= @start_date %>
+	    if (d[1].length > 1)
+	    	end_date = d[1];
+	    else
+	    	end_date = <%= @end_date %>
+        $.ajax({
+            url: "<%= download_csv_click_logs_path %>?promotion_id=<%= @promotion.id if @promotion %>&start_date=" + start_date + "&end_date=" + end_date + "&media_category_id=" + $("#media_category_id").val() + "&account_id=" + $("#account_id").val(),
+            type: "post",
+            success: function(data){
+            }
+
+        })
+    })
+	jQuery(document).ready(function($) {
+		$(".newTable06").flexigrid({
+			url: "<%= get_logs_list_click_logs_path %>" + "?start_date=<%= @start_date%>&account_id=" + $("#account_id").val() + "&media_category_id=" + $("#media_category_id").val() + "&end_date=<%=@end_date%>",
+			dataType: 'json',
+			colModel : [
+				{display: '<%= I18n.t("click_logs.click_utime")%>', name : 'click_utime', sortable : true, width:'200',align: 'left', hide: <%= cookies[:coptions][0] == "0" ? 1 : 0 %>},
+				{display: '<%= I18n.t("click_logs.media_name")%>', name : 'media_id', sortable : false,  width:'200',align: 'left', hide: <%= cookies[:coptions][1] == "0" ? 1 : 0 %>},
+				{display: '<%= I18n.t("click_logs.account_name")%>', name : 'account_id', sortable : false,  width:'200',align: 'left', hide: <%= cookies[:coptions][2] == "0" ? 1 : 0 %>},
+				{display: '<%= I18n.t("click_logs.campaign_name")%>', name : 'campaign_id', sortable : false,  width:'200',align: 'left', hide: <%= cookies[:coptions][3] == "0" ? 1 : 0 %>},
+				{display: '<%= I18n.t("click_logs.ad_group_name")%>', name : 'group_id', sortable : false, width:'200', align: 'left', hide: <%= cookies[:coptions][4] == "0" ? 1 : 0 %>},
+				{display: '<%= I18n.t("click_logs.ad_name")%>', name : 'unit_id', sortable : false, width:'200', align: 'left', hide: <%= cookies[:coptions][5] == "0" ? 1 : 0 %>},
+				{display: '<%= I18n.t("click_logs.url")%>', name : 'redirect_url', sortable : false, width:'200', align: 'left', hide: <%= cookies[:coptions][6] == "0" ? 1 : 0 %>},
+				{display: '<%= I18n.t("click_logs.sesid")%>', name : 'session_id', sortable : false, width:'200', align: 'left', hide: <%= cookies[:coptions][7] == "0" ? 1 : 0 %>},
+				{display: '<%= I18n.t("click_logs.os")%>', name : 'device_category', sortable : false, width:'200', align: 'left', hide: <%= cookies[:coptions][8] == "0" ? 1 : 0 %>},
+				{display: '<%= I18n.t("click_logs.log_state")%>', name : 'state', sortable : false, width:'200', align: 'center', hide: <%= cookies[:coptions][9] == "0" ? 1 : 0 %>},
+				{display: '<%= I18n.t("click_logs.error_message")%>', name : 'error_code', sortable : false, width:'200', align: 'left', hide: <%= cookies[:coptions][10] == "0" ? 1 : 0 %>},
+				],
+				preProcess : function (json) {
+	            var results = new Array();
+	            jQuery.each(json.rows, function(idx, v) {
+	                if (idx==0) {
+	                	results.push({id: "-" + v.cell.media_category_id, cell: {click_utime: "", media_id: "",
+	                					account_id: "", campaign_id: "", ad_group_id: "", unit_id: "", redirect_url: "", session_id: "",device_category: "", state: "", error_code: ""}});
+	               	} else {
+	               		
+	               		if (json.rows[idx-1].cell.media_category_id != v.cell.media_category_id)
+	               			results.push({id: "-" + v.cell.media_category_id, cell: {click_utime: "", media_id: "",
+	                					account_id: "", campaign_id: "", ad_group_id: "", unit_id: "", redirect_url: "", session_id: "",device_category: "", state: "", error_code: ""}});
+	               	}
+              
+              results.push(this);
+	            });
+	            
+	            return {
+	                rows : results,
+	                page : json.page,
+	                total : json.total
+	            };
+	        },
+		    sortname: "click_utime",
+	        sortorder: "desc",
+			usepager: true,
+			useRp: true,
+			rp: 10,
+			resizable : false,
+			optionGet : "5",
+			query: <%=params[:promotion_id]%>,
+			showTableToggleBtn: true,
+			onSuccess: function() {
+                if ($.cookie("coptions") == '00000000000') {
+                	$('tr#row-1 td:nth-child('+(1+'n-'+(11))+')').remove();
+                	$('tr#row-2 td:nth-child('+(1+'n-'+(11))+')').remove();
+                	$('tr#row-3 td:nth-child('+(1+'n-'+(11))+')').remove();
+                } else {
+					$('tr#row-1 td:nth-child('+(1+'n-'+(11))+')').remove();
+	                $('tr#row-1').after("<div class='group_header'><%= I18n.t(Settings.media_category[1])%></div>");
+					$('tr#row-2 td:nth-child('+(1+'n-'+(11))+')').remove();
+	                $('tr#row-2').after("<div class='group_header'><%= I18n.t(Settings.media_category[2])%></div>");
+					$('tr#row-3 td:nth-child('+(1+'n-'+(11))+')').remove();
+	                $('tr#row-3').after("<div class='group_header'><%= I18n.t(Settings.media_category[3])%></div>");
+	           }
+			},
+            onError: function(xhr,status,errorThrown){
+                console.log('xhrError: ');
+                console.dir(xhr);
+                $('.newTable06').flexAddData({rows:[],page:1,total:0});
+            }
+		});
+		
+	});
+	
+		function formatDate(year, month, day){
+		 if (year < 2000) { year = parseInt(year) + 1900; }
+		 if (month.length == 1) { month = "0" + parseInt(month); }
+		 if (day.length == 1) { day = "0" + parseInt(day); }
+		 return year + month + day;
+		}
+		$('#datepicker').daterangepicker({
+    		rangeSplitter: ' ~ ',
+    		lang: $.cookie("locale") == "ja" ? 1 : 2,
+            onDone: function() {
+                var term = $('#datepicker').val();
+                var d = term.split(' ~ ');
+                start_date = d[0];
+                end_date = d[1];
+                
+                $("#datepicker").text(start_date + " ~ " + end_date + "▼");
+                reloadFlex1("#clicklogs", "<%= get_logs_list_click_logs_path %>?media_category_id=" + $("#media_category_id").val() + "&account_id=" + $("#account_id").val() + "&start_date=" + start_date + "&end_date=" + end_date);
+                
+                
+    	
+            }
+        });		
+		$("#date_area").click(function(){
+	    	$("#datepicker").click();
+		})
+		$("#media_category_id").change(function(){
+			$.ajax({
+		        type: "POST",
+		        url: "<%= change_accounts_list_click_logs_path %>?cid=" + $(this).val() + "&promotion_id=<%= @promotion.id%>",
+		        data: "cid=" + $(this).val(),
+		        success: function (data) {
+		            $("#account_id").html("");
+	            	option = "<option value=''><%= I18n.t("click_logs.all") %></option>";
+	                $("#account_id").append(option);
+		            for (var i = 0; i < data.length; i++) {
+		                option = "<option value='" + data[i].id + "'>" + data[i].account_name + "</option>";
+		                $("#account_id").append(option);
+		            }
+		        }
+		    });
+			reloadFlex1("#clicklogs", "<%= get_logs_list_click_logs_path %>?media_category_id=" + $(this).val() + "&account_id=" + $("#account_id").val()+ "&start_date=" + start_date + "&end_date=" + end_date);
+		});
+		$("#account_id").change(function(){
+			reloadFlex1("#clicklogs", "<%= get_logs_list_click_logs_path %>?media_category_id=" + $("#media_category_id").val() + "&account_id=" + $(this).val()+ "&start_date=" + start_date + "&end_date=" + end_date);
+		});
+
+	//$('tr#row-g1 td:nth-child('+(11+'n-'+(11))+')').remove();
+	//$('tr#row-g1').append("<td colspan='11'>aaaaa</td>";
+	$('tr#row-g1 td:nth-child('+(1+'n-'+(11))+')').remove();
+	$('tr#row-g1').append("<td colspan='11'>aaaaa</td>");
+	var colums = ["click_utime", "media_id", "account_id", "campaign_id", "ad_group_id", "ad_id", "redirect_url", "session_id", "device_category", "state", "error_code"]
+	
+
+	cookies_options = $.cookie("coptions");
+	update_cookie = function(data,ele){
+		options = cookies_options.split("");
+		options[data] = (options[data] == "1") ? "0" : "1";
+		text = (options[data] == "1") ? "<img src='/assets/btn_box_dl.gif' >" : "<img src='/assets/btn_box_add.gif' >";
+		$(ele).html(text);
+		options = options.join("");
+		cookies_options = options;
+
+		
+	}
+	update_cookies = function(){
+		$.cookie("coptions", '11111111111');
+		location.href = location.href;		
+	}
+	show_page = function(ele){
+		$(".cv_options").each(function(){
+			if ("#" + $(this).attr("id") == $(ele).attr("href")){
+				$(this).show();
+			}else{
+				$(this).hide();
+			}
+		})
+	}
+	$("#change_cookie").click(function(){
+		$.cookie("coptions",cookies_options);
+		so = 0;
+		for (var i=0;i<colums.length;i++){
+			if (cookies_options[i] == "1"){
+				showColumn("#clicklogs", i, true);
+			} else{
+				showColumn("#clicklogs", i, false);
+			}
+		 }
+		 
+		if ($("#error_table").is(':checked')) {
+	    	$.cookie("cser",1);
+	    	
+	    } else {
+	    	$.cookie("cser",0);
+	    }
+	    reloadFlex1("#clicklogs", "<%= get_logs_list_click_logs_path %>?media_category_id=" + $("#media_category_id").val() + "&account_id=" + $("#account_id").val() + "&start_date=" + start_date + "&end_date=" + end_date);
+	    
+	    
+    	
+		$("#clicklogs").colorbox.close();
+	});
+	$("#not_change_cookie").click(function(){
+		
+		$('#page1').html($('#page11').html());
+		cookies_options = $.cookie("coptions");
+		$("#clicklogs").colorbox.close();
+	})
+	
+	$(document).on('click', "#display_all", function(){
+		$.cookie("coptions", '11111111111');
+		cookies_options = $.cookie("coptions");
+		//$("#cv_logs_0").attr("src","/assets/btn_box_add.gif");
+		//location.href = location.href;
+		$('#page1').html($('#page12').html());
+		reloadFlex1("#clicklogs", "<%= get_logs_list_click_logs_path %>?media_category_id=" + $("#media_category_id").val() + "&account_id=" + $("#account_id").val() + "&start_date=" + start_date + "&end_date=" + end_date);
+
+	})
+	$(document).on('click', "#redisplay_all", function(){
+		$.cookie("coptions", '11111111111');
+		cookies_options = $.cookie("coptions");
+		//$("#cv_logs_0").attr("src","/assets/btn_box_add.gif");
+		//location.href = location.href;
+		$('#current_box').html($('#checkall_box').html());
+		reloadFlex1("#clicklogs", "<%= get_logs_list_click_logs_path %>?media_category_id=" + $("#media_category_id").val() + "&account_id=" + $("#account_id").val() + "&start_date=" + start_date + "&end_date=" + end_date);
+	})
+	
+</script>
+<script type="text/javascript">
+    $(window).resize(function() {
+        tableResize();
+    });
+</script>
+<style type="text/css">
+  	.flexigrid div.pDiv{
+	    margin-top: 6px ;
+	}
+</style>
+<div style="clear:both"></div>

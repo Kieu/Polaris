@@ -1,0 +1,116 @@
+<script type="text/javascript">//アコーディオン
+
+$(document).ready(function () {
+    $("#recaptcha_response_field").attr("tabindex", "7");
+    $("#change_language").change(function () {
+        $.cookie("locale", $(this).val());
+        location.href = "<%= signin_path %>"
+    })
+    //hack google display captcha
+    $("#recaptcha_reload_btn").remove();
+    $("#recaptcha_switch_audio_btn").remove();
+    $("#recaptcha_response_field").attr("style","width: 302px;");
+    $("#recaptcha_switch_img_btn").remove();
+    $("#recaptcha_whatsthis_btn").remove();
+    $("#recaptcha_logo").remove();
+    $("#recaptcha_privacy").remove();
+    $("#recaptcha_table").attr("class", "");
+    $('<p class="bold"><%= I18n.t("login.captcha")%></p>').insertBefore("#recaptcha_response_field");
+    $("#recaptcha_area").attr("style", "margin-left:-5px");
+
+    //end captcha google
+
+    //----------------------------
+    $('.accordion01').click(function () {
+        $("#accordion01_inner").slideToggle('slow');
+        $('#passwd').toggleClass("arrow1");
+        $('#passwd').toggleClass("arrow2");
+        if ($('#passwd').attr('class') == 'arrow1')
+            $('#passwd').text('<%= I18n.t("login.forgor_pw")%>');
+        else
+            $('#passwd').text('<%= I18n.t("login.forgor_pw1")%>');
+
+    })
+
+    $('.accordion_close').toggle(
+            function () {
+            },
+            function () {
+            }
+
+    );
+});
+
+</script>
+<div id="sidebar">
+  <div class="loginbox">
+    <p class="title"><%= I18n.t("layout.login") %></p>
+
+    <form action="/sessions" method="post">
+      <label><span class="bold"><%= I18n.t("login.email") %></span><br/>
+        <input type="text" name="session[email]" id="email" class="input-text" maxlength="255" tabindex="1"/></label>
+      <br/>
+
+      <p class="bold"><%= I18n.t("login.choose_lang.label") %></p>
+      <select name="language" tabindex="2" id="change_language">
+        <% if cookies[:locale] == "ja" %>
+            <option value="ja" selected><%= I18n.t("login.choose_lang.ja") %>　</option>
+        <% else %>
+            <option value="ja"><%= I18n.t("login.choose_lang.ja") %>　</option>
+        <% end %>
+        <% if cookies[:locale] == "en" %>
+            <option value="en" selected><%= I18n.t("login.choose_lang.en") %>　</option>
+        <% else %>
+            <option value="en"><%= I18n.t("login.choose_lang.en") %>　</option>
+        <% end %>
+      </select><br/>
+      <label><span class="bold"><%= I18n.t("login.pw") %></span><br/>
+        <input type="password" name="session[password]" id="password" class="input-text" maxlength="255" tabindex="3"/></label>
+      <input type="image" id="btn_submit" src="/assets/btn_login.gif" tabindex="4">
+      <% if @errors && @errors.count > 0 %>
+          <% @errors.each do |error| %>
+              <p class="error"><%= error %> </p>
+          <% end %>
+      <% end %>
+
+    </form>
+
+    <div class="accordion01 ta-c clearfix">
+      <p tabindex="5" id="passwd" class="arrow1"><%= I18n.t("login.forgor_pw") %></p></div>
+
+
+  </div>
+  <!-- /.loginbox end -->
+  <% if (@form_errors && @form_errors.count > 0) || flash[:send_success] || flash[:email_empty] %>
+      <div id="accordion01_inner" class="loginbox_more">
+  <% else %>
+      <div id="accordion01_inner" class="loginbox_more" style="display:none">
+  <% end %>
+  <p class="account_txt01"><%= I18n.t("login.notice") %></p>
+  <% if  flash[:email_empty] %>
+      <div><span class="text-validationError"><%= flash[:email_empty] %></span></div>
+  <% end %>
+  <div class="span6 offset3">
+    <%= form_tag(resend_password_sessions_path, method: :post) do %>
+        <p class="bold"><%= label_tag I18n.t("login.email") %></p>
+        <%= text_field_tag "email", @email, maxlength: 255, style: "width: 100%;", tabindex: 6 %>
+        <%= recaptcha_tags display: {lang: "#{I18n.locale}", theme: "clean"} %>
+        <input type="image" id="Send" src="/assets/btn_submit.gif" tabindex="8">
+    <% end %>
+    <% if @form_errors && @form_errors.count > 0 %>
+        <% @form_errors.each do |error| %>
+            <div>
+              <% error = error.split(I18n.t("login.split")) %>
+              <% error.each do |e| %>
+                  <div><span class="text-validationError"><%= e + I18n.t("login.split") %></span></div>
+              <% end %>
+            </div>
+        <% end %>
+        <script type="text/javascript">
+            $("#resend_password_form").show();
+        </script>
+    <% end %>
+    <div><%= flash[:send_success] %></div>
+  </div>
+  </div>
+  </div>

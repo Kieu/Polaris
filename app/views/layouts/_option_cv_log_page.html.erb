@@ -1,0 +1,65 @@
+<div style='display:none'>
+<div id="inline_cv_logs">
+<div class="f_box">
+<p class="f_box_title"><%= I18n.t("cv_logs.label")%></p>
+<p class="f_category_title1"><%= I18n.t("cv_logs.display_item")%></p>
+<div id="page1">
+<div id="current_box">
+<div class="box03">
+  <p class="box3_txt"><div id="display_all"><%= I18n.t("cv_logs.show_all")%></div></p>
+  <!-- チェックボックス -->
+  <div class="check-group clearfix">
+    <table width="90%">
+      <% Settings.cv_options_part1.each_with_index do |option, index|%>
+      <tr>
+        <td class="check_txt"><%= I18n.t("cv_logs.#{option}") %></td>
+        <td align=right>
+          <%= link_to cookies[:cv_options][index] == "0" ? image_tag("/assets/btn_box_add.gif") : image_tag("/assets/btn_box_dl.gif"), "javascript:void(0)", id: "cv_logs_#{index}", onclick: "update_cookie('#{index}',this)"%>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <!-- /チェックボックス -->
+</div>
+<div class="box01">
+  <p class="box3_txt">&nbsp;</p>
+  <!-- チェックボックス -->
+  <div class="check-group clearfix">
+    <table width="90%">
+
+      <% Settings.cv_options_part2.each_with_index do |option, index|%>
+      <tr>
+        <td class="check_txt"><%= I18n.t("cv_logs.#{option}") %></td>
+        <td align=right>
+          <%= link_to cookies[:cv_options][index+12] == "0" ? image_tag("/assets/btn_box_add.gif") : image_tag("/assets/btn_box_dl.gif"), "javascript:void(0)", onclick: "update_cookie('#{index+12}',this)"%>
+        </td>
+      </tr>
+      <% end %>
+      <tr>
+        <td class="check_txt"><%= I18n.t("cv_logs.error_log_view")%></td>
+        <td align=center >
+          <input type="checkbox" name="error_table" id="error_table" checked="checked">
+        </td>
+      </tr>
+    </table>
+    <!-- /チェックボックス -->
+  </div>
+</div>
+
+
+</div>
+
+</div>
+<div class="submit_area">
+  <button id="change_cookie" style="border: 0px"><img src="/assets/btn_done.gif" alt="完成"></button>
+  <button id="not_change_cookie" style="border: 0px"><img src="/assets/btn_cancel.gif" alt="完成"></button>
+</div>
+</div>
+</div>
+</div>
+<script>
+    $(document).ready(function(){
+        $(".inline_cv_logs").colorbox({inline:true, width:"710", height:"650" });
+    });
+</script>

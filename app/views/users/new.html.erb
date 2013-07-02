@@ -1,0 +1,123 @@
+<% provide(:title, I18n.t("user.title.add")) %>
+<script type="text/javascript">
+$(function(){
+	prevent_change = "<%= @prevent %>";
+	$(".prevent_change").change(function(){
+		prevent_change = "1"
+	})
+})
+</script>
+<%= render "layouts/prevent_change_page_new" %>
+<%= stylesheet_link_tag "css/users_new" %>
+<%= stylesheet_link_tag "css/common" %>
+<%= flash[:success] if flash[:success] %>
+<div id="user_form">
+  <p class="h2"><%= I18n.t("user.crumb_add") %></p>
+  <%= form_for(@user) do |f| %>
+      <table>
+        <tbody>
+        <tr>
+          <th><div style="width: 190px;"><%= f.label t("user.username") %></div></th>
+          <td colspan="2"><%= f.text_field :username, maxlength: 255, style: "width: 280px",tabindex: 1, class: "prevent_change" %></td>
+        </tr>
+        <tr>
+          <th><div style="width: 190px;"><%= f.label t("user.roman_name") %></div></th>
+          <td colspan="2"><%= f.text_field :roman_name, maxlength: 255, style: "width: 280px",tabindex: 2, class: "prevent_change" %></td>
+        </tr>
+        <tr>
+          <th><div style="width: 190px;"><%= f.label t("user.email") %></div></th>
+          <td colspan="2"><%= f.text_field :email, maxlength: 255, style: "width: 280px",tabindex: 3, class: "prevent_change" %></td>
+        </tr>
+        <tr>
+          <th><div style="width: 190px;"><%= f.label t("user.role.label") %></div></th>
+          <td colspan="2">
+          	<select class="input-text prevent_change" id="user_role_id" name="user[role_id]" tabindex="4" >
+          		<option value=""><%= I18n.t("user.role.include_blank") %></option>
+          		<% if @user.role_id == 2 %>
+					<option value="2" selected >Client</option>
+				<% else %>
+					<option value="2">Client</option>
+				<% end %>
+				<% if @user.role_id == 3 %>
+					<option value="3" selected>Agency</option>
+				<% else %>
+					<option value="3">Agency</option>
+				<% end %>
+				<% if @user.role_id == 1 %>
+					<option value="1" selected>Super</option>
+				<% else %>
+					<option value="1">Super</option>
+				<% end  %>
+			</select>
+			<p><span class="text-validationError"><%= @user.errors[:role_id][0] %></span></p>
+          </td>
+        </tr> 
+        <tr>
+          <th><div style="width: 190px;"><%= f.label t("user.company_name") %></div></th>
+          <td colspan="2">
+          	<% if @user.role_id && !@user.client? %>
+          		<%= f.select :company_id, Agency.all.map {|c| [c.name_with_initial, c.id, {'title' => c.agency_name}]}, {include_blank: t("user.company_id.include_blank")}, {:class => 'input-text prevent_change',tabindex: 5} %>
+            <% elsif @user.role_id %>
+            	<%= f.select :company_id, Client.active.all.map {|c| [c.name_with_initial, c.id, {'title' => c.client_name}]}, {include_blank: t("user.company_id.include_blank")}, {:class => 'input-text prevent_change',tabindex: 5} %>
+            <% else %>
+            	<%= f.select :company_id, Client.where(id: 0) {|c| [c.name_with_initial, c.id, {'title' => c.client_name}]}, {include_blank: t("user.company_id.include_blank")}, {:class => 'input-text prevent_change',tabindex: 5} %>
+            <% end %>
+            </td>
+        </tr>
+        <tr>
+          <th><div style="width: 190px;"><%= I18n.t("user.password.label") %></div></th>
+          <td colspan="2"><%= I18n.t("user.password.info") %></td>
+        </tr>
+        <tr>
+          <th><div style="width: 190px;"><%= I18n.t("user.password_notification.label") %></div></th>
+          <td style="width: 160px;"><%= f.radio_button :password_flg, "0", checked: true, tabindex: 6, class: "prevent_change" %> <%= I18n.t("user.password_notification.not_notified") %></td>
+          <td style="width: 160px;"><%= f.radio_button :password_flg, "1", tabindex: 7, class: "prevent_change" %> <%= I18n.t("user.password_notification.to_notified") %></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="submit_area">
+        <input type="image" id="btn_submit" src="/assets/btn_done.gif" name="commit" tabindex = "8">
+
+        <p><%= link_to image_tag("/assets/btn_cancel.gif",align: "right", alt: "キャンセル", tabindex:9), users_path %></p>
+      </div>
+      </form>
+  <% end %>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#cancel").click(function (e) {
+            e.preventDefault();
+            location.href = "<%= users_path %>";
+        })
+        last_choice = $("#user_role_id").val();
+        $("#user_role_id").change(function () {
+            id = $(this).val();
+            if ((id == 1 && last_choice == 3) || (id == 3 && last_choice == 1)) {
+                last_choice = id;
+                return;
+            }
+            if (id==""){
+            	$("#user_company_id").html("<option value><%= t('user.company_id.include_blank') %></option>");
+            	last_choice = id;
+            	return;
+            }
+            last_choice = id;
+            name_data = (id == "2") ? "Client" : "Agency";
+            $("#user_company_id").attr("disabled","disabled");
+            $.ajax({
+                type: "POST",
+                url: "<%= change_company_list_users_path %>",
+                data: "model=" + name_data,
+                success: function (data) {
+                    $("#user_company_id").html("<option value><%= t('user.company_id.include_blank') %></option>");
+                    for (var i = 0; i < data.length; i++) {
+                        name = (name_data == "Client") ? data[i].client_name : data[i].agency_name;
+                        option = "<option value='" + data[i].id + "' title='" + name + "'>" + sub_ja(name)  + "</option>";
+                        $("#user_company_id").append(option);
+                    }
+                    $("#user_company_id").removeAttr("disabled");
+                }
+            });
+        })
+    })
+</script>

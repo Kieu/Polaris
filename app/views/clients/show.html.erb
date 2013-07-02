@@ -1,0 +1,26 @@
+<% provide(:title, I18n.t("client.title.show")) %>
+<h1>Listing clients</h1>
+<%= link_to 'New Client', new_client_path %>
+<table id="paging" style="display:none"></table>
+<script type="text/javascript">
+	$("#paging").flexigrid({
+		url: "<%= get_promotions_list_clients_path %>",
+		dataType: 'json',
+		colModel : [
+			{display: 'promotion_name', name : 'promotion_name', width : 'auto', sortable : false, align: 'center'}
+			],
+	    sortname: "promotion_name",
+        sortorder: "desc",
+		usepager: true,
+		title: 'Promotion Name',
+		useRp: true,
+		rp: 15,
+		showTableToggleBtn: true,
+        resizable : false,
+        optionGet : "5",
+        onSuccess: function() {
+            tableResize();
+        },
+		height: 200
+	});
+</script>

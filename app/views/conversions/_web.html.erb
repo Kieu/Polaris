@@ -1,0 +1,43 @@
+<tbody>
+  <tr>
+    <th><a href="#"><img src="/assets/icon_help.gif" /></a><%= f.label I18n.t("conversion.deduplicated.label") %></th>
+    <td><label>
+      <%= f.radio_button :duplicate, 1, checked: true, class: "prevent_change" %><%= I18n.t("conversion.deduplicated.label1") %>
+    </label></td>
+    <td>&nbsp;</td>
+    <td><label>
+      <%= f.radio_button :duplicate, 0, class: "prevent_change" %><%= I18n.t("conversion.deduplicated.label2")%>
+    </label></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <th><%= f.label t("conversion.unique_definition") %></th>
+    <td colspan="4">
+      <%= f.select :unique_def, t("conversions.unique_definition").each_with_index.map {|name, index| [name, index + 1]}, {}, {class: "prevent_change"} %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= I18n.t("conversion.option1.label") %><br /><%= f.label I18n.t("conversion.option1.starting_point_setting.label") %></th>
+    <td colspan="2"><br /><label>
+      <%= f.radio_button :start_point, 1, checked: true, class: "prevent_change" %><%= f.label "", I18n.t("conversion.option1.starting_point_setting.configure") %>
+    </label></td>
+    <td colspan="2"><br /><label>
+      <%= f.radio_button :start_point, 0, class: "prevent_change" %><%= f.label "", I18n.t("conversion.option1.starting_point_setting.not_configure") %>
+    </label></td>
+  </tr>
+  <tr>
+    <th><%= f.label I18n.t("conversion.option1.sale_unit_price") %></th>
+    <td colspan="4">
+      <%= f.text_field :sale_unit_price, maxlength: 10, id: "name", class: "input-text prevent_change", placeholder: "￥" %>
+    </td>
+  </tr>
+  <tr>
+    <th><%= I18n.t("conversion.option2.label") %><br /><%= f.label I18n.t("conversion.option2.reward_format.label") %></th>
+    <td colspan="2"><br /><label>
+      <%= f.radio_button :reward_form, 1, checked: true, class: "prevent_change" %><%= I18n.t("conversion.option2.reward_format.straight_line_type") %>
+    </label></td>
+    <td colspan="2"><br /><label>
+      <%= f.radio_button :reward_form, 2, class: "prevent_change" %><%= I18n.t("conversion.option2.reward_format.declining_balance_type")%>
+    </label></td>
+  </tr>
+</tbody>

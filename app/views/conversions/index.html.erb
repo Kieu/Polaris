@@ -1,0 +1,36 @@
+<% provide(:title, I18n.t("conversion.title.list")) %>
+<% content_for :stylesheet_includes do %>
+  <%= stylesheet_link_tag "css/common" %>
+  <%= stylesheet_link_tag "css/conversion" %>
+<% end %>
+<% if flash[:error] %>
+  <div><%= flash[:error] %></div>
+<% end %>
+<% content_for :sidebar do %>
+  <%= render partial: "layouts/sidebar", locals: {object: @conversions} %>
+<% end %>
+<ul class="contentNavi">
+  <li class="pre">
+    <%= link_to short_ja_name(@promotion.client.client_name), clients_path(client_id: @promotion.client_id), title: "#{@promotion.client.client_name}", class: "client_name current" %>
+  </li>
+  <li>&gt;</li>
+  <li class="pre">
+    <%= link_to short_ja_name(@promotion.promotion_name), promotions_path(promotion_id: @promotion.id, client_id: @promotion.client.id), title: "#{@promotion.promotion_name}", class: "promotion_name current" %>
+  </li>
+  <li>&gt;</li>
+  <li><%= I18n.t("conversion.conversion_setting") %></li>
+</ul>
+<div class="clear"></div>
+<div id="conversion_inner">
+  <div id="ui-tab">
+    <ul class="ui-tabs-nav">
+      <li><a href="#fragment-1"><span><%= I18n.t("conversion.conversion_setting") %></span></a></li>
+      <li class="disabled"><span><%= I18n.t("conversion.tag_acquisition") %></span></li>
+    </ul>
+    <div id="fragment-1">
+      <div class="conversion_form">
+        <p><%= I18n.t("conversion.conversion_message") %></p>
+      </div>
+    </div>
+  </div>
+</div>

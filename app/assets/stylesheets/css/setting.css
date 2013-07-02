@@ -1,0 +1,56 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.div.check-group li {
+    padding: 0px;
+}
+.f_box2 {
+    background-color: #EFEFEF;
+    color: #404040;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    text-decoration: none;
+}
+.f_category_title2 {
+    color: #404040;
+    font-size: 16px;
+    left: 120px;
+    position: absolute;
+    top: 63px;
+}
+.f_box_title2 {
+    background-color: #545454;
+    border: 1px solid #EFEFEF;
+    color: #FFFFFF;
+    font-size: 18px;
+    height: 33px;
+    padding: 10px 0 0 20px;
+    position: absolute;
+    text-align: left;
+    width: 493px;
+}
+
+.submit_area2 {
+    float: left;
+    left: -30px;
+    position: absolute;
+    top: 450px;
+    width: 360px;
+}
+.submit_area2 img {
+    float: left;
+}
+.box04 {
+    background-color: #FFFFFF;
+    border: 2px solid #C4C4C4;
+    height: 400px;
+    left: 120px;
+    position: absolute;
+    top: 90px;
+    width: 270px;
+}
+.box4_txt {
+    color: #E76813;
+    padding: 5px 0 0 160px;
+}

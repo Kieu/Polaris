@@ -1,0 +1,41 @@
+<% provide(:title, I18n.t("user.title.list")) %>
+<%= stylesheet_link_tag "css/user2", :media => "all" %>
+<%= stylesheet_link_tag "css/common", :media => "all" %>
+<% if flash[:success] %>
+  <div><%= flash[:success] %></div>
+<% end %>
+<%= link_to raw("<img src='/assets/btn_user_regist.gif' >"), "javascript:void(0)", class: "new_agency",onclick: "ajaxCommon('#{new_user_path}', '', '', '','#inner')" %>
+<table style="display:none" class="newTable04 fixTable d-none"></table>
+<script type="text/javascript">
+	$(".newTable04").flexigrid({
+		url: "<%= get_users_list_users_path %>",
+        optionGet : "7",
+        editOption : true,
+        deleteOption : true,
+
+        resizable : false,
+        striped : true,
+		dataType: 'json',
+		colModel : [
+    {display: '', name : 'link', width : '60', sortable : false, align: 'center'},
+    {display: '<%= I18n.t("user.user_table.roman_name")%>', name : 'roman_name', width : 'auto', sortable : false, align: 'left'},
+	  {display: '<%= I18n.t("user.user_table.username")%>', name : 'username', width : 'auto', sortable : false, align: 'left'},
+    {display: '<%= I18n.t("user.user_table.email")%>', name : 'email', width : 'auto', sortable : false, align: 'left'},
+    {display: '<%= I18n.t("user.user_table.company_name")%>', name : 'company', width : 'auto', sortable : false, align: 'left'},
+    {display: '<%= I18n.t("user.user_table.role")%>', name : 'role', width : 'auto', sortable : false, align: 'center'}
+			],
+		usepager: true,
+		useRp: true,
+		rp: 10,
+		showTableToggleBtn: true,
+		height: 300,
+        pagetext: "<%= I18n.t("Page") %>",
+        outof: "<%= I18n.t("of") %>"
+	});
+</script>
+<script>
+    $(window).resize(function() {
+        tableResize();
+    });
+
+</script>

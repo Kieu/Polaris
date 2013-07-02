@@ -1,0 +1,20 @@
+<tbody>
+  <tr>
+    <th><%= f.label I18n.t("conversion.conversion_category.app.track_type.label") %></th>
+    <td colspan="2"><label>
+      <%= f.radio_button :track_type, 1, checked: true, disabled: ((params[:action] == "edit" || params[:action] == "update") && @conversion.track_type.to_i!=1) ? true : false, onclick: "render_install();", class: "prevent_change" %><%= f.label "", I18n.t("conversion.conversion_category.app.track_type.install") %>
+    </label></td>
+    <td colspan="2"><label>
+      <%= f.radio_button :track_type, 2, disabled: ((params[:action]=="edit" || params[:action] == "update") && @conversion.track_type.to_i!=2) ? true : false, onclick: "render_action_in_app();", class: "prevent_change" %><%= f.label "", I18n.t("conversion.conversion_category.app.track_type.app_action") %>
+    </label></td>
+  </tr>
+</tbody>
+<tbody class="client_info" id="app_type_area">
+	<%= 
+	  if @conversion.track_type.to_i == 2
+	  	render "app_action_in_app", f: f 
+	  else	
+	  	render "app_install", f: f
+	  end
+	%>
+</tbody>

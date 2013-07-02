@@ -1,0 +1,1099 @@
+ja:
+  number:
+    human:
+      decimal_units:
+        format: "%n%u"
+        units:
+          unit: ""
+          thousand: KB
+          million: MB
+  hello: "Hello world"
+  recaptcha:
+    errors:
+      incorrect-captcha-sol: ""
+  promotion_export_csv:
+    media: "メディア"
+    account_name: "アカウント名"
+    first: "初回"
+    repeat: "リピート"
+  promotions:
+    new:
+      category: ["IT/メディア/アプリ", "AV/家電", "食品/飲料/消費材", "流通/小売/通販", "金融", "通信", "不動産", "人材", "自動車", "サービス", "その他"]
+    edit:
+      category: ["IT/メディア/アプリ", "AV/家電", "食品/飲料/消費材", "流通/小売/通販", "金融", "通信", "不動産", "人材", "自動車", "サービス", "その他"]
+  conversions:
+    unique_definition: ["１回のみ", "無制限", "１日１回", "７日１回", "２８日１回", "月内１回"]
+  error_message_url_import:
+    ad_name_must_exist: "広告名は存在しない。"
+    ad_identifier_must_match: "広告IDと広告名は繋がっていない。"
+    group_name_must_exist: "グループ名は存在しない。"
+    campaign_name_must_exist: "キャンペーン名は存在しない。"
+    camp_group_ad_must_match: "キャンペーン名、グループ名、広告名は繋がっていない。"
+    camp_group_ad_submit_must_match: "キャンペーン、グループ名、広告名、計測用URLのいずれも変更することは出来ません。"
+    not_input: "アップロードするファイルを選択してください。"
+    volumn_over: "ファイル サイズ上限は 300MB です。"
+    not_format_csv: "ファイル形式がCSVではありません。"
+    unexpected_error: "予期せぬエラーにより、アップロードが実行出来ませんでした。再度お試し頂くか、事務局へお問い合わせ下さい。\n"
+    unexpected_error_view: "予期せぬエラーにより、アップロードが実行出来ませんでした。再度お試し頂くか、事務局へお問い合わせ下さい。"
+    differrent_format: "ファイルフォーマットが変更されています。"
+    over_row: "データの行数は1,000,000行以内として下さい。\n"
+    ad_too_long: "広告IDは文字数の上限255文字を超えています。"
+    ad_id_already_used: "指定の広告IDは既に使われています。"
+    ad_id_in_promotion: "指定の広告IDは登録されておりません。"
+    ad_id_invalid: "指定の広告IDに不正な文字が入っています。"
+    ad_id_used_same_file: "指定の広告IDが同ファイル内で使われています。"
+    campaign_too_long: "キャンペーンは文字数の上限255文字を超えています。"
+    campaign_name_not_type: "キャンペーン名が入力されておりません。"
+    group_name_too_long: "グループ名は文字数の上限255文字を超えています。"
+    group_name_not_type: "グループ名が入力されておりません。"
+    ad_name_not_type: "広告名が入力されておりません。"
+    ad_name_too_long: "広告名は文字数の上限255文字を超えています。"
+    name_overlapped: "キャンペーン名、グループ名、広告名が重複しています。"
+    creative_id_half_width: "クリエイティブIDは半角数字で入力してください。"
+    creative_id_too_long: "クリエイティブIDは20文字以内で入力してください。"
+    creative_id_not_exist: "指定のクリエイティブIDが存在しません。"
+    unit_click_price_half_width: "クリック単価は半角数字で入力してください。"
+    leave_url_column_blank: "計測用URL欄は空欄にして下さい。"
+    url_not_specified: "リンク先にURLが指定されていません。"
+    title_too_long: "タイトルは文字数の上限255文字を超えています。"
+    title_not_type: "タイトルが記入されておりません。"
+    transition_rake_half_width: "遷移割合は半角数字で入力してください。"
+    ad_name_already_used: "指定の広告名は既に使われています。"
+    transition_rake_altogether: "遷移割合の合計は１００となるようにして下さい。"
+    registering_complete: "URLの新規登録を受付ました。"
+    edit_url_complete: "URLの編集を受け付けました。"
+    line: "行目"
+    enter_key: "\n"
+  activerecord:
+    attributes:
+      client:
+    errors:
+      models:
+        client:
+          attributes:
+            client_name:
+              blank: "クライアント名を入力して下さい"
+              accepted: クライアント名 受諾してください。 
+              confirmation: クライアント名 確認の入力が一致しません。
+              empty: "クライアント名を入力して下さい"
+              equal_to: ! 'クライアント名 %{count}にしてください。 ' 
+              even: クライアント名 偶数にしてください。
+              exclusion: クライアント名 予約されています。
+              greater_than: ! 'クライアント名 %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'クライアント名 %{count}以上の値にしてください。'
+              inclusion: クライアント名 正しい値が選択されていません。
+              invalid: クライアント名 正しく入力して下さい。
+              less_than: ! 'クライアント名 %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'クライアント名 %{count}以下の値にしてください。'
+              not_a_number: クライアント名 数値で入力してください。
+              not_an_integer: クライアント名 整数で入力してください。
+              odd: クライアント名 奇数にしてください。
+              record_invalid: クライアント名 バリデーションに失敗しました。 '%{errors}'
+              taken: クライアント名 は既に登録されています
+              too_long: ! 'クライアント名 %{count}の文字数をオーバーしています'
+              too_short: ! 'クライアント名 %{count}文字以上で入力してください。'
+              wrong_length: ! 'クライアント名 %{count}文字で入力してください。'
+              acceptance: クライアント名 チェックボックスを選択してください。
+            roman_name: 
+              blank: "クライアント名(英語)を入力して下さい"
+              accepted: クライント名(英語) 受諾してください。 
+              confirmation: クライント名(英語) 確認の入力が一致しません。 
+              empty: クライント名(英語) 入力してください。
+              equal_to: ! 'クライント名(英語) %{count}にしてください。 ' 
+              even: クライント名(英語) 偶数にしてください。
+              exclusion: クライント名(英語) 予約されています。
+              greater_than: ! 'クライント名(英語) %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'クライント名(英語) %{count}以上の値にしてください。'
+              inclusion: クライント名(英語) 正しい値が選択されていません。
+              invalid: クライント名(英語) を英数字で記載して下さい
+              less_than: ! 'クライント名(英語) %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'クライント名(英語) %{count}以下の値にしてください。'
+              not_a_number: クライント名(英語) 数値で入力してください。
+              not_an_integer: クライント名(英語) 整数で入力してください。
+              odd: クライント名(英語) 奇数にしてください。
+              record_invalid: クライント名(英語) バリデーションに失敗しました。 '%{errors}'
+              taken: クライント名(英語) すでに登録されています。
+              too_long: ! 'クライント名(英語) %{count}の文字数をオーバーしています '
+              too_short: ! 'クライント名(英語) %{count}文字以上で入力してください。 '
+              wrong_length: ! 'クライント名(英語) %{count}文字で入力してください。 '
+              acceptance: クライント名(英語) チェックボックスを選択してください。
+            tel: 
+              blank: "電話番号を入力して下さい"
+              invalid: 電話番号を英数で入力して下さい
+            person_charge:
+              blank: "ご担当者様 を入力して下さい"
+              too_long: ! 'ご担当者様 %{count}の文字数をオーバーしています'
+              too_short: ! 'ご担当者様 %{count}文字以上で入力してください。'
+            person_sale:
+              blank: "担当営業 を入力して下さい"
+              too_long: ! '担当営業 %{count}の文字数をオーバーしています'
+              too_short: ! '担当営業 %{count}文字以上で入力してください。'
+        user:
+          attributes:
+            username:
+              blank: "ユーザー名 を入力して下さい"
+              accepted: ユーザー名 受諾してください。 
+              confirmation: ユーザー名 確認の入力が一致しません。 
+              empty: ユーザー名 入力してください。
+              equal_to: ! 'ユーザー名 %{count}にしてください。 ' 
+              even: ユーザー名 偶数にしてください。
+              exclusion: ユーザー名 予約されています。
+              greater_than: ! 'ユーザー名 %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'ユーザー名 %{count}以上の値にしてください。'
+              inclusion: ユーザー名 正しい値が選択されていません。
+              invalid: ユーザー名 正しく入力して下さい。
+              less_than: ! 'ユーザー名 %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'ユーザー名 %{count}以下の値にしてください。'
+              not_a_number: ユーザー名 数値で入力してください。
+              not_an_integer: ユーザー名 整数で入力してください。
+              odd: ユーザー名 奇数にしてください。
+              record_invalid: ユーザー名 バリデーションに失敗しました。 '%{errors}'
+              taken: ユーザー名 は既に登録されています
+              too_long: ! 'ユーザー名 %{count}の文字数をオーバーしています'
+              too_short: ! 'ユーザー名 %{count}文字以上で入力してください。'
+              wrong_length: ! 'ユーザー名 %{count}文字で入力してください。'
+              acceptance: User name チェックボックスを選択してください。
+            roman_name: 
+              blank: "ユーザー名(英語) を入力して下さい"
+              accepted: ユーザー名(英語) 受諾してください。 
+              confirmation: ユーザー名(英語) 確認の入力が一致しません。 
+              empty: ユーザー名(英語) 入力してください。
+              equal_to: ! 'ユーザー名(英語) %{count}にしてください。 ' 
+              even: ユーザー名(英語) 偶数にしてください。
+              exclusion: ユーザー名(英語) 予約されています。
+              greater_than: ! 'ユーザー名(英語) %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'ユーザー名(英語) %{count}以上の値にしてください。'
+              inclusion: ユーザー名(英語) 正しい値が選択されていません。
+              invalid: ユーザー名(英語) は英数字で記載して下さい
+              less_than: ! 'ユーザー名(英語) %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'ユーザー名 %{count}以下の値にしてください。'
+              not_a_number: ユーザー名(英語) 数値で入力してください。
+              not_an_integer: ユーザー名(英語) 整数で入力してください。
+              odd: ユーザー名(英語) 奇数にしてください。
+              record_invalid: ユーザー名(英語) バリデーションに失敗しました。 '%{errors}'
+              taken: ユーザー名(英語) は既に登録されています
+              too_long: ! 'ユーザー名(英語) %{count}の文字数をオーバーしています'
+              too_short: ! 'ユーザー名(英語) %{count}文字以上で入力してください。'
+              wrong_length: ! 'ユーザー名(英語) %{count}文字で入力してください。'
+              acceptance: ユーザー名(英語) チェックボックスを選択してください。
+            email: 
+              blank: "メールアドレス を入力して下さい"
+              invalid: 入力内容が無効です
+              taken: メールアドレス すでに登録されています。
+            company_id:
+              blank: "会社名 を入力して下さい"
+              too_long: ! '会社名 %{count}の文字数をオーバーしています'
+              too_short: ! '会社名 %{count}文字以上で入力してください。'
+            role_id:
+              blank: "権限 を入力して下さい"
+              too_long: ! '権限 %{count}の文字数をオーバーしています'
+              too_short: ! '権限 %{count}文字以上で入力してください。'
+        agency:
+          attributes:
+            agency_name:
+              blank: "代理店名 を入力して下さい"
+              accepted: 代理店名 受諾してください。 
+              confirmation: 代理店名 確認の入力が一致しません。 
+              empty: 代理店名 を入力して下さい
+              equal_to: ! '代理店名 %{count}にしてください。 ' 
+              even: 代理店名 偶数にしてください。
+              exclusion: 代理店名 予約されています。
+              greater_than: ! '代理店名 %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! '代理店名 %{count}以上の値にしてください。'
+              inclusion: 代理店名 正しい値が選択されていません。
+              invalid: 代理店名 正しく入力して下さい。
+              less_than: ! '代理店名 %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! '代理店名 %{count}以下の値にしてください。'
+              not_a_number: 代理店名 数値で入力してください。
+              not_an_integer: 代理店名 整数で入力してください。
+              odd: 代理店名 奇数にしてください。
+              record_invalid: 代理店名 バリデーションに失敗しました。 '%{errors}'
+              taken: 代理店名 は既に登録されています
+              too_long: ! '代理店名 %{count}の文字数をオーバーしています'
+              too_short: ! '代理店名 %{count}文字以上で入力してください。'
+              wrong_length: ! '代理店名 %{count}文字で入力してください。'
+              acceptance: 代理店名 チェックボックスを選択してください。
+            roman_name: 
+              blank: "代理店名(英語) を入力して下さい"
+              accepted: 代理店名(英語) 受諾してください。 
+              confirmation: 代理店名(英語) 確認の入力が一致しません。 
+              empty: 代理店名(英語) を入力して下さい
+              equal_to: ! '代理店名 %{count}にしてください。 ' 
+              even: 代理店名(英語) 偶数にしてください。
+              exclusion: 代理店名(英語) 予約されています。
+              greater_than: ! '代理店名(英語) %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! '代理店名(英語) %{count}以上の値にしてください。'
+              inclusion: 代理店名(英語) 正しい値が選択されていません。
+              invalid: 代理店名(英語) は英数字で記載して下さい
+              less_than: ! '代理店名(英語) %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! '代理店名 %{count}以下の値にしてください。'
+              not_a_number: 代理店名(英語) 数値で入力してください。
+              not_an_integer: 代理店名(英語) 整数で入力してください。
+              odd: 代理店名(英語) 奇数にしてください。
+              record_invalid: 代理店名(英語) バリデーションに失敗しました。 '%{errors}'
+              taken: 代理店名(英語) は既に登録されています
+              too_long: ! '代理店名(英語) %{count}の文字数をオーバーしています'
+              too_short: ! '代理店名(英語) %{count}文字以上で入力してください。'
+              wrong_length: ! '代理店名(英語) %{count}文字で入力してください。'
+              acceptance: 代理店名(英語) チェックボックスを選択してください。
+        import:
+          attributes:
+            csv:
+              blank: "アップロードするファイルを選択してください。"
+              content_type: "ファイル形式がCSVではありません。"
+              size: "ファイル サイズ上限は 300MB です。"
+        account:
+          attributes:
+            account_name:
+              blank: "アカウント名 を入力して下さい"
+              accepted: アカウント名 受諾してください。 
+              confirmation: アカウント名 確認の入力が一致しません。 
+              empty: アカウント名 入力してください。
+              equal_to: ! 'アカウント名 %{count}にしてください。 ' 
+              even: アカウント名 偶数にしてください。
+              exclusion: アカウント名 予約されています。
+              greater_than: ! 'アカウント名 %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'アカウント名 %{count}以上の値にしてください。'
+              inclusion: アカウント名 正しい値が選択されていません。
+              invalid: アカウント名 正しく入力して下さい。
+              less_than: ! 'アカウント名 %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'アカウント名 %{count}以下の値にしてください。'
+              not_a_number: アカウント名 数値で入力してください。
+              not_an_integer: アカウント名 整数で入力してください。
+              odd: アカウント名 奇数にしてください。
+              record_invalid: アカウント名 バリデーションに失敗しました。 '%{errors}'
+              taken: アカウント名 は既に登録されています
+              too_long: ! 'アカウント名 %{count}の文字数をオーバーしています'
+              too_short: ! 'アカウント名 %{count}文字以上で入力してください。'
+              wrong_length: ! 'アカウント名 %{count}文字で入力してください。'
+              acceptance: アカウント名 チェックボックスを選択してください。
+            roman_name: 
+              blank: "アカウント名(英語) を入力して下さい"
+              accepted: アカウント名(英語) 受諾してください。 
+              confirmation: アカウント名(英語) 確認の入力が一致しません。 
+              empty: アカウント名(英語) 入力してください。
+              equal_to: ! 'アカウント名(英語) %{count}にしてください。 ' 
+              even: アカウント名(英語) 偶数にしてください。
+              exclusion: アカウント名(英語) 予約されています。
+              greater_than: ! 'アカウント名(英語) %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'アカウント名(英語) %{count}以上の値にしてください。'
+              inclusion: アカウント名(英語) 正しい値が選択されていません。
+              invalid: アカウント名(英語) は英数字で記載して下さい
+              less_than: ! 'アカウント名(英語) %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'アカウント名(英語) %{count}以下の値にしてください。'
+              not_a_number: アカウント名(英語) 数値で入力してください。
+              not_an_integer: アカウント名(英語) 整数で入力してください。
+              odd: アカウント名(英語) 奇数にしてください。
+              record_invalid: アカウント名(英語) バリデーションに失敗しました。 '%{errors}'
+              taken: アカウント名(英語) は既に登録されています
+              too_long: ! 'アカウント名(英語) %{count}の文字数をオーバーしています'
+              too_short: ! 'アカウント名(英語) %{count}文字以上で入力してください。'
+              wrong_length: ! 'アカウント名(英語) %{count}文字で入力してください。'
+              acceptance: アカウント名(英語) チェックボックスを選択してください。
+            media_id: 
+              blank: "メディア を選択してください"
+              accepted: メディア 受諾してください。 
+              confirmation: メディア 確認の入力が一致しません。 
+              empty: メディア 入力してください。
+              equal_to: ! 'メディア %{count}にしてください。 ' 
+              even: メディア 偶数にしてください。
+              exclusion: メディア  予約されています。
+              greater_than: ! 'メディア %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'メディア %{count}以上の値にしてください。'
+              inclusion: メディア 正しい値が選択されていません。
+              invalid: メディア  正しく入力して下さい。
+              less_than: ! 'メディア %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'メディア %{count}以下の値にしてください。'
+              not_a_number: メディア 数値で入力してください。
+              not_an_integer: メディア 整数で入力してください。
+              odd: メディア 奇数にしてください。
+              record_invalid: メディア バリデーションに失敗しました。 '%{errors}'
+              taken: メディア は既に登録されています
+              too_long: ! 'メディア %{count}の文字数をオーバーしています'
+              too_short: ! 'メディア %{count}文字以上で入力してください。'
+              wrong_length: ! 'メディア %{count}文字で入力してください。'
+              acceptance: ユーザー名(英語) チェックボックスを選択してください。
+            media_category_id:
+              blank: "メディアカテゴリ を入力して下さい"
+              accepted: メディアカテゴリ 受諾してください。 
+              confirmation: メディアカテゴリ 確認の入力が一致しません。 
+              empty: メディアカテゴリ 入力してください。
+              equal_to: ! 'メディアカテゴリ %{count}にしてください。 ' 
+              even: メディアカテゴリ 偶数にしてください。
+              exclusion: メディアカテゴリ  予約されています。
+              greater_than: ! 'メディアカテゴリ %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'メディアカテゴリ %{count}以上の値にしてください。'
+              inclusion: メディアカテゴリ 正しい値が選択されていません。
+              invalid: メディアカテゴリの入力内容が無効です
+              less_than: ! 'メディアカテゴリ %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'メディアカテゴリ %{count}以下の値にしてください。'
+              not_a_number: メディアカテゴリ 数値で入力してください。
+              not_an_integer: メディアカテゴリ 整数で入力してください。
+              odd: メディアカテゴリ 奇数にしてください。
+              record_invalid: メディアカテゴリ バリデーションに失敗しました。 '%{errors}'
+              taken: メディアカテゴリ は既に登録されています
+              too_long: ! 'メディアカテゴリ %{count}の文字数をオーバーしています'
+              too_short: ! 'メディアカテゴリ %{count}文字以上で入力してください。'
+              wrong_length: ! 'メディアカテゴリ %{count}文字で入力してください。'
+              acceptance: メディアカテゴリ チェックボックスを選択してください。
+            margin: 
+              blank: "コスト計算 を入力して下さい"
+              accepted: コスト計算 受諾してください。 
+              confirmation: コスト計算 確認の入力が一致しません。 
+              empty: コスト計算 入力してください。
+              equal_to: ! 'コスト計算 %{count}にしてください。 ' 
+              even: コスト計算 偶数にしてください。
+              exclusion: コスト計算 予約されています。
+              greater_than: ! 'コスト計算 %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'コスト計算 %{count}以上の値にしてください。'
+              inclusion: コスト計算 正しい値が選択されていません。
+              invalid: コスト計算の入力内容が無効です
+              less_than: ! 'コスト計算 %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'コスト計算 %{count}以下の値にしてください。'
+              not_a_number: コスト計算を数値で入力してください
+              not_an_integer: コスト計算 整数で入力してください。
+              odd: コスト計算 奇数にしてください。
+              record_invalid: コスト計算 バリデーションに失敗しました。 '%{errors}'
+              taken: コスト計算 は既に登録されています
+              too_long: ! 'コスト計算 %{count}の文字数をオーバーしています'
+              too_short: ! 'コスト計算 %{count}文字以上で入力してください。'
+              wrong_length: ! 'コスト計算 %{count}文字で入力してください。'
+              acceptance: コスト計算 チェックボックスを選択してください。
+            sync_account_id:
+              blank: "アカウントID を入力して下さい"
+              accepted: アカウントID 受諾してください。 
+              confirmation: アカウントID 確認の入力が一致しません。 
+              empty: アカウントID 入力してください。
+              equal_to: ! 'アカウントID %{count}にしてください。 ' 
+              even: アカウントID 偶数にしてください。
+              exclusion: アカウントID 予約されています。
+              greater_than: ! 'アカウントID %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'アカウントID %{count}以上の値にしてください。'
+              inclusion: アカウントID 正しい値が選択されていません。
+              invalid: アカウントID  正しく入力して下さい。
+              less_than: ! 'アカウントID %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'アカウントID %{count}以下の値にしてください。'
+              not_a_number: アカウントID 数値で入力してください。
+              not_an_integer: アカウントID 整数で入力してください。
+              odd: アカウントID 奇数にしてください。
+              record_invalid: アカウントID バリデーションに失敗しました。 '%{errors}'
+              taken: アカウントID は既に登録されています
+              too_long: ! 'アカウントID %{count}の文字数をオーバーしています'
+              too_short: ! 'アカウントID %{count}文字以上で入力してください。'
+              wrong_length: ! 'アカウントID %{count}文字で入力してください。'
+              acceptance: アカウントID チェックボックスを選択してください。
+            sync_account_pw: 
+              blank: "アカウントPW を入力して下さい"
+              accepted: アカウントPW 受諾してください。 
+              confirmation: アカウントPW 確認の入力が一致しません。 
+              empty: アカウントPW 入力してください。
+              equal_to: ! 'アカウントPW %{count}にしてください。 ' 
+              even: アカウントPW 偶数にしてください。
+              exclusion: アカウントPW 予約されています。
+              greater_than: ! 'アカウントPW %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'アカウントPW %{count}以上の値にしてください。'
+              inclusion: アカウントPW 正しい値が選択されていません。
+              invalid: アカウントPW 正しく入力して下さい。
+              less_than: ! 'アカウントPW %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'アカウントPW %{count}以下の値にしてください。'
+              not_a_number: アカウントPW 数値で入力してください。
+              not_an_integer: アカウントPW 整数で入力してください。
+              odd: アカウントPW 奇数にしてください。
+              record_invalid: アカウントPW バリデーションに失敗しました。 '%{errors}'
+              taken: アカウントPW は既に登録されています
+              too_long: ! 'アカウントPW %{count}の文字数をオーバーしています'
+              too_short: ! 'アカウントPW %{count}文字以上で入力してください。'
+              wrong_length: ! 'アカウントPW %{count}文字で入力してください。'
+              acceptance: アカウントPW チェックボックスを選択してください。
+        conversion:
+          attributes:
+            conversion_name:
+              blank: "コンバージョン名を入力して下さい"
+              accepted: コンバージョン名 受諾してください。 
+              confirmation: コンバージョン名 確認の入力が一致しません。 
+              empty: コンバージョン名 入力してください。
+              equal_to: ! 'コンバージョン名 %{count}にしてください。 ' 
+              even: コンバージョン名 偶数にしてください。
+              exclusion: コンバージョン名 予約されています。
+              greater_than: ! 'コンバージョン名 %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'コンバージョン名 %{count}以上の値にしてください。'
+              inclusion: コンバージョン名 正しい値が選択されていません。
+              invalid: コンバージョン名 正しく入力して下さい。
+              less_than: ! 'コンバージョン名 %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'コンバージョン名 %{count}以下の値にしてください。'
+              not_a_number: コンバージョン名 数値で入力してください。
+              not_an_integer: コンバージョン名 整数で入力してください。
+              odd: コンバージョン名 奇数にしてください。
+              record_invalid: コンバージョン名 バリデーションに失敗しました。 '%{errors}'
+              taken: コンバージョン名 は既に登録されています
+              too_long: ! 'コンバージョン名 %{count}の文字数をオーバーしています'
+              too_short: ! 'コンバージョン名 %{count}文字以上で入力してください。'
+              wrong_length: ! 'コンバージョン名 %{count}文字で入力してください。'
+              acceptance: コンバージョン名 チェックボックスを選択してください。
+            roman_name: 
+              blank: "コンバージョン名(英語) を入力して下さい"
+              accepted: コンバージョン名(英語) 受諾してください。 
+              confirmation: コンバージョン名(英語) 確認の入力が一致しません。 
+              empty: コンバージョン名(英語) 入力してください。
+              equal_to: ! 'コンバージョン名(英語) %{count}にしてください。 ' 
+              even: コンバージョン名(英語) 偶数にしてください。
+              exclusion: コンバージョン名(英語) 予約されています。
+              greater_than: ! 'コンバージョン名(英語) %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'コンバージョン名(英語) %{count}以上の値にしてください。'
+              inclusion: コンバージョン名(英語) 正しい値が選択されていません。
+              invalid: "コンバージョン名(英語) の入力内容が無効です"
+              less_than: ! 'コンバージョン名(英語) %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'コンバージョン名(英語) %{count}以下の値にしてください。'
+              not_a_number: コンバージョン名(英語) 数値で入力してください。
+              not_an_integer: コンバージョン名(英語) 整数で入力してください。
+              odd: コンバージョン名(英語) 奇数にしてください。
+              record_invalid: コンバージョン名(英語) バリデーションに失敗しました。 '%{errors}'
+              taken: コンバージョン名(英語) は既に登録されています
+              too_long: ! 'コンバージョン名(英語) %{count}の文字数をオーバーしています'
+              too_short: ! 'コンバージョン名(英語) %{count}文字以上で入力してください。'
+              wrong_length: ! 'コンバージョン名(英語) %{count}文字で入力してください。'
+              acceptance: コンバージョン名(英語) チェックボックスを選択してください。
+            sale_unit_price: 
+              blank: "売上単価 を入力して下さい"
+              accepted: 売上単価 受諾してください。 
+              confirmation: 売上単価 確認の入力が一致しません。 
+              empty: 売上単価 入力してください。
+              equal_to: ! '売上単価 %{count}にしてください。 ' 
+              even: 売上単価 偶数にしてください。
+              exclusion: 売上単価  予約されています。
+              greater_than: ! '売上単価 %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! '売上単価 %{count}以上の値にしてください。'
+              inclusion: 売上単価 正しい値が選択されていません。
+              invalid: 売上単価  正しく入力して下さい。
+              less_than: ! '売上単価 %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! '入力した値が不正です'
+              not_a_number: 売上単価 数値で入力してください。
+              not_an_integer: 売上単価 整数で入力してください。
+              odd: 売上単価 奇数にしてください。
+              record_invalid: 売上単価 バリデーションに失敗しました。 '%{errors}'
+              taken: 売上単価 は既に登録されています
+              too_long: ! '売上単価 %{count}の文字数をオーバーしています'
+              too_short: ! '売上単価 %{count}文字以上で入力してください。'
+              wrong_length: ! '売上単価 %{count}文字で入力してください。'
+              acceptance: 売上単価 チェックボックスを選択してください。
+            url:
+              blank: "URL を入力して下さい"
+              accepted: URL 受諾してください。 
+              confirmation: URL 確認の入力が一致しません。 
+              empty: URL 入力してください。
+              equal_to: ! 'URL %{count}にしてください。 ' 
+              even: URL 偶数にしてください。
+              exclusion: URL  予約されています。
+              greater_than: ! 'URL %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'URL %{count}以上の値にしてください。'
+              inclusion: URL 正しい値が選択されていません。
+              invalid: URL  正しく入力して下さい。
+              less_than: ! 'URL %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'URL %{count}以下の値にしてください。'
+              not_a_number: URL 数値で入力してください。
+              not_an_integer: URL 整数で入力してください。
+              odd: URL 奇数にしてください。
+              record_invalid: URL バリデーションに失敗しました。 '%{errors}'
+              taken: URL は既に登録されています
+              too_long: ! 'URL %{count}の文字数をオーバーしています'
+              too_short: ! 'URL %{count}文字以上で入力してください。'
+              wrong_length: ! 'URL %{count}文字で入力してください。'
+              acceptance: URL チェックボックスを選択してください。
+            facebook_app_id:
+              blank: "アプリID (Facebook) を入力して下さい"
+              accepted: Facebook app 受諾してください。 
+              confirmation: Facebook app 確認の入力が一致しません。 
+              empty: "アプリID (Facebook) 入力してください。"
+              equal_to: ! 'Facebook app %{count}にしてください。 ' 
+              even: Facebook app 偶数にしてください。
+              exclusion: Facebook app  予約されています。
+              greater_than: ! 'Facebook app %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'Facebook app %{count}以上の値にしてください。'
+              inclusion: Facebook app 正しい値が選択されていません。
+              invalid: "アプリID (Facebook) 正しく入力して下さい。"
+              less_than: ! 'Facebook app %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! '入力した値が不正です'
+              not_a_number: "アプリID (Facebook) 数値で入力してください。"
+              not_an_integer: "アプリID (Facebook) 整数で入力してください。"
+              odd: Facebook app 奇数にしてください。
+              record_invalid: Facebook app バリデーションに失敗しました。 '%{errors}'
+              taken: Facebook app は既に登録されています
+              too_long: ! 'Facebook app %{count}の文字数をオーバーしています'
+              too_short: ! 'Facebook app %{count}文字以上で入力してください。'
+              wrong_length: ! 'Facebook app %{count}文字で入力してください。'
+              acceptance: Facebook app チェックボックスを選択してください。
+            session_period:
+              inclusion: "セッション保持期間は１日以降９０日以下で記入下さい。"
+            conversion_combine:
+              blank: "パターン を選択してください"
+              
+              acceptance: コンバージョン名 チェックボックスを選択してください。
+        promotion:
+          attributes:
+            promotion_name:
+              blank: "プロモーション名 を入力して下さい"
+              accepted: プロモーション名 受諾してください。 
+              confirmation: プロモーション名 確認の入力が一致しません。 
+              empty: プロモーション名 入力してください。
+              equal_to: ! 'プロモーション名 %{count}にしてください。 ' 
+              even: プロモーション名 偶数にしてください。
+              exclusion: プロモーション名 予約されています。
+              greater_than: ! 'プロモーション名 %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'プロモーション名 %{count}以上の値にしてください。'
+              inclusion: プロモーション名 正しい値が選択されていません。
+              invalid: プロモーション名 正しく入力して下さい。
+              less_than: ! 'プロモーション名 %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'プロモーション名 %{count}以下の値にしてください。'
+              not_a_number: プロモーション名 数値で入力してください。
+              not_an_integer: プロモーション名 整数で入力してください。
+              odd: プロモーション名 奇数にしてください。
+              record_invalid: プロモーション名 バリデーションに失敗しました。 '%{errors}'
+              taken: プロモーション名 は既に登録されています
+              too_long: ! 'プロモーション名 %{count}の文字数をオーバーしています'
+              too_short: ! 'プロモーション名 %{count}文字以上で入力してください。'
+              wrong_length: ! 'プロモーション名 %{count}文字で入力してください。'
+              acceptance: プロモーション名 チェックボックスを選択してください。
+            roman_name: 
+              blank: "プロモーション名(英語) を入力して下さい"
+              accepted: プロモーション名(英語) 受諾してください。 
+              confirmation: プロモーション名(英語) 確認の入力が一致しません。 
+              empty: プロモーション名(英語) 入力してください。
+              equal_to: ! 'Client name %{count}にしてください。 ' 
+              even: プロモーション名(英語) 偶数にしてください。
+              exclusion: プロモーション名(英語) 予約されています。
+              greater_than: ! 'プロモーション名(英語) %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'プロモーション名(英語) %{count}以上の値にしてください。'
+              inclusion: プロモーション名(英語) 正しい値が選択されていません。
+              invalid: プロモーション名(英語) の入力内容が無効です
+              less_than: ! 'プロモーション名(英語) %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'プロモーション名(英語) %{count}以下の値にしてください。'
+              not_a_number: プロモーション名(英語) 数値で入力してください。
+              not_an_integer: プロモーション名(英語) 整数で入力してください。
+              odd: プロモーション名(英語) 奇数にしてください。
+              record_invalid: プロモーション名(英語) バリデーションに失敗しました。 '%{errors}'
+              taken: プロモーション名(英語) は既に登録されています
+              too_long: ! 'プロモーション名(英語) %{count}の文字数をオーバーしています'
+              too_short: ! 'プロモーション名(英語) %{count}文字以上で入力してください。'
+              wrong_length: ! 'プロモーション名(英語) %{count}文字で入力してください。'
+              acceptance: プロモーション名(英語) チェックボックスを選択してください。
+            promotion_category_id: 
+              blank: "カテゴリを選択してください"
+              accepted: カテゴリ 受諾してください。 
+              confirmation: カテゴリ 確認の入力が一致しません。 
+              empty: カテゴリ 入力してください。
+              equal_to: ! 'カテゴリ %{count}にしてください。 ' 
+              even: カテゴリ 偶数にしてください。
+              exclusion: カテゴリ  予約されています。
+              greater_than: ! 'カテゴリ %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: ! 'カテゴリ %{count}以上の値にしてください。'
+              inclusion: カテゴリ 正しい値が選択されていません。
+              invalid: カテゴリ  正しく入力して下さい。
+              less_than: ! 'カテゴリ %{count}より小さい値にしてください。'
+              less_than_or_equal_to: ! 'カテゴリ %{count}以下の値にしてください。'
+              not_a_number: カテゴリ 数値で入力してください。
+              not_an_integer: カテゴリ 整数で入力してください。
+              odd: カテゴリ 奇数にしてください。
+              record_invalid: カテゴリ バリデーションに失敗しました。 '%{errors}'
+              taken: カテゴリ は既に登録されています
+              too_long: ! 'カテゴリ %{count}の文字数をオーバーしています'
+              too_short: ! 'カテゴリ %{count}文字以上で入力してください。'
+              wrong_length: ! 'カテゴリ %{count}文字で入力してください。'
+              acceptance: カテゴリ チェックボックスを選択してください。
+            tracking_period: 
+              blank: "計測期間 を入力して下さい"
+              accepted: 計測期間 受諾してください。 
+              confirmation: 計測期間 確認の入力が一致しません。 
+              empty: 計測期間 入力してください。
+              equal_to: ! '計測期間 %{count}にしてください。 ' 
+              even: 計測期間 偶数にしてください。
+              exclusion: 計測期間  予約されています。
+              greater_than: ! '計測期間 %{count}より大きい値にしてください。'
+              greater_than_or_equal_to: 計測期間は１日以降９０日以下で記入下さい
+              inclusion: 計測期間 正しい値が選択されていません。
+              invalid: 計測期間は１日以降９０日以下で記入下さい
+              less_than: ! '計測期間 %{count}１日以降９０日以下で記入下さい'
+              less_than_or_equal_to: 計測期間は１日以降９０日以下で記入下さい
+              not_a_number: 計測期間は１日以降９０日以下で記入下さい
+              not_an_integer: 計測期間は１日以降９０日以下で記入下さい
+              odd: 計測期間 奇数にしてください。
+              record_invalid: 計測期間 バリデーションに失敗しました。 '%{errors}'
+              taken: 計測期間 は既に登録されています
+              too_long: ! '計測期間 %{count}の文字数をオーバーしています'
+              too_short: ! '計測期間 %{count}文字以上で入力してください。'
+              wrong_length: ! '計測期間 %{count}文字で入力してください。'
+              acceptance: 計測期間 チェックボックスを選択してください。
+  layout:
+    login: "ログイン"
+    logout: "ログアウト"
+    submit:
+    create: "登録する"
+    submit: "保存する"
+    update: "更新する"
+    terms_of_use: "利用規約"
+    privacy_policy: "プライバシーポリシー"
+    porporate_information: "企業情報"
+  login:
+    title: "ログインページ"
+    split: "。"
+    email: "メールアドレス"
+    pw: "パスワード"
+    choose_lang:
+      label: "言語選択"
+      ja: "日本語"
+      en: "英語"
+    forgor_pw: "Passwordを忘れた場合はコチラ"
+    forgor_pw1: "Passwordを入力してログインするならコチラ"
+    announcements: "お知らせ"
+    press_release: "プレスリリース"
+    captcha: "認証文字"
+    notice: "アカウント発行時のメールアドレスと、表示されている認証文字を入力してください。パスワードを発行し、ご案内さし上げます。"
+    captcha_email_not_found: "入力頂いたアドレスでアカウント開設した履歴がございません "
+    captcha_error: "入力頂いた認証文字が異なります。お手数ですが再入力下さい"
+    send_success: "メールアドレスにPWをお送りしましたのでご確認下さい"
+    unsuccessfull: "メールアドレスまたはパスワードが違います。"
+    deactive: "入力されたメールアドレスは無効です。"
+    block: "あなたが5分間ブロックされます。後でもう一度やり直してください。"
+    email_empty: "メールアドレスを入力してください"
+  client:
+    title:
+      show: "クライアント"
+      list: "クライアントリスト"
+      edit: "クライアント編集"
+      add: "クライアント登録"
+    user_search: "検索"
+    crumb_edit: "クライアント編集"
+    crumb_add: "クライアント登録"
+    crumb_list: "リクルート（ゼクシィ）"
+    client_name: "クライアント名： "
+    roman_name: "クライアント名(英語)： "
+    tel: "電話番号："
+    person_charge: "ご担当者様： "
+    person_sale: "担当営業： "
+    contract_flg:
+      label: "利用規約："
+      standard_plan: " スタンダードプラン"
+      premium_plan: " プレミアムプラン(月額5万円)"
+    contract_type:
+      label: "ご契約プラン："
+      unrecovered: " 未回収"
+      been_recovered: " 回収済み"
+    user_information: "ユーザー情報"
+    delete: "削除"
+    flash_messages:
+      success: " クライアント登録が完了しました"
+      update: " クライアント編集が完了しました"
+      success_error: "Can not create user for client ja"
+      update_error: "Can not update user for client ja"
+  agency:
+    title:
+      list: "代理店リスト"
+      edit: "代理店編集"
+      add: "代理店登録"
+    crumb_edit: "代理店編集"
+    crumb_add: "代理店登録"
+    crumb_list: ""
+    agency_name: "代理店名"
+    roman_name: "代理店名(英語)"
+    flash_messages:
+      success: " 代理店登録が完了しました"
+      update: " 代理店編集が完了しました"
+      existed: "掲載結果または成果を別に選択してください。"
+  account:
+    title:
+      list: "Accounts"
+      edit: "アカウント編集"
+      add: "アカウント登録"
+    crumb_add: "アカウント登録"
+    crumb_edit: "アカウント編集"
+    media_category: "メディアカテゴリ: "
+    media: "メディア: "
+    account_name: "アカウント名: "
+    roman_name: "アカウント名(英語): "
+    margin: "コスト計算： "
+    input_data: "入力データ"
+    sync_account_id: "アカウントの同期: "
+    synchronism: "同期"
+    fractured: "同期停止"
+    sync_account_pw: "Sync account PW: "
+    flash_messages:
+      success: " アカウント登録が完了しました"
+      update: " アカウント編集が完了しました"
+  conversion:
+    title:
+      list: "コンバージョン設定"
+      edit: "コンバージョン編集"
+      add: "コンバージョン登録"
+      get_tag: "タグ取得"
+    crumb_add: "コンバージョン登録"
+    crumb_edit: "コンバージョン編集"
+    tag_acquisition: "タグ取得"
+    conversion_setting: "コンバージョン設定"
+    conversion_message: "表示したいコンバージョンを選択してください。"
+    user_information: "ユーザー情報"
+    delete: "削除"
+    conversion_name: "コンバージョン名： "
+    roman_name: "コンバージョン名(英語)： "
+    conversion_category:
+      label: "成果カテゴリ： "
+      web: " WEB"
+      app:
+        label: " APP"
+        track_type:
+          label: "計測タイプ： "
+          install: " Install"
+          app_action: "アプリ内アクション"
+        os:
+          label:  "OS指定： "
+          ios: " iOS"
+          android: " Android"
+          other: "Other"
+        conversion_mode:
+          label:  "計測媒体： "
+          all: " 全て"
+          facebook: " Facebookのみ"
+          other: " その他広告"
+        duplicate:
+          label: "重複排除： "
+          label1: " あり"
+          label2: " なし"
+        track_method:
+          label: "計測方法： "
+          white: " White"
+          welcome: " Welcome"
+          custom: 
+            label: " Custom"
+            url: " URL必須"
+          install_referrer: " Install Referrer"
+        app_id:
+          label: "アプリID "
+          facebook: "(Facebook)： "
+        option:
+          label: "<オプション> "
+          judging: "審査フラグ： "
+          configure: " 設定する"
+        sale_unit_price: "売上単価： "
+        reward_form:
+          label: "報酬型式： "
+          straight_line_type: "  定額型"
+          declining_balance_type: " 定率型"
+        session:
+          label: "セッション保持期間： "
+          day: "日"
+      combination: " 組み合わせ"
+    deduplicated:
+      label: "重複排除： "
+      label1: " あり"
+      label2: " なし"
+    unique_definition: "ユニーク定義： "
+    flash_messages:
+      success: " コンバージョン登録が完了しました"
+      update: " コンバージョン編集が完了しました"
+      existed: "別のコンバージョンを選択してください"
+    option1:
+      label: "<オプション①>　"
+      starting_point_setting:
+        label: "起点設定： "
+        configure: " 設定する"
+        not_configure: " 設定しない"
+      sale_unit_price: "売上単価： "
+    option2:
+      label: "<オプション②>"
+      reward_format:
+        label: "報酬型式： "
+        straight_line_type: " 定額型"
+        declining_balance_type: " 定率型"
+    combination:
+      pattern: "パターン： "
+      add: "Add"
+  log:
+    title:
+      cv_logs: "CVログ"
+      click_logs: "Clickログ"
+    today_text: "今日"
+    crumb_click: "Clickログ"
+    crumb_cv_logs: "CVログ"
+    conversion_name: "コンバージョン名"
+    media_category: "メディアカテゴリ"
+    account_name: "アカウント名"
+  cv_logs:
+    label: "CVログ"
+    cv_test: "CVテスト"
+    display_item: "・表示項目"
+    usually: "通常"
+    show_all: "全て追加する"
+    all: "すべて表示"
+    listing_ad: "リスティング広告"
+    display_ad: "ディスプレイ広告"
+    affiliate: "アフィリエイト"
+    conversion_time: "成果発生日時"
+    conversion_name: "コンバージョン名"
+    conversion_category: "成果カテゴリ"
+    tracking_type: "計測タイプ"
+    cv_type: " 成果タイプ"
+    media_approval: "媒体承認"
+    media: "メディア"
+    account: "アカウント名"
+    campaign: "キャンペーン名"
+    ad_group: "広告グループ名"
+    ad_name: "広告名"
+    click_utime: "クリック日時"
+    verify: "Verify"
+    suid: "SUID"
+    session_id: "Session ID"
+    os: "OS"
+    repeat: "リピート"
+    log_state: "OK/NG"
+    sales: "売上単価"
+    profit: "利益"
+    volume: "個数"
+    others: "任意"
+    error_message: "エラーメッセージ"
+    error_log_view: "エラーログ表示"
+    currency: "￥"
+  click_logs:
+    label: Clickログ
+    display_item: "・表示項目"
+    usually: 通常
+    show_all: "全て追加する"
+    all: "すべて表示"
+    click_utime: "クリック日時"
+    media_name: メディア名
+    account_name: アカウント名
+    campaign_name: キャンペーン名
+    ad_group_name: 広告グループ名
+    ad_name: 広告名
+    url: リンク先URL
+    sesid: SESID
+    os: OS
+    log_state: OK/NG
+    error_message: エラーメッセージ
+    error_log_view: エラーログ表示
+  promotion:
+    title:
+      list: "プロモーション"
+      edit: "プロモーション編集"
+      add: "プロモーション登録"
+    media: "メディア"
+    account: "アカウント"
+    crumb_edit: "プロモーション編集"
+    crumb_add: "プロモーション登録"
+    promotion_name: "プロモーション名: "
+    roman_name: "プロモーション名（英語）: "
+    category: "カテゴリ: "
+    tracking_period:
+      label: "計測期間: "
+      day: "日"
+    dashboard: "ダッシュボード"
+    flash_messages:
+      success: " プロモーション登録が完了しました"
+      update: " プロモーション編集が完了しました"
+    Done: "完了"
+    Dashboard: "ダッシュボード"
+    popup_table: "テーブル"
+    popup_metric: "掲載結果"
+    popup_result: "成果"
+    popup_showall: "全て追加する"
+  user:
+    title:
+      list: "ユーザーリスト"
+      edit: "ユーザー編集"
+      add: "ユーザー登録"
+    crumb_add: "ユーザー登録"
+    crumb_edit: "ユーザー編集"
+    username: "ユーザー名: "
+    roman_name: "ユーザー名(英語): "
+    email: "メールアドレス: "
+    role:
+      label: "権限: "
+      include_blank: "権限を選択してください" 
+    company_name: "会社名: "
+    company_id:
+      include_blank: "会社名を選択してください"
+    password:
+      label: "パスワード: "
+      info: "※自動で振り分けます"
+    password_notification:
+      label: "パスワード通知: "
+      not_notified: " 通知しない"
+      to_notified: " 通知する"
+    disabled:
+      label: "ユーザー無効化: "
+      disable: "無効にする"
+    flash_messages:
+      success: " ユーザー登録が完了しました"
+      update: " ユーザー編集が完了しました"
+    user_table: 
+      username: "ユーザー名"
+      roman_name: "ユーザー名(英語)"
+      email: "メールアドレス"
+      role: "権限"
+      company_name: "会社名"
+  media_categories: [" リスティング", "ディスプレイ", "アフィリエイト"]   
+  log_track_type: ["インストール", "アプリ内アクション "]
+  log_repeat_flg: ["新規", "リピート "]
+  Listing: "リスティング 広告"
+  Display: "ディスプレイ 広告"
+  Affiliate: "アフィリエイト" 
+  cv_kind1: "CV"
+  cv_kind2: "CV（初回）"
+  cv_kind3: "CV（リピート）"
+  
+  log_error_messages: ["[無し]", "リダイレクト情報なし", "リクエストパラメータ不正", "DBエラー [*未使用]", "削除済みのリダイレクト情報"]
+  log_cv_error_messages: ["[無し]", "該当コンバージョン設定なし", "リクエストパラメータ不正", "DBエラー [*未使用]", "cookieセッション情報なし", "該当クリックなし", "重複排除", "ユニーク制約違反"]
+  popup:
+    ok: "OK"
+    cancel: "キャンセル"
+    disable: "無効にする"
+    delete: "削除する"
+    enable: "解除にする"
+    new_first: "このままページを移動しますと登録内容が保存されません。"
+    new_second: "問題なければOKをおして進んで下さい。"
+    edit_first: "このままページを移動しますと編集内容が保存されません。"
+    edit_second: "問題なければOKをおして進んで下さい。"
+  url:
+    title: "URL設定"
+    flash_messages: 
+      success: "URLの新規登録を受付ました。"
+      success_update: "URLの編集を受け付けました。"
+    no_data: "※入稿された広告がありません。"
+    download_template: "アップロードファイルフォーマットのダウンロード"
+    edit: "編集"
+    ad_id: "広告ID"
+    campaign_name: "キャンペーン名"
+    group_name: "グループ名"
+    ad_name: "広告名"
+    creative: "クリエイティブID"
+    url: "入稿用URL"
+    note: "備考"
+    last_modified: "最終更新日時"
+    delete: "削除"
+    click_price: "クリック単価"
+    ad_id_check: "広告id"
+    campaign_name_check: "キャンペーン名"
+    group_name_check: "グループ名"
+    ad_name_check: "広告名"
+    creative_check: "クリエイティブid"
+    url_check: "入稿用url"
+    note_check: "備考"
+    last_modified_check: "最終更新日時"
+    click_price_check: "クリック単価"
+    upload_type: 
+      insert: "追加（新規）"
+      update: "更新（既存）"
+    show_option:
+      table: "テーブル"
+      display_item: "表示項目"
+      select_all: "全て追加する"
+      complete_alt: "完成"
+      cancel_alt: "キャンセル"
+    redirect_url1: "リンク先1"
+    name1: "タイトル1"
+    rate1: "遷移割合1"
+    redirect_url2: "リンク先2"
+    name2: "タイトル2"
+    rate2: "遷移割合2"
+    redirect_url3: "リンク先3"
+    name3: "タイトル3"
+    rate3: "遷移割合3"
+    redirect_url4: "リンク先4"
+    name4: "タイトル4"
+    rate4: "遷移割合4"
+    redirect_url5: "リンク先5"
+    name5: "タイトル5"
+    rate5: "遷移割合5"
+  Promotion Name: "プロモーション名"
+  Page: "Page"
+  of: "of"
+  Listing: "リスティング"
+  Display: "ディスプレイ"
+  Affiliate: "アフィリエイト"
+  CV(first): "初回CV"
+  CV(repeat): "リピートCV"
+  CV: "totalCV"
+  CVR: "CVR"
+  CPA: "CPA"
+  ASSIST: "ASSIST"
+  SALES: "SALES"
+  ROAS: "ROAS"
+  PROFIT: "PROFIT"
+  ROI: "ROI"
+  time_format: "%Y/%m/%d"
+  footer:
+    privacy_policy: "プライバシーポリシー"
+    privacy_policy_link: "http://www.septeni.co.jp/privacy/index.html"
+    corporate_information: "企業情報"
+    corporate_information_link: "http://www.septeni.co.jp/company/outline.html"
+    terms_and_conditions: "利用規約"
+    terms_and_conditions_link: "http://www.septeni.co.jp/terms/index.html"
+    corporate_link: "http://www.septeni.co.jp"
+  export_click_logs:
+    label: Export CLick log
+    click_utime: "クリック日時"
+    click_id: 'クリックID'
+    client_name: 'クライアント名'
+    promotion_name: 'プロモーション'
+    media_name: 'メディア'
+    account_name: 'アカウント名'
+    campaign_name: 'キャンペーン名'
+    ad_group: '広告グループ'
+    ad_name: '広告名'
+    request_uri: '広告用URL'
+    redirect_url: 'リンク先URL'
+    session_id: 'SESSIONID'
+    media_session: '媒体セッションID'
+    os: 'OS'
+    user_agent: 'User Agent'
+    remote_ip: 'リモートIP'
+    referer: 'リファラ'
+    mark: 'Mark'
+    ok_ng: 'OK/NG'
+    error_code: 'エラーコード'
+  export_conversion_logs:
+    cv_date_time: "成果発生日時"
+    cv_name: "コンバージョン名"
+    cv_category: "成果カテゴリ"
+    tracking_type: "計測タイプ"
+    cv_type: "成果タイプ"
+    log_id: "ログID"
+    starting_log_id: "起点ログID"
+    media_approval: "媒体承認"
+    click_name: "クライアント名"
+    promotion: "プロモーション"
+    media: "メディア"
+    account: "アカウント"
+    campaign: "キャンペーン"
+    ad_group: "広告グループ"
+    ad_name: "広告名"
+    link_url: "リンク先URL"
+    click_date_time: "クリック日時"
+    influx_original: "流入元"
+    sales: "売上単価"
+    volume: "個数"
+    other: "任意"
+    verify: "Verify"
+    suid: "SUID"
+    sesid: "sesid"
+    os: "OS"
+    repeat: "リピート"
+    log_state: "OK/NG"
+    user_agent: "User_Agent"
+    remote_ip: "リモートIP"
+    referrer: "リファラ"
+    media_session_id: "媒体セッションID"
+    mark: "mark"
+    reception_log: "受信ログ"
+    send_log: "送信ログ"
+    send_date_time: "送信日時"
+    error_message: "エラーメッセージ"
+    profit: "利益"
+    click_utime: "クリック日時"
+  notification:
+    inprogress: '実行中'
+    upload: 'アップロードリスト'
+    download: 'ダウンロードリスト'
+    uploading: 'アップロード中'
+    creating: '作成中'
+    inpreparation: '準備中'
+    completed: '完了'
+    waiting_upload: 'アップロード待機'
+    show_error: 'エラーログ'

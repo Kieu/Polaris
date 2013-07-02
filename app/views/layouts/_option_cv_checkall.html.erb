@@ -1,0 +1,67 @@
+<div class="box03">
+  <p class="box3_txt"><div id="redisplay_all"><%= I18n.t("cv_logs.show_all")%></div>
+  <!-- チェックボックス -->
+  <div class="check-group clearfix">
+    <table width="90%">
+      <% Settings.cv_options_part1.each_with_index do |option, index|%>
+      <tr>
+        <td class="check_txt"><%= I18n.t("cv_logs.#{option}") %></td>
+        <td align=right>
+          <%= link_to image_tag("/assets/btn_box_dl.gif"), "javascript:void(0)", id: "cv_logs_#{index}", onclick: "update_cookie('#{index}',this)"%>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <!-- /チェックボックス -->
+</div>
+<div class="box01">
+  <p class="box3_txt">&nbsp;</p>
+  <!-- チェックボックス -->
+  <div class="check-group clearfix">
+    <table width="90%">
+
+      <% Settings.cv_options_part2.each_with_index do |option, index|%>
+      <tr>
+        <td class="check_txt"><%= I18n.t("cv_logs.#{option}") %></td>
+        <td align=right>
+          <%= link_to image_tag("/assets/btn_box_dl.gif"), "javascript:void(0)", onclick: "update_cookie('#{index+12}',this)"%>
+        </td>
+      </tr>
+      <% end %>
+      <tr>
+        <td class="check_txt"><%= I18n.t("cv_logs.error_log_view")%></td>
+        <td align=center >
+          <input type="checkbox" name="error_table" id="error_table" checked="checked">
+        </td>
+      </tr>
+    </table>
+    <!-- /チェックボックス -->
+  </div>
+</div>
+
+<div class="box01">
+  <p class="box3_txt">&nbsp;</p>
+  <!-- チェックボックス -->
+  <div class="check-group clearfix">
+    <table width="90%">
+
+      <% Settings.cv_options_part2.each_with_index do |option, index|%>
+      <tr>
+        <td class="check_txt"><%= I18n.t("cv_logs.#{option}") %></td>
+        <td align=right>
+          <%= link_to image_tag("/assets/btn_box_dl.gif"), "javascript:void(0)", onclick: "update_cookie('#{index+12}',this)"%>
+        </td>
+      </tr>
+      <% end %>
+      <tr>
+        <td class="check_txt"><%= I18n.t("cv_logs.error_log_view")%></td>
+        <td align=center >
+          <input type="checkbox" name="error_table" id="error_table" checked="checked">
+        </td>
+      </tr>
+    </table>
+    <!-- /チェックボックス -->
+  </div>
+</div>
+</div>

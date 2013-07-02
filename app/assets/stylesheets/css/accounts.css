@@ -1,0 +1,129 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+/* ==========================================================================
+   account/account_regist.html  [全体可変]
+   ========================================================================== */
+
+#wrapper{
+    margin: 0 auto;
+    width: 100%;
+}
+
+#header{
+    height: 50px;
+}
+
+#container{
+    width: 95%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+}
+
+
+#contents{
+    position: relative;
+    min-height:500px;
+    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+}
+
+#inner{
+    padding: 10px 0 20px 35px;
+}
+
+
+#account_form{
+    margin: auto;
+    width: 635px;
+    height: 580px;
+    margin-top: 30px;
+}
+
+form{
+    margin: auto;
+    margin-top: 10px;
+    width: 635px;
+    min-height: 470px;
+    background-color: #f1f1f1;
+    border: 1px solid #b6b6b6;
+}
+
+table{
+    font-weight: bold;
+    font-size:16px;
+    margin:auto ;
+    margin-top:30px;
+    width:500px;
+}
+
+tr{
+    height:45px;
+}
+
+table th{
+    font-weight: bold;
+    width:240px;
+    text-align:right;
+}
+
+table td{
+    width: 160px;
+    margin: 0 0 0 10px;
+    padding-left: 5px;
+}
+
+table td input{
+    padding: 0 0 0 6px;
+    font-weight: normal;
+}
+
+#btn_submit:hover{
+    opacity:0.7;
+}
+
+table td .input-text{
+    width:300px;
+    font-weight:normal;
+}
+table td .input-select{
+    width:320px;
+    font-weight:normal;
+}
+
+table td .multiply{
+    font-weight: normal;
+    width: 100px;
+}
+
+.submit_area{
+    margin: auto;
+    width: 380px;
+    margin-top: 15px;
+}
+
+.submit_area p{
+    display:inline;
+    /*margin: 20px;*/
+}
+
+.submit_area p img:hover{
+    opacity:0.7;
+}
+
+#id{
+    color: #9d9d9d;
+}
+
+#pw{
+    color:#9d9d9d;
+}
+#id:focus {
+    color: #333;
+}
+
+#account_sync_box {
+    margin: 0 0 0 0;
+}

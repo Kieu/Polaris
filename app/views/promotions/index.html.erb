@@ -1,0 +1,495 @@
+<% provide(:title, I18n.t("promotion.title.list")) %>
+<% content_for :sidebar do %>
+	<%= render partial: "layouts/sidebar", locals: {object: @array_promotion} %>
+<% end %>
+<%= stylesheet_link_tag "css/common" %>
+<%= stylesheet_link_tag "css/promotions" %>
+<%= stylesheet_link_tag "css/colorbox" %>
+
+<%= stylesheet_link_tag "css/box_inner_promotion" %>
+<style>
+a.bread_scrumb_link {
+	color: #F63;
+	text-decoration:none;
+	padding: 2px 0;
+}
+</style>
+<% if @array_promotion.count > 0 %>
+<ul class="contentNavi">
+  <div class = "crumb_logs">
+	<% unless current_user.client? %>
+		<li class="pre"><a class="bread_scrumb_link" title="<%= @client_name %>" href="/clients?client_id=<%=@client_id%>"><%= short_ja_name(@client_name) %></a></li>
+	<% else %>
+		<li class="pre"><div title="<%= @client_name %>"><%= short_ja_name(@client_name) %></div></li>
+	<% end %>
+	<li>&gt;</li>
+	<li><div title="<%= @promotion_name %>"><%= short_ja_name(@promotion_name) %></div></li>
+  </div>
+</ul>
+<div class="date" id="date_area"><%= I18n.t("log.today_text") %><br />
+<input id="datepick" type="text" readonly="readonly" value="<%= @start_date + " ~ " + @end_date %>" name="datepick">&#9660;
+</div>
+<div class="clear"></div>
+<div id="graph">
+	<ul class="btn_details" id="">
+		<li> <a href="#"> <p style="color:#32CF32"><span>■</span><span id="chart_left">COST</span> ▼</p> </a>
+			<ul>
+				<li> <a href="javascript:void(0)"><%= I18n.t("promotion.popup_metric")%></a>
+					<ul>
+						<li><a href="javascript:void(0)" class="metric_click_left" col="imp">imp</a></li>
+						<li><a href="javascript:void(0)" class="metric_click_left" col="click">click</a></li>
+						<li><a href="javascript:void(0)" class="metric_click_left" col="CTR">CTR</a></li>
+						<li><a href="javascript:void(0)" class="metric_click_left" col="COST">COST</a></li>
+						<li><a href="javascript:void(0)" class="metric_click_left" col="CPM">CPM</a></li>
+						<li><a href="javascript:void(0)" class="metric_click_left" col="CPC">CPC</a></li>
+					</ul>
+				</li>
+				<li><a href="javascript:void(0)"><%= I18n.t("promotion.popup_result")%></a>
+					<ul>
+						<% @conversions.each do |conversion| %>
+							<li><a href="javascript:void(0)"><%= short_ja_name(conversion.conversion_name) %></a>
+								<ul>
+									<% Settings.conversions_graph.each do |option| %>
+										<li><a href="javascript:void(0)" col="<%= option %>" class="result_click_left" id="conversion_left_<%= conversion.id %>"><%= I18n.t(option) %></a></li>
+									<% end %>
+								</ul>
+							<li>
+						<% end %>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<p> vs </p>
+	<ul class="btn_details" id="">
+		<li> <a href="#"><p style="color:#FF1493"><span>■</span><span id="chart_right">click</span> ▼</p></a>
+			<ul>
+				<li> <a href="#"><%= I18n.t("promotion.popup_metric")%></a>
+					<ul>
+						<li><a href="javascript:void(0)" class="metric_click_right" col="imp">imp</a></li>
+						<li><a href="javascript:void(0)" class="metric_click_right" col="click">click</a></li>
+						<li><a href="javascript:void(0)" class="metric_click_right" col="CTR">CTR</a></li>
+						<li><a href="javascript:void(0)" class="metric_click_right" col="COST">COST</a></li>
+						<li><a href="javascript:void(0)" class="metric_click_right" col="CPM">CPM</a></li>
+						<li><a href="javascript:void(0)" class="metric_click_right" col="CPC">CPC</a></li>
+					</ul>
+				</li>
+				<li><a href="javascript:void(0)"><%= I18n.t("promotion.popup_result")%></a>
+					<ul>
+						<% @conversions.each do |conversion| %>
+							<li><a href="javascript:void(0)"><%= short_ja_name(conversion.conversion_name) %></a>
+								<ul>
+									<% Settings.conversions_graph.each do |option| %>
+										<li><a href="javascript:void(0)" col="<%= option %>" class="result_click_right" id="conversion_right_<%= conversion.id %>"><%= I18n.t(option) %></a></li>
+									<% end %>
+								</ul>
+							<li>
+						<% end %>
+					</ul>
+				</li>
+			</ul>
+		</li>
+	</ul>
+	<div class="fl-r">
+		<p><%= link_to image_tag("/assets/btn_dl_option.gif"), "javascript:void(0)", id: "show_option" %></p>
+		<p><%= link_to image_tag("/assets/btn_dl_report.gif"), "#", id: "download_csv" %></p>
+	</div>
+</div>
+<div class="clear"></div>
+<!--グラフ_JS-->
+<div id="sample-chart" class="sample-chart" style="height: 300px; width: 100%"></div>
+<!--/グラフ_JS-->
+
+<% if flash[:error] %>
+    <div><%= flash[:error] %></div>
+<% end %>
+<p class="p-blue category_Dashboard"><%= I18n.t("promotion.Dashboard") %></p>
+<div id="promotion_tables">
+	<%= render template: "promotions/promotion_table" %>
+</div>
+<br/>
+<br/>
+<div id="popup" style="display: none">
+	<div id="list_options">
+		<div class="f_box">
+			<p class="f_box_title"><%= I18n.t("promotion.popup_table")%></p>
+			<p class="f_category_title1"><%= I18n.t("promotion.popup_metric")%></p>
+			<p class="f_category_title2"><%= I18n.t("promotion.popup_result")%></p>
+
+			<div class="box01">
+				<p class="box01_txt" id="show_all"><%= I18n.t("promotion.popup_showall")%></p>
+				<div class="check-group clearfix">
+					<ul>
+						<% Settings.promotions_options.each_with_index do |option, index|%>
+							<li>
+								<p class="check_txt"><%= option %></p>
+								<div>
+									<% if cookies[:promotion][index] == "1" %>
+										<input type="checkbox" value="c1p" checked="checked" name="check" id="checbox<%= index+1 %>">
+										<label for="checkbox<%= index+1 %>" class="checked promotion_option" onclick="update_cookie_promotion('<%= index %>')">Check</label>
+									<% else %>
+										<input type="checkbox" value="c1" name="check" id="checbox<%= index+1 %>">
+										<label for="checkbox<%= index+1 %>" class="promotion_option" onclick="update_cookie_promotion('<%= index %>')">Check</label>
+									<% end %>
+								</div>
+							</li>
+						<% end %>
+					</ul>
+				</div>
+			</div>
+			<div class="box02">
+				<ul id="tab" style="height: 350px; overflow: hidden;">
+					<% @conversions.each_with_index do |conversion, index| %>
+						<% if index == 0%>
+							<li class="present"><p class="f_arrow">CV<%=index +1 %><span style="font-size: 80%"><%= short_ja_name(conversion.conversion_name)%></span></p></li>
+						<% else %>
+							<li><p class="f_arrow">CV<%=index +1 %><span style="font-size: 80%"><%= short_ja_name(conversion.conversion_name)%></span></p></li>
+						<% end %>
+					<% end %>
+				</ul>
+				
+			</div>
+			
+			<div class="box03">
+				<% @conversions.each_with_index do |conversion,index| %>
+					<div id="page<%= index+1 %>">
+						<div class="check-group clearfix">
+							<ul>
+								<% Settings.conversions_options.each_with_index do |option, index1|%>
+								<li>
+									<p class="check_txt"><%= I18n.t(option) %></p>
+									<div>
+										<% if cookies[('conversion' + conversion.id.to_s).to_sym][index1] == '0' %>
+											<input type="checkbox" value="c1" name="check" id="checbox<%= index+1 %>">
+											<label for="checkbox<%= index+1%>" onclick="update_cookie('<%= index1 %>','<%= conversion.id %>')">Check</label>
+										<% else %>
+											<input type="checkbox" value="c1" name="check" id="checbox<%= index+1 %>" checked="checked">
+											<label for="checkbox<%= index+1%>" class="checked" onclick="update_cookie('<%= index1 %>','<%= conversion.id %>')">Check</label>
+										<% end %>
+									</div>
+								</li>
+								<% end %>
+							</ul>
+						</div>
+					</div>
+				<% end %>
+			</div>
+			<div class="submit_area_option">
+				<p><a href="javascript:void(0)" id= "change_cookie"><img  alt="完成" src="/assets/btn_done.gif"></a></p>
+				<p><a href="javascript:void(0)" id= "not_change_cookie"><img align="right" alt="キャンセル" src="/assets/btn_cancel.gif"></a></p>
+			</div>
+		</div>
+  	</div>
+</div>
+<script type="text/javascript">
+    $("#date_area").click(function(){
+    	$("#datepick").click();
+	})
+    $('#download_csv').click(function(){
+    	var term = $('#datepick').val();
+        var d = term.split(' ~ ');
+        start_date = d[0];
+        end_date = d[1];
+        
+        $.ajax({
+        	type: "POST",
+            url: "<%= download_csv_promotions_path %>",
+            data: {"promotion_id" : "<%= @promotion.id if @promotion %>",
+                   "client_name" : "<%= short_ja_name(@client_name) %>",
+                   "promotion_name" : "<%= short_ja_name(@promotion_name) %>",
+                    "start_date": start_date,
+                    "end_date": end_date
+                   },
+            success: function(data){
+            }
+
+        })
+    })
+
+    $(function() {
+    	
+    	var tab = {
+	        init: function(){
+	            var tabs = this.setup.tabs;
+	            var pages = this.setup.pages;
+	            $(".present").first().removeClass("present");
+				$("#tab li").first().addClass("present");
+				pages[0].style.display = 'block';
+	            
+	            for(i=0; i<pages.length; i++) {
+	                if(i !== 0){
+	                	pages[i].style.display = 'none';
+	                }
+	                tabs[i].onclick = function(){ tab.showpage(this); return false; };
+	            }
+	        },
+
+	        showpage: function(obj){
+				var tabs = this.setup.tabs;
+	            var pages = this.setup.pages;
+	            var num;
+	
+	            for(num=0; num<tabs.length; num++) {
+	                if(tabs[num] === obj) break;
+	            }
+	
+	            for(var i=0; i<pages.length; i++) {
+	                if(i == num) {
+	                    pages[num].style.display = 'block';
+	                    tabs[num].className = 'present';
+	                }
+	                else{
+	                    pages[i].style.display = 'none';
+	                    tabs[i].className = null;
+	                }
+	            }
+	        }
+    	}
+    // <![CDATA[
+    	
+    	default_list_options = $("#list_options").html();
+        $("#show_option").click(function(){
+            $.colorbox({
+                width: "725",
+                inline: true,
+                escKey: false,
+                overlayClose: false,
+                href: "#list_options",
+                height:"525",
+                onComplete: function(){
+                	pages = [];
+					<% @conversions.each_with_index do |conversion, index| %>
+						pages.push(document.getElementById('page' + "<%= index+1 %>"))
+					<% end %>
+			    	tab.setup = {
+			        	tabs: document.getElementById('tab').getElementsByTagName('li'),
+			
+			        	pages: pages
+			    		} //オブジェクトをセット
+			    	tab.init(); //起動！
+                	$('#tab').niceScroll({cursorcolor:"#0087A9",cursorwidth:"8px"});
+                }
+            });
+        })
+        cookies_options = $.cookie("promotion");        
+        cookies_conversions = new Object();
+        <% @conversions.each do |conversion| %>
+	        cookies_conversions["<%= conversion.id %>"] = $.cookie("conversion<%= conversion.id %>");
+        <% end %>
+        start_date = "<%= @start_date %>";
+        end_date = "<%= @end_date %>";
+        
+        update_cookie_promotion = function(data){
+            options = cookies_options.split("");
+            options[data] = (options[data] == "1") ? "0" : "1";
+            options = options.join("");
+            cookies_options = options;
+        }
+        update_cookie = function(data, pos){
+            options = cookies_conversions[pos].split("");
+            options[data] = (options[data] == "1") ? "0" : "1";
+            options = options.join("");
+            cookies_conversions[pos] = options;
+        }
+        $(document).on('click', "#change_cookie", function(){
+        	$.cookie("promotion",cookies_options);
+            <% @conversions.each do |conversion| %>
+	            $.cookie("conversion<%= conversion.id %>", cookies_conversions["<%= conversion.id %>"]);
+            <% end %>
+            $('#list_options').colorbox.close();
+            $("#dvloader").css('display','');
+            $.ajax({
+				url: "<%= change_data_promotions_path %>",
+                type: "post",
+                dataType: "json",
+                data: "client_id=" + "<%= @client_id %>" + "&promotion_id=" + "<%= @promotion_id %>" + "&start_date=" + start_date + "&end_date=" + end_date,
+                success: function(html){
+                	$("#dvloader").css('display','none');
+					$("#promotion_tables").html(html["html"]);
+	            }
+			})
+			$('#tab').niceScroll().remove();
+			default_list_options = $("#list_options").html();
+        });
+        $(document).on('click', "#not_change_cookie", function(){
+            cookies_options = $.cookie("promotion");        
+	        <% @conversions.each do |conversion| %>
+		        cookies_conversions["<%= conversion.id %>"] = $.cookie("conversion<%= conversion.id %>");
+	        <% end %>
+            $('#list_options').colorbox.close();
+            $('#tab').niceScroll().remove();
+            $("#list_options").html(default_list_options);
+            pages = [];
+			<% @conversions.each_with_index do |conversion, index| %>
+				pages.push(document.getElementById('page' + "<%= index+1 %>"))
+			<% end %>
+    		tab.setup = {
+        		tabs: document.getElementById('tab').getElementsByTagName('li'),
+
+        		pages: pages
+    			} //オブジェクトをセット
+    		tab.init(); //起動！
+        })
+		$(".btn_details").droppy();
+    	$('div.check-group input').each(function(){
+		if ($(this).attr('checked') == 'checked') {
+			$(this).next().addClass('checked');
+
+		}
+	});
+	//クリックした要素にクラス割り当てる
+	$(document).on('click', "div.check-group label", function(){
+		if ($(this).prev('input').attr('checked')=="checked"){
+			$(this)
+				.removeClass('checked')
+				.prev('input').removeAttr('checked');
+		}else{
+			$(this)
+				.addClass('checked')
+				.prev('input').attr('checked','checked');
+		}
+	});
+	categories = [];
+	data = new Object();
+	<% Settings.promotions_options.each do |option| %>
+		data["<%= option %>"] = [];
+    	<% @promotion_data[option].each do |data| %>
+			data["<%= option %>"].push(parseFloat("<%= data%>"));
+		<% end %>
+	<% end %>
+	<% @conversions.each do |conversion| %>
+		<% Settings.conversions_graph.each do |option| %>
+			data["<%= conversion.id %>" + "_" + "<%= option %>"] = [];
+			<% if @promotion_data[conversion.id.to_s + "_" + option] %>
+				<% @promotion_data[conversion.id.to_s + "_" + option].each do |data| %>
+					data["<%= conversion.id %>" + "_" + "<%= option %>"].push(parseFloat("<%= data%>"));
+				<% end %>
+			<% else %>
+				<% @array_category.each do |_| %>
+					data["<%= conversion.id %>" + "_" + "<%= option %>"].push(0);
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+	/* Get data*/
+	<% @array_category.each do |category|%>
+		categories.push("<%= category %>");
+	<% end %>
+
+	left = "<%= @select_left %>";
+	right = "<%= @select_right %>";
+    draw_chart(data[left], data[right], left, right, categories)
+    $(".metric_click_left").click(function(){
+    	left = $(this).attr("col");
+    	$("#chart_left").text(left);
+    	draw_chart(data[left], data[right], left,right, categories)
+    });
+    $(".metric_click_right").click(function(){
+    	right = $(this).attr("col");
+    	$("#chart_right").text(right);
+    	draw_chart(data[left], data[right], left,right, categories)
+    });
+    
+    $(".result_click_left").click(function(){
+    	left = $(this).attr("id").split("_")[2] + "_" + $(this).attr("col");
+    	if ($.cookie("locale") == "ja")
+    	{
+	    	if ($(this).attr("col")=="CV"){
+	    		$("#chart_left").text($(this).attr("id").split("_")[2] + "_totalCV");
+	    	}
+	    	if ($(this).attr("col")=="CV(first)"){
+	    		$("#chart_left").text($(this).attr("id").split("_")[2] + "_初回CV");
+	    	}
+	    	if ($(this).attr("col")=="CV(repeat)"){
+	    		$("#chart_left").text($(this).attr("id").split("_")[2] + "_リピートCV");
+	    	}
+	    }else{
+	    	$("#chart_left").text(left);
+	    }
+    	draw_chart(data[left], data[right], left,right, categories)
+    });
+    $(".result_click_right").click(function(){
+    	right = $(this).attr("id").split("_")[2] + "_" + $(this).attr("col");
+    	if ($.cookie("locale") == "ja")
+    	{
+	    	if ($(this).attr("col")=="CV"){
+	    		$("#chart_right").text($(this).attr("id").split("_")[2] + "_totalCV");
+	    	}
+	    	if ($(this).attr("col")=="CV(first)"){
+	    		$("#chart_right").text($(this).attr("id").split("_")[2] + "_初回CV");
+	    	}
+	    	if ($(this).attr("col")=="CV(repeat)"){
+	    		$("#chart_right").text($(this).attr("id").split("_")[2] + "_リピートCV");
+	    	}
+	    }else{
+	    	$("#chart_right").text(right);
+	    }
+    	draw_chart(data[left], data[right], left,right, categories)
+    });
+    
+    function formatDate(year, month, day){
+		 if (year < 2000) { year = parseInt(year) + 1900; }
+		 if (month.length == 1) { month = "0" + parseInt(month); }
+		 if (day.length == 1) { day = "0" + parseInt(day); }
+		 return year + month + day;
+		}
+    $('#datepick').daterangepicker({
+		rangeSplitter: "~",
+		doneButtonText: "<%= I18n.t("promotion.Done") %>",
+		lang: $.cookie("locale") == "ja" ? 1 : 2,
+            onDone: function() {
+                var term = $('#datepick').val();
+                var d = term.split(' ~ ');
+                start_date = d[0];
+                end_date = d[1];
+                $("#dvloader").css('display','');
+                $.ajax({
+                	url: "<%= change_data_promotions_path %>",
+                	type: "POST",
+                	dataType: "json",
+                	data: "client_id=" + "<%= @client_id %>" + "&promotion_id=" + "<%= @promotion_id %>" + "&start_date=" + start_date + "&end_date=" + end_date,
+                	success: function(all_data){
+                		$("#dvloader").css('display','none');
+                		categories = all_data["array_category"];
+						<% Settings.promotions_options.each do |option| %>
+							data["<%= option %>"] = all_data["promotion_data"]["<%= option %>"];
+						<% end %>
+						<% @conversions.each do |conversion| %>
+							<% Settings.conversions_graph.each do |option| %>
+								if (typeof all_data["promotion_data"]["<%= conversion.id%>"+"_"+"<%= option %>"] == "undefined"){
+									data["<%= conversion.id %>" + "_" + "<%= option %>"] = [];
+									for (var i=0;i<categories.length;i++){
+										data["<%= conversion.id %>" + "_" + "<%= option %>"].push(0) ;	
+									}
+								}else{
+									data["<%= conversion.id %>" + "_" + "<%= option %>"] = [];
+									for (var i=0;i<categories.length;i++){
+										data["<%= conversion.id %>" + "_" + "<%= option %>"].push(parseFloat(all_data["promotion_data"]["<%= conversion.id%>"+"_"+"<%= option %>"][i]));	
+									}
+								}
+							<% end %>
+						<% end %>
+						draw_chart(data[left], data[right], left, right, categories);
+						$("#promotion_tables").html(all_data["html"]);
+	            	}
+				})
+			}
+        });
+    });
+    $(document).on('click', "#show_all", function(){
+    	cookies_options = "111111";
+    	$(".promotion_option").addClass("checked");
+    	$(".promotion_option").each(function(){
+    		$(this).prev('input').attr("checked",'checked');
+    	})
+    })
+</script>
+<% else %>
+    <ul class="contentNavi">
+    	<% unless current_user.client? %>
+      		<li class="pre"><a class="bread_scrumb_link" title="<%= @client.client_name %>" href="/clients?client_id=<%=@client_id%>"><%= short_ja_name(@client.client_name) %></a></li>
+      	<% else %>
+      		<li class="pre"><div title="<%= @client.client_name %>"><%= short_ja_name(@client.client_name) %></div></li>
+      	<% end %>
+    </ul>
+<% end %>

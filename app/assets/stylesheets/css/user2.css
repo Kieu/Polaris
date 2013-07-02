@@ -1,0 +1,100 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+/* ==========================================================================
+   user/index.html  [全体可変]
+   ========================================================================== */
+
+#wrapper{
+	margin: 0 auto;
+	width: 100%;
+}
+
+#container{
+	width: 95%;
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+}
+
+#contents{
+	position: relative;
+	min-height:500px;
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+}
+
+#inner{
+
+}
+
+/* ==========================================================================
+   user/regist.html [全固定]
+   ========================================================================== */
+
+#user_form{
+	margin: 0 auto;
+	width: 635px;
+	height: 580px;
+}
+
+form{
+	margin: auto;
+	margin-top: 10px;
+	width: 635px;
+	min-height: 400px;
+	background-color: #f1f1f1;
+	border: 1px solid #b6b6b6;
+}
+
+
+.submit_area{
+	margin: auto;
+	width: 380px;
+	margin-top: 40px;
+	margin-bottom: 30px;
+}
+
+.submit_area p{
+	display:inline;
+	/*margin: 20px;*/
+}
+
+#btn_submit:hover{
+	opacity:0.7;
+}
+
+
+ 
+/* ==========================================================================
+   user/edit.html [右固定/左固定]
+   ========================================================================== */
+table.user_add{
+	width: 610px;
+}
+table.user_add tbody th{
+	width: 170px;
+	text-align:right;
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+}
+
+table.user_add tbody td{
+	padding-left:5px;
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+}
+
+disabled{
+	color: #999;
+}
+.disabled{
+	color: #999;
+}
+/* redefine style of _ALL_ flexigrid column titles */
+.flexigrid div.hDiv th div {
+	text-align: center !important;
+}
+/* redefine style by name for _ALL_ flexigrid */
+.flexigrid div.hDiv th[abbr="sign"] div {
+	text-align: left !important;
+}

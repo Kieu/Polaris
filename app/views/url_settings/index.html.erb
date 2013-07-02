@@ -1,0 +1,310 @@
+<% provide(:title, I18n.t("url.title")) %>
+<%= stylesheet_link_tag "css/common", :media => "all" %>
+<%= stylesheet_link_tag "css/setting", :media => "all" %>
+<input type= "hidden" id="promotion_id" value="<%= @promotion_id %> "/>
+<input type= "hidden" id="account_id" value="<%= @account_id %> "/>
+<input type= "hidden" id="media_id" value="<%= @media_id %> "/>
+<style type="text/css">
+  a.dl {
+    color: #F63;
+    text-decoration:underline;
+    padding: 2px 0;
+}
+
+  a.bread_scrumb_link {
+  	color: #F63;
+    text-decoration:none;
+    padding: 2px 0;
+  }
+
+  .flexigrid div.hDiv th div {text-align: center !important;} 
+ </style>
+<div class="date" id="date_area"><%= I18n.t("log.today_text") %><br />
+  <input id="datepick" type="text" readonly="readonly" value="<%= cookies[:url_setting_start_date] + " ~ " + cookies[:url_setting_end_date] %>" name="datepick">&#9660;
+  <a class="fancybox mt-10 fl-l" rel="gallery" href="javascript:void(0)" id="show_option"><img src="/assets/btn_dl_option.gif" /></a>
+  <a href="#" class="mt-10 fl-r" id="download_csv"><img src="/assets/btn_dl_csv.gif" /></a>
+</div>
+<script type="text/javascript">  
+$(document).ready(function() {
+  var clip = new ZeroClipboard($(".copy_button"));
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+    var term = $('#datepick').val();
+    var d = term.split(' ~ ');
+    start_date = d[0];
+    end_date = d[1];
+    $(".newTable04").flexigrid({
+        url: "<%= get_urls_list_url_settings_path %>?promotion_id=" + $("#promotion_id").val() + "&account_id=" + $("#account_id").val() + "&media_id=" + $("#media_id").val() + "&start_date=" + start_date + "&end_date=" + end_date + "&client_id=<%= @client_id %>",
+        dataType: 'json',
+        editOption : true,
+        deleteOption : true,
+        onSuccess : function(){
+                     tableResize();
+                     var clip = new ZeroClipboard($(".copy_button"));
+                   },
+        resizable : false,
+        striped : true,
+        colModel : [
+            {display: '<%= I18n.t("url.edit") %>', id : 'edit_button', name : 'edit_button', width : 60, sortable : false, align: 'center', hide: <%= cookies[:url_setting][0] == "0" ? 1 : 0 %>},
+            {display: '<%= I18n.t("url.last_modified") %>', name : 'last_modified', width : 'auto', sortable : false, align: 'left', hide: <%= cookies[:url_setting][1] == "0" ? 1 : 0 %>},
+            {display: '<%= I18n.t("url.ad_id") %>', name : 'ad_id', width : 'auto', sortable : false, align: 'left', hide: <%= cookies[:url_setting][2] == "0" ? 1 : 0 %>},
+            {display: '<%= I18n.t("url.campaign_name") %>', name : 'campaign_name', width : 'auto', sortable : false, align: 'left', hide: <%= cookies[:url_setting][3] == "0" ? 1 : 0 %>},
+            {display: '<%= I18n.t("url.group_name") %>', name : 'group_name', width : 'auto', sortable : false, align: 'left', hide: <%= cookies[:url_setting][4] == "0" ? 1 : 0 %>},
+            {display: '<%= I18n.t("url.ad_name") %>', name : 'ad_name', width : 'auto', sortable : false, align: 'left', hide: <%= cookies[:url_setting][5] == "0" ? 1 : 0 %>},
+            {display: '<%= I18n.t("url.creative") %>', name : 'creative', width : 'auto', sortable : false, align: 'center', hide: <%= cookies[:url_setting][6] == "0" ? 1 : 0 %>},
+            {display: '<%= I18n.t("url.url") %>', name : 'url', width : 'auto', sortable : false, align: 'center', hide: <%= cookies[:url_setting][7] == "0" ? 1 : 0 %>},
+            {display: '<%= I18n.t("url.note") %>', name : 'note', width : 'auto', sortable : false, align: 'left', hide: <%= cookies[:url_setting][8] == "0" ? 1 : 0 %>},
+            {display: '<%= I18n.t("url.click_price") %>', name : 'click_price', width : 'auto', sortable : false, align: 'right', hide: <%= cookies[:url_setting][9] == "0" ? 1 : 0 %>},
+            {display: '<%= I18n.t("url.delete") %>', name : 'delete_check', width : 60, sortable : false, align: 'center', hide: <%= cookies[:url_setting][10] == "0" ? 1 : 0 %>}
+            ],
+        usepager: true,
+        title: 'Url List',
+        useRp: true,
+        id: 1,
+        rp: 10,
+        showTableToggleBtn: true,
+        height: 250
+    });
+
+})
+</script>
+<script type="text/javascript">
+$("#date_area").click(function(){
+	$("#datepick").click();
+})
+$(function() {
+	var colums = ["edit_button", "ad_id", "campaign_name","group_name", "ad_name", "creative", "url", "copy", "delete_check", "last_modified"];
+	default_url_options = $("#inline_cv_logs").html();
+	function showColumn(tbl, colIndex, visible) {
+	    $(tbl).flexToggleCol(colIndex, visible);
+	}
+	$('#download_csv').click(function(){
+      var term = $('#datepick').val();
+      var d = term.split(' ~ ');
+      start_date = d[0];
+      end_date = d[1];
+	  $.ajax({
+	    type: "POST",
+	    url: "<%= download_csv_url_settings_path %>",
+	    data: {"promotion_id" : "<%= @promotion_id if @promotion_id %>",
+	           "account_id" : "<%= @account_id if @account_id %>",
+             "media_id" : "<%= @media_id if @media_id %>",
+             "client_name" : "<%= short_ja_name(@client_name) %>",
+             "promotion_name" : "<%= short_ja_name(@promotion_name) %>",
+             "media_name" : "<%= short_ja_name(@media_name) %>",
+             "account_name" : "<%= short_ja_name(@account_name) %>",
+	           "start_date": start_date,
+               "end_date": end_date
+	           },
+	    success: function(data){
+	  	}
+	
+	  })
+	})
+	
+	function formatDate(year, month, day){
+	    if (year < 2000) { year = parseInt(year) + 1900; }
+	    if (month.length == 1) { month = "0" + parseInt(month); }
+	    if (day.length == 1) { day = "0" + parseInt(day); }
+	    return year + "/" + month + "/" + day;
+	}
+	
+	$('#datepick').daterangepicker({
+      rangeSplitter: ' ~ ',
+      lang: $.cookie("locale") == "ja" ? 1 : 2,
+	    onDone: function() {
+	        var term = $('#datepick').val();
+	        var d = term.split(' ~ ');
+	        var f = (d[0]).split('/');
+	        var t = (d[1]).split('/');
+	        $.cookie("url_setting_start_date", formatDate(f[0], f[1], f[2]), {
+	            path: '/'
+	        });
+	        $.cookie("url_setting_end_date", formatDate(t[0], t[1], t[2]), {
+	            path: '/'
+	        });
+	
+          var term = $('#datepick').val();
+          var d = term.split(' ~ ');
+          start_date = d[0];
+          end_date = d[1];
+          $("#datepick").text(start_date + " ~ " + end_date + "▼");
+	        reloadFlex1(".newTable04", "<%= get_urls_list_url_settings_path %>?promotion_id=" + $("#promotion_id").val() + "&account_id=" + $("#account_id").val() + "&media_id=" + $("#media_id").val() + "&start_date=" + start_date + "&end_date=" + end_date);
+	    }
+	});
+	cookies_options = $.cookie("url_setting");
+	update_cookie = function(data,ele){
+		options = cookies_options.split("");
+		options[data] = (options[data] == "1") ? "0" : "1";
+		text = (options[data] == "1") ? "<img src='/assets/btn_box_dl.gif' >" : "<img src='/assets/btn_box_add.gif' >";
+		$(ele).html(text);
+		options = options.join("");
+		cookies_options = options;
+	}
+	$(document).on('click', "#change_cookie", function(){
+    var term = $('#datepick').val();
+    var d = term.split(' ~ ');
+    start_date = d[0];
+    end_date = d[1];
+		$.cookie("url_setting",cookies_options);
+		so = 0;
+		for (var i=0;i<colums.length;i++){
+			if (cookies_options[i] == "1"){
+				showColumn(".newTable04", i, true);
+			} else{
+				showColumn(".newTable04", i, false);
+			}
+		 }
+
+	    reloadFlex1(".newTable04", "<%= get_urls_list_url_settings_path %>?promotion_id=<%= @promotion_id %>&account_id=<%= @account_id%>&media_id=<%= @media_id%>" + "&start_date=" + start_date + "&end_date=" + end_date);
+	    default_url_options = $("#inline_cv_logs").html();
+		$("#clicklogs").colorbox.close();
+	});
+	$(document).on('click', "#not_change_cookie", function(){
+		cookies_options = $.cookie("url_setting");
+		$("#inline_cv_logs").html(default_url_options);
+		$("#clicklogs").colorbox.close();
+	})
+	
+	$("#show_option").click(function(){
+		$.colorbox({
+        	width: "515",
+            inline: true,
+            escKey: false,
+            overlayClose: false,
+            href: "#inline_cv_logs",
+            height:"600"
+		});
+	})
+
+});
+</script>
+<script type="text/javascript">
+  $(function(){
+      $("#import_csv").change(function(){
+          $("#upload_button").val($("#import_csv").val());
+      });
+      $("#upload_button").click(function(){
+          $("#import_csv").click();
+      });
+
+      $("#import_csv").change(function(){
+          $("#input_text").val($("#import_csv").val());
+      });
+      $("#input_text").click(function(){
+          $("#import_csv").click();
+      });
+  });
+
+  function check_all_option() {
+      cookies_options = "11111111111";
+      text = "<img src='/assets/btn_box_dl.gif' >";
+      $('.check_options a').html(text);
+    }
+</script>
+        <div class="contentNavi">
+            <ul>
+                <li class="pre"><a title="<%= @client_name %>" class="bread_scrumb_link" href="<%= clients_path%>?client_id=<%= @client_id%>"><%= short_ja_name(@client_name) %></a></li>
+                <li>&gt;</li>
+                <li class="pre"><a title="<%= @promotion_name %>" class="bread_scrumb_link" href="<%= promotions_path%>?client_id=<%= @client_id%>&promotion_id=<%= @promotion_id %>"><%= short_ja_name(@promotion_name) %></a></li>
+                <li>&gt;</li>
+                <li><%= I18n.t("url.title") %>/<span title="<%= @media_name %>"><%= short_ja_name(@media_name) %></span>/<span title="<%= @account_name %>"><%= short_ja_name(@account_name) %></span></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+        <div id="uploadArea">
+          <%= form_for Import.new, html: {multipart: true} do |f| %>
+            <input type="hidden" name="promotion_id" value="<%= @promotion_id %>"/>
+            <input type="hidden" name="account_id" value="<%= @account_id %>"/>
+            <input type="hidden" name="media_id" value="<%= @media_id %>"/>
+            <input type="hidden" name="client_id" value="<%= @client_id %>"/>
+            <input type="hidden" name="media_category_id" value="<%= @media_category_id %>"/>
+            <input type="hidden" name="breadcrumb" value="<%= short_ja_name(@client_name) + '>' + short_ja_name(@promotion_name) + '>' + short_ja_name(@media_name) + '>' + short_ja_name(@account_name) %>"/>
+            <table class="file_upload">
+                <tr>
+                  <td><a href="javascript:void(0)" id="upload_button"> 
+                         <img src="/assets/btn_file_select.gif">
+                      </a>
+                  </td>
+                  <td><input type="radio" name="type" value="insert" checked="checked" />
+                      <%= I18n.t("url.upload_type.insert") %></td>
+                  <td><input type="radio" name="type" value="update"/>
+                      <%= I18n.t("url.upload_type.update") %></td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="display:none">
+                      <input id="import_csv" type="file" name="import[csv]">
+                  </td>
+                  <td><input id="input_text" type="text"/></td>
+                  <td>
+                    <a href="javascript:void(0)"><input type="image" src="/assets/btn_upload.gif"></a>
+                  </td>
+                  <td></td>
+                </tr>
+            </table>
+            <p style="cursor: pointer;">
+            	<small>
+                  <a class="dl" href="<%= download_template_url_settings_path %>?account_id=<%= @account_id%>"><%= I18n.t("url.download_template") %></a>
+                </small>
+            </p>
+              <% if (flash[:csv_error]) && (flash[:csv_error].count > 0) %>
+                <% flash[:csv_error].each do |error_message| %>
+                  <% if error_message.kind_of?(Array) %>
+                    <p class="bold" style="color:red"><%= error_message[0] %></p>
+                  <% else %>
+                    <p class="bold" style="color:red"><%= error_message %></p>
+                  <% end %>
+                <% end %>
+              <% else %>
+
+                <p class="bold"><%= flash[:error] %></p>
+              <% end %>
+
+          <% end %>
+        </div>
+        <!-- #uploadArea -->
+        <table style="display:none" class="newTable04 fixTable d-none"></table>
+    <!-- /#container end -->
+  <div style='display:none'>
+    <div id='inline_cv_logs'>
+      <div class="f_box2">
+        <p class="f_box_title2"><%= I18n.t("url.show_option.table")%></p>
+        <p class="f_category_title2"><%= I18n.t("url.show_option.display_item")%></p>
+        <div class="box04">
+          <!-- チェックボックス -->
+          <p class="box4_txt" id="show_all"><a onclick="check_all_option();" class="bread_scrumb_link" href="javascript:void(0)"><%= I18n.t("url.show_option.select_all")%></a></p>
+          <div class="check-group check-group2 clearfix">
+            <table width='100%'>
+              <tr>
+                <td class="check_txt"><%= I18n.t("url.last_modified") %></td>
+                <td align='right' class="check_options">
+                  <%= link_to cookies[:url_setting][9] == "0" ? image_tag("/assets/btn_box_add.gif") : image_tag("/assets/btn_box_dl.gif"), "javascript:void(0)", onclick: "update_cookie('1',this)"%>
+                </td>
+              </tr>
+              <% Settings.url_options.each_with_index do |option, index|
+                  if option == "edit" || option == "ad_id" || option == "url" || option == "delete" || option == "last_modified"
+                     next
+                  end
+                 %>
+                  <tr>
+                    <td class="check_txt"><%= I18n.t("url." + option) %></td>
+                    <td align='right' class="check_options">
+                      <%= link_to cookies[:url_setting][index] == "0" ? image_tag("/assets/btn_box_add.gif") : image_tag("/assets/btn_box_dl.gif"), "javascript:void(0)", onclick: "update_cookie('#{index}',this)"%>
+                    </td>
+                  </tr>
+              <% end %>
+            </table>
+            <div class="submit_area2">
+              <a href="javascript:void(0)"><button id="change_cookie" style="border: 0px"><img src="/assets/btn_done.gif" alt="<%= I18n.t('url.show_option.complete_alt') %>"></button></a>
+              <a href="javascript:void(0)"><button id="not_change_cookie" style="border: 0px"><img src="/assets/btn_cancel.gif" alt="<%= I18n.t('url.show_option.cancel_alt') %>"></button></a>
+            </div>
+
+          </div>
+          <!-- /チェックボックス -->
+        </div>
+
+      </div>
+    </div>
+  </div>

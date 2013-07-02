@@ -1,0 +1,154 @@
+<% provide(:title, I18n.t("user.title.edit")) %>
+<script type="text/javascript">
+$(function(){
+	prevent_change = "<%= @prevent %>";
+	$(".prevent_change").change(function(){
+		prevent_change = "1"
+	})
+})
+</script>
+<%= render "layouts/prevent_change_page_edit" %>
+<%= stylesheet_link_tag "css/users_new" %>
+<%= stylesheet_link_tag "css/common" %>
+<%= flash[:success] if flash[:success] %>
+<div id="user_form">
+  <p class="h2"><%= I18n.t("user.crumb_edit") %></p>
+  <%= form_for(@user) do |f| %>
+      <table>
+        <tbody>
+        <tr>
+          <th><div style="width: 190px;"><%= f.label I18n.t("user.username") %></div></th>
+          <td colspan="2"><%= f.text_field :username, maxlength: 255, style: "width: 280px",tabindex: 1, class: "prevent_change" %></td>
+        </tr>
+        <tr>
+          <th><div style="width: 190px;"><%= f.label I18n.t("user.roman_name") %></div></th>
+          <td colspan="2"><%= f.text_field :roman_name, maxlength: 255, style: "width: 280px",tabindex: 2, class: "prevent_change" %></td>
+        </tr>
+        <tr>
+          <th><div style="width: 190px;"><%= f.label I18n.t("user.email") %></div></th>
+          <td colspan="2"><%= f.text_field :email, maxlength: 255, style: "width: 280px",tabindex: 3, class: "prevent_change" %></td>
+        </tr>
+        <tr>
+          <th><div style="width: 190px;"><%= f.label I18n.t("user.role.label") %></div></th>
+          <td colspan="2">
+            <%= text_field_tag :role_id, @user.role.role_name, disabled: true, style: "width: 280px;" %>
+          </td>
+        </tr>
+        <tr>
+          <th><div style="width: 190px;"><%= f.label I18n.t("user.company_name") %></div></th>
+          <td colspan="2">
+            <% if @user.client? %>
+                <%= text_field_tag :company_id, Client.find(@user.company_id).client_name, disabled: true, style: "width: 280px;" %>
+            <% else %>
+                <%= text_field_tag :company_id, Agency.find(@user.company_id).agency_name, disabled: true, style: "width: 280px;" %>
+            <% end %>
+        </tr>
+        <tr>
+          <th><div style="width: 190px;"><%= f.label I18n.t("user.password.label") %></div></th>
+          <td colspan="2">*******************</td>
+        </tr>
+        <tr>
+          <th><div style="width: 190px;"><%= f.label I18n.t("user.password_notification.label") %></div></th>
+          <td style="width: 220px;"><%= f.radio_button :password_flg, "0", disabled: true %> <%= f.label I18n.t("user.password_notification.not_notified") %></td>
+          <td style="width: 160px;"><%= f.radio_button :password_flg, "1", disabled: true %> <%= f.label I18n.t("user.password_notification.to_notified") %></td>
+        </tr>
+        <tr>
+          <th><div style="width: 190px;"><%= f.label I18n.t("user.disabled.label") %></div></th>
+          <td>
+              <% if @user.status == Settings.user.deactive %>
+                  <input type="checkbox" id = "disable_button" checked="checked" name="deactive" tabindex= "4" class="prevent_change">
+              <% else %>
+                  <input type="checkbox" id = "disable_button" name="deactive" tabindex= "4" class="prevent_change">
+              <% end %><%= I18n.t("user.disabled.disable") %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="submit_area">
+        <input type="image" id="btn_submit" src="/assets/btn_done.gif" tabindex= "5">
+        <%= link_to image_tag("/assets/btn_cancel.gif",align: "right", alt: "キャンセル", tabindex:6), users_path %>
+      </div>
+      </form>
+  <% end %>
+</div>
+
+<div style='display:none'>
+	<div id="disabled">
+		<p class="del_message" style="margin-top:20px;">
+			【注意】下記、ユーザーを無効にしようとしています。</br>
+			このユーザーではログイン出来なくなってしまいますが、</br>
+			問題ないでしょうか。</br>
+			-----------------------------------------------</br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ユーザー名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <%= short_ja_name(@user.username) %></br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;メールアドレス&nbsp;&nbsp;: <%= @user.email %></br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;権限&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ：<%= @user.role.role_name %></br>
+			-----------------------------------------------</br>
+		</p>
+	</div>
+	<div id="enabled">
+		<p class="del_message" style="margin-top:20px;">
+			【注意】下記、ユーザーの無効化を削除しようとしています。</br>
+			このユーザーでログインが出来るようになりますが、</br>
+			問題ないでしょうか。</br>
+			-----------------------------------------------</br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ユーザー名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <%= short_ja_name(@user.username) %></br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;メールアドレス&nbsp;&nbsp;: <%= @user.email %></br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;権限&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ：<%= @user.role.role_name %></br>
+			-----------------------------------------------</br>
+		</p>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		check = $("#disable_button").is(':checked')? true : false;
+		$(".ok_popup").click(function(){
+			$(".edit_user").submit();
+		})
+		
+		$("#btn_submit").click(function(e){
+			e.preventDefault();
+			checked = $("#disable_button").is(':checked')? true : false;
+			if (check != checked){
+				if (checked){
+					$.confirm({
+			            'message'	: $("#disabled").html(),
+			            'buttons'	: {
+			                "<%= I18n.t('popup.cancel') %>"	: {
+			                    'class'	: 'popup_no',
+			                    'action': function(){
+			                    	$("#disable_button").attr("checked",check);
+			                    }	
+			                },
+			                "<%= I18n.t('popup.disable') %>"	: {
+			                    'class'	: 'popup_yes',
+			                    'action': function(){
+			                        $(".edit_user").submit();
+			                    }
+			                },
+			            }
+        			});
+				}else{
+					$.confirm({
+			            'message'	: $("#enabled").html(),
+			            'buttons'	: {
+			                "<%= I18n.t('popup.cancel') %>"	: {
+			                    'class'	: 'popup_no',
+			                    'action': function(){
+			                    	$("#disable_button").attr("checked",check);
+			                    }	
+			                },
+			                "<%= I18n.t('popup.enable') %>"	: {
+			                    'class'	: 'popup_yes',
+			                    'action': function(){
+			                        $(".edit_user").submit();
+			                    }
+			                },
+			            }
+        			});
+				}
+			}else{
+				$(".edit_user").submit();
+			}
+		})
+	})
+</script>

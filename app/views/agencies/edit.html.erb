@@ -1,0 +1,38 @@
+<% provide(:title, I18n.t("agency.title.edit")) %>
+<script type="text/javascript">
+$(function(){
+	prevent_change = "<%= @prevent %>";
+	$(".prevent_change").change(function(){
+		prevent_change = "1"
+	})
+})
+</script>
+<%= render "layouts/prevent_change_page_edit" %>
+<%= stylesheet_link_tag "css/agency" %>
+<%= stylesheet_link_tag "css/common" %>
+<div id="user_form">
+  <p class="h2"><%= I18n.t("agency.crumb_edit") %></p>
+  <%= form_for(@agency) do |f| %>
+      <table>
+        <tbody>
+        <tr>
+          <th><%= f.label t("agency.agency_name") %>:</th>
+          <td colspan="2">
+            <%= f.text_field :agency_name, maxlength: 255, style: "width: 250px", class: "prevent_change" %>
+          </td>
+        </tr>
+        <tr>
+          <th> <%= f.label t("agency.roman_name") %>:</th>
+          <td colspan="2">
+            <%= f.text_field :roman_name, maxlength: 255, style: "width: 250px", class: "prevent_change" %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="submit_area">
+        <input type="image" id="btn_submit" src="/assets/btn_done.gif" name="commit">
+        <p><%= link_to raw('<img align="right" alt="キャンセル" src="/assets/btn_cancel.gif">'), agencies_path %></p>
+      </div>
+      </form>
+  <% end %>
+</div>

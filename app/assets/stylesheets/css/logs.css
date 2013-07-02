@@ -1,0 +1,314 @@
+#wrapper {
+    margin: 0 auto;
+    width: 100%;
+}
+#container {
+    float: right;
+    margin-left: -310px;
+    width: 100%;
+}
+#contents {
+    border-left: 2px solid #C1C1C1;
+    margin: 0 40px 0 310px;
+    min-height: 500px;
+    position: relative;
+}
+#inner {
+      padding: 10px 0 20px 15px;
+}
+#inner p.client_name {
+    color: #3E5869;
+    font-size: 16px;
+    font-weight: bold;
+}
+#inner p.regist {
+    color: #3E5869;
+    font-size: 16px;
+    font-weight: bold;
+}
+.regist_form {
+    background-color: #F1F1F1;
+    border: 1px solid #B6B6B6;
+    margin: 10px 0 0;
+    min-height: 510px;
+    width: 630px;
+}
+.fl-r-log
+{
+    float: left;
+    margin-top:10px;
+    width: 220px;
+}
+.regist_form table.client_info {
+    width: 610px;
+}
+.regist_form table.client_info tbody {
+    width: 610px;
+}
+.regist_form table.client_info tbody tr {
+    border-bottom-style: none;
+}
+.regist_form table.client_info tbody th {
+    text-align: right;
+    width: 200px;
+}
+.regist_form .input-text {
+    width: 300px;
+}
+.submit_area p {
+    display: inline;
+}
+.submit_area p a img:hover{ 
+opacity:0.7;
+}
+
+/*#btn_done {
+    background: url("../../images/btn_done.gif") no-repeat scroll left top transparent;
+	margin-right: 15px; 
+	float: left;
+	height: 44px;
+    width: 169px;
+}*/
+table.user_add {
+    width: 610px;
+}
+table.user_add tbody th {
+    text-align: right;
+    width: 170px;
+}
+table.user_add tbody td {
+    padding-left: 5px;
+}
+
+/* ==========================================================================
+   ボタン部分のプルダウン
+   ========================================================================== */
+.date{
+  background-color: #F8F8F8;
+    float: right;
+    height: 38px;
+    line-height: 16px;
+    margin: 0;
+    padding: 5px 0 0 5px;
+    width: 205px;
+    margin-top:5px;
+    margin-left: 10px;
+	    border: 1px solid #3aa2bc;
+}
+
+#graph{
+   left: 715px;
+    position: absolute;
+    top: 70px;
+    width: 230px;
+}
+
+#graph p{
+	float:left;
+	padding: 5px 4px;
+	vertical-align: bottom;
+}
+
+
+/* ==========================================================================
+   セレクト部分
+   ========================================================================== */
+.area_block{
+	   margin-top: 40px;
+	       width: 660px;
+	}
+.selectarea{
+	  float: left;
+    margin-left: 100px;
+    width: 285px;
+	}
+.selectarea li{
+	padding:5px 0;
+	}
+	
+	
+
+.selectarea li .input-text{
+	width:160px;
+	float:right;
+	}
+
+
+
+/* ==========================================================================
+   ファンシーボックス
+   ========================================================================== */
+
+	/* サムネイルリストのCSS */
+	#content {
+		width: 665px;
+		margin: 150px auto 0;
+	}
+	
+	#content .cookie_list {
+		width: 665px;
+		margin: 0 auto 15px;
+	}
+	
+	#content .cookie_list li {
+		float: left;
+		padding-right: 15px;
+	}
+	
+	#content li.lc {
+		padding: 0;
+	}
+
+	.f_box_title2 {
+  background-color: #545454;
+    border: 1px solid #EFEFEF;
+    color: #FFFFFF;
+    font-size: 18px;
+    height: 33px;
+    padding: 10px 0 0 20px;
+    position: absolute;
+    text-align: left;
+      width: 493px;
+	}	
+	
+	
+.f_category_title1{
+  color: #404040;
+    font-size: 16px;
+    left: 20px;
+    position: absolute;
+    top: 63px;
+	
+	}
+.f_category_title2{
+  color: #404040;
+    font-size: 16px;
+    left: 120px;
+    position: absolute;
+    top: 63px;
+	}	
+		
+		
+		
+		
+	.box01{
+    background-color: #FFFFFF;
+    border: 2px solid #C4C4C4;
+    height: 455px;
+     left: 375px;
+    position: absolute;
+    top: 90px;
+    width: 325px;
+		
+		}
+	.box02{
+    background-color: #FFFFFF;
+    border: 2px solid #C4C4C4;
+    height: 455px;
+    left: 50px;
+    position: absolute;
+    top: 90px;
+    width: 150px;
+		}	
+		.box02 ul li{
+			padding: 10px 0 10px 10px;
+		}	
+			.box02 ul .present{
+			padding: 10px 0 10px 10px;
+			background-color:#d8d8d8;
+		}		
+		
+	.box02 ul li .small{
+		
+		font-size:12px;
+		padding:0 0 0 0;
+		
+		}	
+		.box031{
+    background-color: #FFFFFF;
+    border: 2px solid #C4C4C4;
+    height: 455px;
+     left: 20px;
+    position: absolute;
+    top: 90px;
+    width: 520px;
+		}	
+		.box3_txt{
+    color: #E76813;
+    padding: 5px 0 0 160px;
+		}		
+				
+		.box03{
+    background-color: #FFFFFF;
+    border: 2px solid #C4C4C4;
+    height: 455px;
+     left: 20px;
+    position: absolute;
+    top: 90px;
+    width: 325px;
+		}	
+		.box3_txt{
+    color: #E76813;
+    padding: 5px 0 0 160px;
+		}		
+	.submit_area{
+		 left: 200px;
+    position: absolute;
+    top: 565px;
+	float: left;
+		}
+					.submit_area img{
+				float: left;
+		}	
+		.submit_area2{
+   float: left;
+    left: 85px;
+    position: absolute;
+    top: 590px;
+    width: 400px;
+		}	
+			.submit_area2 img{
+				float: left;
+		}		
+	
+			.box04{
+  background-color: #FFFFFF;
+    border: 2px solid #C4C4C4;
+    height: 480px;
+    left: 120px;
+    position: absolute;
+    top: 90px;
+    width: 270px;
+		}	
+	.box4_txt{
+    color: #E76813;
+    padding: 5px 0 0 160px;
+		}	
+		
+/* ==========================================================================
+   タブの切り替え
+   ========================================================================== */
+#conversion_inner{
+	margin-top:30px;
+	}
+
+	.contentNavi li.pre a{
+		color: #F63;
+	}
+.w_box {
+	/*min-width: 1200px;*/
+}	
+
+input#datepicker {
+	border: 0px;
+	font-size: 11px;
+	background-color: #F8F8F8;
+	max-width: 190px;
+}
+.flexigrid div.hDiv th div {
+    text-align: center !important;
+}
+/* redefine style by name for _ALL_ flexigrid */
+.flexigrid div.hDiv th[abbr="sign"] div {
+    text-align: left !important;
+}

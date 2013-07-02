@@ -1,0 +1,32 @@
+<% if @error == I18n.t("client.flash_messages.update") %>
+	<% flash[:error] = @error %>
+	location.href = "<%= clients_path(client_id: @client.id) %>";
+<% else %>
+	prevent_change = "1"
+	$("#client_info").html("<%=j render 'client_info_edit_form'%>");
+	$("#user_list_form").html(user_list_html);
+	$("#tags").autocomplete({
+            source: list_user,
+            select: function (event, ui) {
+            	prevent_change = "1";
+                $("#tags").val("");
+                list_user.splice(list_user.indexOf(ui.item), 1);
+                data = ui.item;
+                $("#user_list").append("<tr><th>" + data.label + "(" + data.company + ")</th>" + "<td>" + data.email + "</td><td>" + data.role
+                        + "</td><td><input type = 'hidden' name='users_id[]' value ='" + data.value +
+                        "'><input class= 'del_user' type = 'checkbox' name='del_user_" + data.value + "'></td></tr>");
+				user_list_html = $("#user_list_form").html();
+                $(this).blur();
+                return false;
+            },
+            minLength: 0,
+            focus: function (e, ui) {
+                e.preventDefault();
+                this.value = ui.item.label;
+            }
+        }).focus(function (event) {
+                    $(this).autocomplete("search");
+                    $("#tags").val("");
+                    event.preventDefault();
+                });
+<% end %>

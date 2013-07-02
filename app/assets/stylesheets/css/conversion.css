@@ -1,0 +1,292 @@
+#wrapper {
+    margin: 0 auto;
+    width: 100%;
+}
+
+#container {
+    float: right;
+    margin-left: -310px;
+    width: 100%;
+}
+#contents {
+    border-left: 2px solid #C1C1C1;
+    margin: 0 40px 0 310px;
+    min-height: 500px;
+    position: relative;
+}
+#inner {
+    padding: 10px 0 20px 35px;
+}
+#inner p.client_name {
+    color: #3E5869;
+    font-size: 16px;
+    /*font-weight: bold;*/
+}
+#inner p.regist {
+    color: #3E5869;
+    font-size: 16px;
+    font-weight: bold;
+}
+.conversion_form {
+    background-color: #F1F1F1;
+    border: 1px solid #B6B6B6;
+    border-top: 3px solid #828282;
+    min-height: 510px;
+    width: 700px;
+    padding-left: 10px;
+}
+.conversion_form table.client_info {
+    width: 700px;
+}
+
+.conversion_form table.client_info tbody {
+	font-size: 13px;
+    width: 700px;
+}
+
+.conversion_form table.client_info tbody tr {
+    height:45px;
+    border-bottom-style: none;
+}
+.conversion_form table.client_info tbody th {
+    font-weight: bold;
+    text-align: right;
+    width: 180px;
+}
+.chart_left {
+    width:170px;
+}
+
+.conversion_form table.client_info tbody td {
+	padding-left: 5px;
+	font-weight: bold;
+	width:140px;
+}
+
+.conversion_form input{
+	padding-left: 5px;
+	font-weight: normal;
+}
+.conversion_form .input-text {
+    width: 285px;
+}
+
+.conversion_form select{
+	/*width: 285px;*/
+}
+
+.submit_area {
+    margin: 15px auto;
+    width: 380px;
+}
+
+.submit_area2 {/*3つ並びの場合*/
+    margin: 15px auto auto;
+    width: 540px;
+	margom-bottom: 35px;
+}
+
+.submit_area p {
+    display: inline;
+}
+
+.submit_area p img:hover{
+	opacity:0.7
+}
+
+#btn_done:hover{
+	opacity:0.7;
+}
+
+table.user_add {
+    width: 610px;
+}
+table.user_add tbody th {
+    text-align: right;
+    width: 170px;
+}
+
+table.user_add tbody td {
+    padding-left: 5px;
+}
+
+.disabled{
+	color: #999;
+}
+	
+#conversion_inner{
+	margin: 20px 0;
+}
+
+.tag{
+	margin: auto;
+	min-height: 130px;
+	width: 525px;
+	margin: 40px auto 0 auto;
+}
+
+.tag p{
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.tag img{
+	padding: 5px 10px;
+}
+
+table.setting_info{
+	width: 100%;
+	/*border: 1px solid #a7a7a7;*/
+}
+
+table.setting_info tr{
+	height:30px;
+}
+
+table.setting_info th{
+	border: 1px solid #a7a7a7;
+	width: 95px;
+	background-color: #828282;
+	color: #fff;
+	text-align: center;
+}
+
+table.setting_info td{
+	border: 1px solid #a7a7a7;
+	background-color: #fff;
+	padding: 5px 10px;
+	color: #4c4c4c;
+}
+
+table.setting_info td img{
+	padding: 2px 0 0 0;
+}
+
+
+table.setting_info td.copy_button{
+	border: none;
+	background-color: #f1f1f1;
+	width: 86px;
+	height: 40px;
+	border: none;
+	border-bottom: 0;
+}
+
+#url{
+	color:#929292;
+}
+
+#fragment-1{
+	width: 635px;
+}
+
+#fragment-1 p{
+	margin-top:10px;
+	padding: 0 0 0 5px;
+}
+
+#fragment-2{
+	width: 635px;
+}
+
+#fragment-2 th{
+	width:95px;
+}
+
+.last-child{
+	border-style: none;
+}
+
+#ui-tab ul li a:hover{
+	opacity:0.6;
+}
+
+li.disabled {
+    margin: 1px 0 0;
+/*  margin-left: 1px; /* position: relative makes opacity fail for disabled tab in IE */
+    padding-left: 0;
+    color: #474747;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap; /* required in IE 6 */    
+    outline: 0; /* prevent dotted border in Firefox */
+    /* add */
+    background-color: #f1f1f1;
+    padding-top: 10px;
+    /*padding: 10px 0 0 0;*/
+    width: 155px;
+    height: 31px;
+}
+
+.ui-tabs-nav .disabled a{
+  color: #474747;
+  background-color: #f1f1f1;
+}
+.ui-tabs-nav .disabled a span{
+  padding-top: 0px;
+}
+
+.urlBox{
+	width: 120px;
+}
+.mcdropdown_spacing{
+  margin: 0 0 0 90px !important;
+    padding: 0 !important;
+    width: 40px !important;
+}
+ul, li {
+    margin:0;
+    padding:0;
+}
+.btn_details {
+    width: 210px;
+    float:left;
+}
+.btn_details li {
+    list-style: none;
+    float: left;
+    position: relative;
+}
+.btn_details ul {
+    display: none;
+    position: absolute;
+    top: 29px;
+    left: 0;
+}
+* html .btn_details ul {
+    line-height: 0;
+}
+.btn_details ul li {
+    float: none;
+}
+.btn_details ul {
+    width: 140px;
+    border: 1px solid #bcbfc0;
+
+}
+.btn_details ul ul {
+    top: 0;
+    left: 141px;
+
+    border: 1px solid #bcbfc0;
+
+}
+.btn_details ul a {
+    display: block;
+    width: 128px;
+    background-color:#FFF;
+    padding: 6px;
+    color:#000;
+    zoom: 1;
+    line-height: 1;
+    text-decoration:none!important;
+}
+.btn_details ul a.hover {
+    background-color:#d6ecf1;
+    color:#0087a9;
+    opacity: 1!important;
+
+
+}

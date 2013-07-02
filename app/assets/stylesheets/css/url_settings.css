@@ -1,0 +1,310 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* ==========================================================================
+   setting/index.html  [????]
+   ========================================================================== */
+
+#wrapper {
+    margin: 0 auto;
+    width: 100%;
+}
+.upload_icon {
+    position:relative;
+    float:left;
+    width: 51px;
+    height:25px;
+    background: url(/assets/display_upload.gif)
+}
+.upload_icon p {
+    color: #fff;
+    position: absolute;
+    top: 5px;
+    left: 31px;
+}
+#personal {
+    width:450px;
+    margin: 0;
+    padding: 0;
+    float:right;
+    margin-top: 13px;
+}
+#personal ul {
+    float:right;
+}
+#container {
+    width: 95%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#contents {
+    position: relative;
+    min-height:500px;
+}
+#inner {
+
+}
+
+#personal ul{
+	float:right;
+}
+
+p.dl{
+	color: #F63;
+	text-decoration:underline;
+	padding: 2px 0;
+}
+
+.date{
+  background-color: #F8F8F8;
+    float: right;
+    height: 38px;
+    line-height: 16px;
+    margin: 0;
+    padding: 5px 0 0 5px;
+    width: 215px;
+    border: 1px solid #3aa2bc;
+}
+.date p {
+    margin-bottom: 5px;
+}
+.errorArea {
+    margin-top:30px;
+}
+
+#content {
+    width: 665px;
+    margin: 150px auto 0;
+}
+#content .cookie_list {
+    width: 665px;
+    margin: 0 auto 15px;
+}
+#content .cookie_list li {
+    float: left;
+    padding-right: 15px;
+}
+#content li.lc {
+    padding: 0;
+}
+/* ????????CSS */
+/*position: absolute;?????*/
+.f_box {
+    position: relative;
+    width: 100%;/* ?????????? */
+    font-weight:bold;
+    font-size:14px;
+    text-decoration:none;
+    color:#404040;
+}
+.f_box a:link {
+    color: #404040;
+    text-decoration:none;
+}
+.f_box a:visited {
+    color: #404040;
+}
+.f_box a:hover {
+    color: #404040;
+}
+.f_box a:active {
+    color: #404040;
+}
+.f_box_title {
+    border: 1px solid #efefef;
+    background-color: #545454;
+    color: #FFFFFF;
+    font-size: 18px;
+    height: 33px;
+    padding: 10px 0 0 20px;
+    position: absolute;
+    text-align: left;
+    width: 703px;
+}
+.f_category_title1 {
+    color: #404040;
+    font-size: 16px;
+    left: 49px;
+    position: absolute;
+    top: 63px;
+}
+.f_category_title2 {
+    color: #404040;
+    font-size: 16px;
+    left: 276px;
+    position: absolute;
+    top: 63px;
+}
+.box01 {
+    background-color: #FFFFFF;
+    border: 2px solid #C4C4C4;
+    height: 450px;
+    left: 50px;
+    position: absolute;
+    top: 90px;
+    width: 200px;
+}
+.box01_txt {
+    color:#e76813;
+    padding: 0 0 0 110px;
+}
+.box02 {
+    background-color: #FFFFFF;
+    border: 2px solid #C4C4C4;
+    height: 350px;
+    left: 275px;
+    position: absolute;
+    top: 90px;
+    width: 200px;
+}
+#tab li {
+    background-color: #D6D6D6;
+    border-color: #EFEFEF;
+    border-style: solid;
+    border-width: 1px;
+    float: left;
+    height: 31px;
+    padding: 5px 0 0;
+    text-align: center;
+    width: 210px;
+}
+#tab .present {
+    background-color: #f1f1f1;
+    float: left;
+    height: 31px;
+    width: 209px;
+    color:#0087a9!important;
+    border-bottom:none!important;
+}
+#tab .present a {
+    color:#0087a9!important;
+}
+.box02 ul li .small {
+    font-size:12px;
+    padding:0 0 0 0;
+}
+.box03 {
+    background-color: #FFFFFF;
+    border: 2px solid #C4C4C4;
+    height: 350px;
+    left: 477px;
+    position: absolute;
+    top: 90px;
+    width: 200px;
+}
+.submit_area {
+    background-color:#f1f1f1!important;
+    border:none!important;
+    clear: both!important;
+    text-align:center!important;
+}
+.entrydate_box {
+    clear: both;
+    left: 9px;
+    position: absolute;
+    top: 35px;
+}
+.entrydate_box li {
+    background-color: white;
+    border: 1px solid;
+    clear: both;
+    height: 50px;
+    margin: 10px 0 0;
+    width: 615px;
+}
+.entrydate_table {
+    float: left;
+    font-size: 11px;
+    font-weight: normal;
+    margin: 5px 0 0 5px;
+    width: 500px;
+}
+.btn_cancel {
+    float: right;
+    width: 90px;
+    margin: 10px 5px 0 0;
+}
+.btn_download {
+    float: right;
+    width: 90px;
+    margin: 10px 5px 0 0;
+}
+.file_name {
+    text-align: left;
+    width: 230px;
+}
+.capacity {
+    text-align:left;
+    width: 90px;
+}
+.daily {
+    text-align:left;
+    width: 90px;
+}
+.c_orange {
+    color:#e76813;
+    font-weight:bold;
+    text-align: right;
+    width: 100px;
+}
+.c_blue {
+    width: 100px;
+    color:#0087a9;
+    font-weight:bold;
+    text-align: right;
+}
+.c_black {
+    width: 100px;
+    color:#000;
+    font-weight:bold;
+    text-align: right;
+}
+
+
+div.check-group {
+    float: left;
+    margin-left: 12px;
+    margin-top: 7px;
+    width: 250px;
+}
+div.check-group li {
+    padding: 0 0 0px;
+}
+div.check-group input {
+    display: none;
+}
+div.check-group label {
+    background: url("/assets/btn_box_add.gif") no-repeat scroll 0 0 transparent;
+    float: right;
+    height: 28px;
+    padding: 0 5px;
+    text-indent: -9999px;
+    width: 55px;
+}
+div.check-group div:first-child label {
+    -webkit-border-top-left-radius: 7px;
+    -webkit-border-bottom-left-radius: 7px;
+    -moz-border-radius-topleft: 7px;
+    -moz-border-radius-bottomleft: 7px;
+}
+div.check-group div:last-child label {
+    -webkit-border-top-right-radius: 7px;
+    -webkit-border-bottom-right-radius: 7px;
+    -moz-border-radius-topright: 7px;
+    -moz-border-radius-bottomright: 7px;
+}
+div.check-group label.checked {
+    background: url("/assets/btn_box_dl.gif") no-repeat scroll 0 0 transparent;
+    float: right;
+    height: 28px;
+    padding: 0 5px;
+    text-indent: -9999px;
+    width: 55px;
+}
+div.check-group label::-moz-selection, div.check-group label::selection {
+    background: transparent;
+}
+.check_txt {
+    float:left;
+}

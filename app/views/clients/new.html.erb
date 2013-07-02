@@ -1,0 +1,66 @@
+<% provide(:title, I18n.t("client.title.add")) %>
+<script type="text/javascript">
+$(function(){
+	prevent_change = "<%= @prevent %>";
+	$(".prevent_change").change(function(){
+		prevent_change = "1"
+	})
+})
+</script>
+<%= stylesheet_link_tag "css/common" %>
+<p class="h2"><%= I18n.t("client.crumb_add") %></p>
+<%= render "layouts/prevent_change_page_new" %>
+<% content_for :sidebar do %>
+	<%= render partial: "layouts/sidebar", locals: {object: @clients} %>
+<% end %>
+<div id="client_info">
+  <%= render "client_info_form" %>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        list_user = [];
+        user_list_html = $("#user_list_form").html();
+        <% User.active.order_by_roman_name.where('role_id != ?',1).each do |user|%>
+        <%
+        if user.client?
+          company = Client.find(user.company_id).client_name
+        else
+        	company = Agency.find(user.company_id).agency_name
+        end
+        %>
+        list_user.push({"label": "<%= short_ja_name(user.username) %>", "value": "<%= user.id %>", "email": "<%= short_en_name(user.email) %>", "role": "<%= user.role.role_name %>", "company": "<%= short_ja_name(company) %>"});
+        <% end %>
+        $("#tags").autocomplete({
+            source: list_user,
+            select: function (event, ui) {
+            	prevent_change = "1";
+                $("#tags").val("");
+                list_user.splice(list_user.indexOf(ui.item), 1);
+                data = ui.item;
+                $("#user_list").append("<tr><th>" + data.label + "(" + data.company + ")</th>" + "<td>" + data.email + "</td><td>" + data.role
+                        + "</td><td><input type = 'hidden' name='users_id[]' value ='" + data.value +
+                        "'><input class= 'del_user' type = 'checkbox' name='del_user_" + data.value + "'></td></tr>");
+                $('#delete_label').css("display", "block");
+                user_list_html = $("#user_list_form").html();
+                $(this).blur();
+                return false;
+            },
+            minLength: 0,
+            focus: function (e, ui) {
+                e.preventDefault();
+                this.value = ui.item.label;
+            }
+        }).focus(function (event) {
+                    $(this).autocomplete("search");
+                });
+        $(document).on('click', ".del_user", function(){
+        	if ($(this).is(':checked')){
+        		$(this).attr("checked","checked");
+        		user_list_html = $("#user_list_form").html();
+        	}else{
+        		$(this).removeAttr("checked");
+        		user_list_html = $("#user_list_form").html();
+        	}
+        });
+    });
+</script>

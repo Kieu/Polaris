@@ -1,0 +1,77 @@
+<%= form_for(@client, remote: true) do |f| %>
+    <div class="regist_form">
+      <table class="client_info">
+        <tr>
+          <th> <%= f.label t("client.client_name") %></th>
+          <td colspan="2"><%= f.text_field :client_name, maxlength: 255, style: "width: 250px", class: "prevent_change" %></td>
+        </tr>
+        <tr>
+          <th><div style="width: 180px;"><%= f.label t("client.roman_name") %></div></th>
+          <td colspan="2"><%= f.text_field :roman_name, maxlength: 255, style: "width: 250px", class: "prevent_change" %></td>
+        </tr>
+        <tr>
+          <th><%= f.label t("client.tel") %></th>
+          <td colspan="2"> <%= f.text_field :tel, maxlength: 15, style: "width: 250px", class: "prevent_change" %>  </td>
+        </tr>
+        <tr>
+          <th><%= f.label t("client.person_charge") %></th>
+          <td colspan="2"><%= f.text_field :person_charge, maxlength: 255, style: "width: 250px", class: "prevent_change" %></td>
+        </tr>
+        <tr>
+          <th><%= f.label t("client.person_sale") %></th>
+          <td colspan="2"><%= f.text_field :person_sale, maxlength: 255, style: "width: 250px", class: "prevent_change" %></td>
+        </tr>
+        <tr>
+          <th><%= f.label t("client.contract_flg.label") %></th>
+          <td style="width: 150px;"><%= f.radio_button :contract_flg, 0, class: "prevent_change" %> <%= I18n.t("client.contract_type.unrecovered") %></td>
+          <td style="width: 150px;"><%= f.radio_button :contract_flg, 1, class: "prevent_change" %> <%= I18n.t("client.contract_type.been_recovered") %></td>
+        </tr>
+        <tr>
+          <th><%= f.label t("client.contract_type.label") %></th>
+          <td><div style="width: 200px;"><%= f.radio_button :contract_type, 0, class: "prevent_change" %> <%= I18n.t("client.contract_flg.standard_plan") %></div></td>
+          <td><div style="width: 310px;"><%= f.radio_button :contract_type, 1, class: "prevent_change" %> <%= I18n.t("client.contract_flg.premium_plan") %></div></td>
+        </tr>
+      </table>
+      <div class="user_info_add">
+        <p><%= I18n.t("client.user_information") %>▼</p>
+        <input id="tags" placeholder="<%= I18n.t('client.user_search') %>" maxlength="255" class = "prevent_change"/>
+      </div>
+	  <div id="user_list_form">
+      <table id="user_list" class="user_add">
+        <thead>
+        <tr>
+          <th width="170">&nbsp;</th>
+          <th width="240">&nbsp;</th>
+          <th width="80">&nbsp;</th>
+          <th style="width: 70px;">
+            <div style="width: 70px;"><small><%= I18n.t("client.delete") %></small></div>
+          </th>
+        </tr>
+        </thead>
+        <% @client.client_users.active.each do |client_user| %>
+        	<%
+        		user = client_user.user
+        		if user.client?
+        			company = Client.find(user.company_id).client_name
+        		else
+        			company = Agency.find(user.company_id).agency_name
+        		end
+        	%>
+            <tr>
+              <th><%= short_ja_name(user.username) %>(<%= short_en_name(company) %>)</th>
+              <td><%= short_en_name(user.email) %></td>
+              <td><%= user.role.role_name %></td>
+              <td><input class='del_user' type="checkbox" name="del_user_<%= user.id %>">
+                <input type="hidden" name="users_id[]" value="<%= user.id %>"></td>
+            </tr>
+        <% end %>
+      </table>
+      </div>
+
+
+      <div class="submit_area">
+        <input type="image" id="btn_submit" src="/assets/btn_done.gif">
+        <%= link_to raw('<img align="right" alt="キャンセル" src="/assets/btn_cancel.gif">'), clients_path %>
+      </div>
+    </div>
+<% end %>

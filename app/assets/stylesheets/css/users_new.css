@@ -1,0 +1,92 @@
+
+@charset "UTF-8";
+#wrapper {
+    margin: 0 auto;
+    width: 100%;
+}
+#container {
+    font-family: "ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,"ＭＳ Ｐゴシック",sans-serif;
+    margin: 20px auto;
+    width: 95%;
+}
+#contents {
+    font-family: "ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,"ＭＳ Ｐゴシック",sans-serif;
+
+    min-height: 500px;
+    position: relative;
+}
+#inner {
+
+}
+#user_form {
+    height: 580px;
+    margin: 0 auto;
+    width: 635px;
+}
+form {
+    background-color: #F1F1F1;
+    border: 1px solid #B6B6B6;
+    margin: 10px auto auto;
+    min-height: 400px;
+    width: 635px;
+}
+table {
+    font-size: 16px;
+    letter-spacing: -0.3px;
+    margin: 30px auto auto;
+    width: 470px;
+}
+table tr {
+    height: 45px;
+}
+table th {
+    font-weight: bold;
+    text-align: right;
+    /*width: 400px;*/
+   	width: 100%;
+   	max-width: 400px;
+}
+table td {
+    /*font-weight: bold;*/
+    padding: 5px;
+    width: 155px;
+}
+table td .input-text {
+    font-weight: normal;
+    padding-left: 5px;
+    width: 285px;
+}
+.submit_area {
+    margin: 40px auto 30px;
+    width: 380px;
+}
+.submit_area p {
+    display: inline;
+}
+.submit_area p a img:hover {
+    opacity: 0.7;
+}
+#btn_submit:hover {
+    opacity: 0.7;
+}
+table.user_add {
+    width: 610px;
+}
+table.user_add tbody th {
+    font-family: "ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,"ＭＳ Ｐゴシック",sans-serif;
+    text-align: right;
+    width: 170px;
+}
+table.user_add tbody td {
+    font-family: "ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,"ＭＳ Ｐゴシック",sans-serif;
+    padding-left: 5px;
+}
+disabled {
+    color: #999999;
+}
+.disabled {
+    color: #999999;
+}
+#user_company_id option{
+  width: 250px;
+}

@@ -1,0 +1,52 @@
+<style type="text/css">
+    #download {
+        overflow: auto;
+        height: 200px;
+    }
+</style>
+<script>
+    $(function(){
+    });
+    function download(i)
+    {
+        $.ajax({
+            type: 'post',
+            url: "/background_jobs/download_file?id="+i,
+        }).done(function(data){
+
+                }).fail(function(data){
+
+                });
+    }
+    $(document).on('click', "#close_notify", function(){
+        $(".inline_notify").colorbox.close();
+    })
+</script>
+<div id="download">
+  <ul class="entrydate_box_notify">
+  <% if @jobs %>
+      <% @jobs.each_with_index do |job| %>
+
+            <li>
+              <table class="entrydate_table">
+                <tr>
+                  <td class="file_name"><%= job.filename %></td>
+                  <td class="capacity"><%= job.size %></td>
+                  <td class="daily"><%= job.created_at.strftime("%m/%d/%y %H:%M") %></td>
+                  <td class="c_black"><%= I18n.t('notification.completed') %></td>
+                </tr>
+                <tr>
+                  <td colspan="4"><%= job.breadcrumb %></td>
+                </tr>
+              </table>
+              <p class="btn_download"><a href="/background_jobs/download_file?id=<%= job.id %>"><img src="/assets/btn_download.gif"/></a></p>
+            </li>
+
+      <% end %>
+  <% end %>
+  </ul>
+
+</div>
+<div>
+  <p style="margin-top:30px;margin-left:220px"><a href="javascript:void(0)" id="close_notify"><img alt="キャンセル" src="/assets/btn_close.gif"></a></p>
+</div>

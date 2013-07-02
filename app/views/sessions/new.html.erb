@@ -1,0 +1,40 @@
+<% provide(:title, I18n.t("login.title")) %>
+<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAau1Rs6Bq2PhJJAsz0gdzFxTe-WPpkNkA-xFp263dMiD62JIC-RR1nehK9mQ8QfApqhXhoPt2cwaYcg"></script>
+<%= javascript_include_tag "js/toprss" %>
+<% if @errors && @errors.count > 0 %>
+    <script type="text/javascript">
+        $("#resend_password_form").show();
+    </script>
+<% end %>
+<%= flash[:success] %>
+<% if signed_in? %>
+    Welcome to Canpass
+<% else %>
+    <div id="infobox">
+      <div class="infoboxHeadtxt">
+        <p class="bold"><%= I18n.t("login.announcements")%></p>
+      </div>
+     <div id='feed'></div>
+
+    </div>
+
+    <div id="pressbox">
+      <div class="pressboxHeadtxt">
+        <p class="bold"><%= I18n.t("login.press_release")%></p>
+      </div>
+
+      <% @press_release.each_with_index do |press, index| %>
+          <ul<% if index == 6 %> class="last-child"<% end %>>
+            <li><span><%= press.release_time %></span></li>
+            <li><%= press.content %> </li>
+          </ul>
+      <% end %>
+    </div>
+<% end %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#resend_password").click(function () {
+            $("#resend_password_form").toggle();
+        })
+    })
+</script>

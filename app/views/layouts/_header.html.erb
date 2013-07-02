@@ -1,0 +1,293 @@
+<%= stylesheet_link_tag "css/colorbox", :media => "all" %>
+<script>
+   function notify_header_post(url,i)
+    {
+        $.ajax({
+            type: 'post',
+            url: url,
+            cache: false
+        }).done(function( html ) {
+                    $("#notify"+i).innerHTML = "";
+                    $("#notify"+i).innerHTML = html;
+                }).fail(function(jqXHR, textStatus){
+                    // $(".notification").text('0');
+                });
+    }
+    $(document).ready(function () {
+        <%if signed_in? %>
+        var first_time = true;
+        order = 0;
+        var auto_refresh = setInterval(
+                function ()
+                {
+                    $.ajax({
+                        type: 'post',
+                        url: "/background_jobs/notification",
+                       cache: false
+                    }).done(function( html ) {
+                                $(".notification").text(html);
+                    }).fail(function(jqXHR, textStatus){
+                               // $(".notification").text('0');
+                    });
+                    // $('.notification').load('/background_jobs/notification').fadeIn("slow");
+                }, 8000); // refresh every 10000 milliseconds
+
+        <%end%>
+    $(".inline_notify").colorbox({inline: true, width: "635", height: "350",
+    onComplete: function(){
+    	if (first_time){
+    		$("#inprogress").niceScroll();
+    		order = 1;
+    		first_time = false;
+    	}
+    	if (order == 1){
+			$("#inprogress").niceScroll();
+		}
+        if (order == 2){
+        	$("#download").niceScroll();
+		}
+        if (order == 3){
+        	$("#upload").niceScroll();
+		}
+    },
+    onClosed: function(){
+    	if (order == 1){
+			$("#inprogress").niceScroll().remove();
+		}
+        if (order == 2){
+        	$("#download").niceScroll().remove();
+		}
+        if (order == 3){
+        	$("#upload").niceScroll().remove();
+		}
+    }
+     });
+        $( "#tabs" ).tabs({
+                ajaxOptions:{
+                    type: 'post'
+                },
+            load: function(event,ui){
+            	if (!first_time){
+            	if (ui.panel.selector == "#ui-tabs-1"){
+            		$("#inprogress").niceScroll();
+            		order = 1;
+            	}
+            	}
+            	if (ui.panel.selector == "#ui-tabs-2"){
+            		$("#download").niceScroll();
+            		order = 2;
+            	}
+            	if (ui.panel.selector == "#ui-tabs-3"){
+            		$("#upload").niceScroll();
+            		order = 3;
+            	}
+            },
+            activate: function( event, ui ) {
+            	
+            	if (ui.oldPanel.selector == "#ui-tabs-1"){
+            		$("#inprogress").niceScroll().remove();
+            	}
+            	if (ui.oldPanel.selector == "#ui-tabs-2"){
+            		$("#download").niceScroll().remove();
+            	}
+            	if (ui.oldPanel.selector == "#ui-tabs-3"){
+            		$("#upload").niceScroll().remove();
+            	}
+            }
+        });
+        $('#promotion_table').each(function() {
+            var $table = $(this);
+            var $button = $("<img src='/assets/btn_dl_report.gif' alt='Btn_dl_report'>");
+            $('#download_csv_promotion').html($button);
+            // $button.insertAfter($table);
+
+            $button.click(function() {
+                var csv = $table.table2CSV({delivery:'value'});
+                window.location.href = 'data:text/csv;charset=UTF-8,'
+                        + encodeURIComponent(csv);
+            });
+        });
+
+
+
+    })
+</script>
+<div id="header">
+  <div id="headerInner">
+    <h1>Polaris</h1>
+    <% if signed_in? %>
+    <div id="personal">
+      <ul>
+        <li>
+          <div id="notification" style="display: inline;position: relative;top:7px">
+          <button class="fancybox mt-0 inline_notify cboxElement" rel="gallery" href="#inline_content"><span class="notification"><%= @notify %></span></button>
+
+          <div style='display:none'>
+            <div id='inline_content'>
+              <div class="f_box">
+                <div id="tabs" class="ui-tabs">
+                  <ul class="ui-tabs-nav">
+                    <li style="width: 200px"><a href="/background_jobs/inprogress"><%= I18n.t('notification.inprogress') %></a></li>
+                    <li style="width: 200px"><a href="/background_jobs/download" ><%= I18n.t('notification.download') %></a></li>
+                    <li style="width: 200px"><a href="/background_jobs/upload" ><%= I18n.t('notification.upload') %></a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        </li>
+        <li><p>　<img src="/assets/head_pict.gif" />　<%= short_ja_name(current_user.username)%></p></li>
+        <li><p>｜<a href="#"><span><%= link_to I18n.t("layout.logout"), signout_path,class: 'underline_text' %></span></a></p></li>
+      </ul>
+    </div><!-- /#personal end -->
+
+    <% end %>
+  </div><!-- /#headerInner end -->
+</div><!-- /#header -->
+<% if signed_in? %>
+<div id="nav">
+  <div id="navInner">
+    <div class="nav">
+      <ul>
+        <% if current_user.super? %>
+           <% if (params[:controller] == "promotions" || params[:controller] == "conversion_promotion_logs" || params[:controller] == "conversions" ||  params[:controller] == "click_logs" || (params[:controller] == "accounts" && params[:action] == "new") || (params[:controller] == "accounts" && params[:action] == "create")) %>
+                <%if params[:controller] == "promotions"%>
+                  <li class="current"><%= link_to raw('<img src="/assets/nav/nav_01_promotion_off.gif" alt="代理店リスト" />'),  "#{promotions_path}?promotion_id=#{@promotion_id}&client_id=#{@client_id}", class: "promotion_class_header" %>
+                  </li>
+
+                  <li> <% if @promotion_id %> <%= link_to raw('<img src="/assets/nav/nav_02_account_off.gif", alt="ユーザーリスト" />'), "#{accounts_path}/new?promotion_id=#{@promotion_id}", class: "account_class_header" %><% end %></li>
+
+                  <li> <% if @promotion_id %><%= link_to raw('<img src="/assets/nav/nav_03_conversion_off.gif" alt="代理店リスト" />'),  "#{conversions_path}?promotion_id=#{@promotion_id}", class: "conversion_class_header" %> <% end %>
+                  </li>
+
+                  <li> <% if @promotion_id %><%= link_to raw('<img src="/assets/nav/nav_04_log_off.gif"  alt="ユーザーリスト" />'), "#{conversion_promotion_logs_path}?promotion_id=#{@promotion_id}", class: "log_class_header" %><% end %>
+                  </li>
+                <% end %>
+
+                <%if params[:controller] == "accounts"%>
+                  <li><%= link_to raw('<img src="/assets/nav/nav_01_promotion_off.gif" alt="代理店リスト" />'),  "#{promotions_path}?promotion_id=#{@promotion_id}&client_id=#{Promotion.find(@promotion_id).client.id}", class: "promotion_class_header" %>
+                  </li>
+
+                  <li class="current"> <%= link_to raw('<img src="/assets/nav/nav_02_account_off.gif", alt="ユーザーリスト" />'), "#{accounts_path}/new?promotion_id=#{params[:promotion_id]}", class: "account_class_header" %></li>
+
+                  <li> <%= link_to raw('<img src="/assets/nav/nav_03_conversion_off.gif" alt="代理店リスト" />'),  "#{conversions_path}?promotion_id=#{params[:promotion_id]}", class: "conversion_class_header" %>
+                  </li>
+
+                  <li> <%= link_to raw('<img src="/assets/nav/nav_04_log_off.gif"  alt="ユーザーリスト" />'), "#{conversion_promotion_logs_path}?promotion_id=#{params[:promotion_id]}", class: "log_class_header" %>
+                  </li>
+                <% end %>
+
+                <%if params[:controller] == "conversions"%>
+                  <li><%= link_to raw('<img src="/assets/nav/nav_01_promotion_off.gif" alt="代理店リスト" />'),  "#{promotions_path}?promotion_id=#{@promotion_id}&client_id=#{Promotion.find(params[:promotion_id]).client.id if params[:promotion_id] }", class: "promotion_class_header" %>
+                  </li>
+
+                  <li> <%= link_to raw('<img src="/assets/nav/nav_02_account_off.gif", alt="ユーザーリスト" />'), "#{accounts_path}/new?promotion_id=#{params[:promotion_id]}", class: "account_class_header" %></li>
+
+                  <li class="current"> <%= link_to raw('<img src="/assets/nav/nav_03_conversion_off.gif" alt="代理店リスト" />'),  "#{conversions_path}?promotion_id=#{params[:promotion_id]}", class: "conversion_class_header" %>
+                  </li>
+
+                  <li> <%= link_to raw('<img src="/assets/nav/nav_04_log_off.gif"  alt="ユーザーリスト" />'), "#{conversion_promotion_logs_path}?promotion_id=#{params[:promotion_id]}", class: "log_class_header" %>
+                  </li>
+                <% end %>
+
+                <%if params[:controller] == "conversion_promotion_logs" || params[:controller] == "click_logs"%>
+                  <li><%= link_to raw('<img src="/assets/nav/nav_01_promotion_off.gif" alt="代理店リスト" />'),  "#{promotions_path}?promotion_id=#{@promotion_id}&client_id=#{@client_id}", class: "promotion_class_header" %>
+                  </li>
+
+                  <li> <%= link_to raw('<img src="/assets/nav/nav_02_account_off.gif", alt="ユーザーリスト" />'), "#{accounts_path}/new?promotion_id=#{params[:promotion_id]}", class: "account_class_header" %></li>
+
+                  <li> <%= link_to raw('<img src="/assets/nav/nav_03_conversion_off.gif" alt="代理店リスト" />'),  "#{conversions_path}?promotion_id=#{params[:promotion_id]}", class: "conversion_class_header" %>
+                  </li>
+
+                  <li class="current"> <%= link_to raw('<img src="/assets/nav/nav_04_log_off.gif"  alt="ユーザーリスト" />'), "#{conversion_promotion_logs_path}?promotion_id=#{params[:promotion_id]}", class: "log_class_header" %>
+                  </li>
+                <% end %>
+            <%elsif params[:controller] == "url_settings" || (params[:controller] == "accounts" && params[:action] == "edit") || (params[:controller] == "accounts" && params[:action] == "update") %>
+                <li <%if params[:controller] == "accounts"%>class="current"<% end %>><%= link_to raw('<img src="/assets/nav/nav_01_account_off.gif" alt="ユーザーリスト" />'), "#{accounts_path}/#{@account_id}/edit?promotion_id=#{params[:promotion_id]}", class: "account_class_header" %></li>
+                <li <%if params[:controller] == "url_settings"%>class="current"<% end %>><%= link_to raw('<img src="/assets/nav/nav_02_url_off.gif" alt="代理店リスト" />'),  "#{url_settings_path}/?promotion_id=#{params[:promotion_id]}&account_id=#{params[:id]}", class: "settings_class_header" %></li>
+            <% else %>
+                <li  <%if params[:controller] == "clients"%>class="current"<% end %>><%= link_to raw('<img src="/assets/nav/nav_01_client_off.gif" width="144" height="38" alt="クライアントリスト" />'), "#{clients_path}", class: "client_class_header" %></li>
+                <li  <%if params[:controller] == "agencies"%>class="current"<% end %>><%= link_to raw('<img src="/assets/nav/nav_02_agency_off.gif" width="142" height="38" alt="代理店リスト" />'),  "#{agencies_path}", class: "agency_class_header" %></li>
+                <li  <%if params[:controller] == "users"%>class="current"<% end %>><%= link_to raw('<img src="/assets/nav/nav_03_user_off.gif" width="142" height="38" alt="ユーザーリスト" />'), "#{users_path}", class: "user_class_header" %></li>
+                <li  <%if params[:controller] == "media"%>class="current"<% end %>><a href="#"><img src="/assets/nav/nav_04_media_off.gif" width="142" height="38" alt="メディアリスト" /></a></li>
+            <% end %>
+        <% elsif current_user.client? %>
+        	<% if params[:controller] == "promotions"%>
+        		<% if @promotion_id %>
+        			<li class="current"><%= link_to raw('<img src="/assets/nav/nav_01_promotion_off.gif" alt="代理店リスト" />'),  "#{promotions_path}?promotion_id=#{@promotion_id}&client_id=#{@client_id}", class: "promotion_class_header" %>
+					<li><%= link_to image_tag("/assets/nav/nav_04_log_off.gif",  alt: "ユーザーリスト"), "#{conversion_promotion_logs_path}?promotion_id=#{@promotion_id}", class: "log_class_header" %></li>
+        		<% end %>
+        	<% elsif params[:controller] == "conversion_promotion_logs" || params[:controller] == "click_logs" %>
+        		<% if @promotion_id %>
+        			<li><%= link_to raw('<img src="/assets/nav/nav_01_promotion_off.gif" alt="代理店リスト" />'),  "#{promotions_path}?promotion_id=#{@promotion_id}&client_id=#{@client_id}", class: "promotion_class_header" %>
+					<li class="current"><%= link_to image_tag("/assets/nav/nav_04_log_off.gif",  alt: "ユーザーリスト"), "#{conversion_promotion_logs_path}?promotion_id=#{@promotion_id}", class: "log_class_header" %></li>
+        		<% end %>
+        	<% end %>
+        <% else %>
+        	<% if params[:controller] == "clients"%>
+				<li class="current"><%= link_to raw('<img src="/assets/nav/nav_01_client_off.gif" width="144" height="38" alt="クライアントリスト" />'), "#{clients_path}", class: "client_class_header" %></li>
+			<% end %>
+			<% if (params[:controller] == "promotions" || params[:controller] == "conversion_promotion_logs" || params[:controller] == "conversions" ||  params[:controller] == "click_logs" || (params[:controller] == "accounts" && params[:action] == "new") || (params[:controller] == "accounts" && params[:action] == "create")) %>
+                <%if params[:controller] == "promotions"%>
+                  <li class="current"><%= link_to raw('<img src="/assets/nav/nav_01_promotion_off.gif" alt="代理店リスト" />'),  "#{promotions_path}?promotion_id=#{@promotion_id}&client_id=#{@client_id}", class: "promotion_class_header" %>
+                  </li>
+
+                  <li> <% if @promotion_id %> <%= link_to raw('<img src="/assets/nav/nav_02_account_off.gif", alt="ユーザーリスト" />'), "#{accounts_path}/new?promotion_id=#{@promotion_id}", class: "account_class_header" %><% end %></li>
+
+                  <li> <% if @promotion_id %><%= link_to raw('<img src="/assets/nav/nav_03_conversion_off.gif" alt="代理店リスト" />'),  "#{conversions_path}?promotion_id=#{@promotion_id}", class: "conversion_class_header" %> <% end %>
+                  </li>
+
+                  <li> <% if @promotion_id %><%= link_to raw('<img src="/assets/nav/nav_04_log_off.gif"  alt="ユーザーリスト" />'), "#{conversion_promotion_logs_path}?promotion_id=#{@promotion_id}", class: "log_class_header" %><% end %>
+                  </li>
+                <% end %>
+
+                <%if params[:controller] == "accounts"%>
+                  <li><%= link_to raw('<img src="/assets/nav/nav_01_promotion_off.gif" alt="代理店リスト" />'),  "#{promotions_path}?promotion_id=#{@promotion_id}&client_id=#{Promotion.find(@promotion_id).client.id}", class: "promotion_class_header" %>
+                  </li>
+
+                  <li class="current"> <%= link_to raw('<img src="/assets/nav/nav_02_account_off.gif", alt="ユーザーリスト" />'), "#{accounts_path}/new?promotion_id=#{params[:promotion_id]}", class: "account_class_header" %></li>
+
+                  <li> <%= link_to raw('<img src="/assets/nav/nav_03_conversion_off.gif" alt="代理店リスト" />'),  "#{conversions_path}?promotion_id=#{params[:promotion_id]}", class: "conversion_class_header" %>
+                  </li>
+
+                  <li> <%= link_to raw('<img src="/assets/nav/nav_04_log_off.gif"  alt="ユーザーリスト" />'), "#{conversion_promotion_logs_path}?promotion_id=#{params[:promotion_id]}", class: "log_class_header" %>
+                  </li>
+                <% end %>
+
+                <%if params[:controller] == "conversions"%>
+                  <li><%= link_to raw('<img src="/assets/nav/nav_01_promotion_off.gif" alt="代理店リスト" />'),  "#{promotions_path}?promotion_id=#{@promotion_id}&client_id=#{Promotion.find(params[:promotion_id]).client.id if params[:promotion_id] }", class: "promotion_class_header" %>
+                  </li>
+
+                  <li> <%= link_to raw('<img src="/assets/nav/nav_02_account_off.gif", alt="ユーザーリスト" />'), "#{accounts_path}/new?promotion_id=#{params[:promotion_id]}", class: "account_class_header" %></li>
+
+                  <li class="current"> <%= link_to raw('<img src="/assets/nav/nav_03_conversion_off.gif" alt="代理店リスト" />'),  "#{conversions_path}?promotion_id=#{params[:promotion_id]}", class: "conversion_class_header" %>
+                  </li>
+
+                  <li> <%= link_to raw('<img src="/assets/nav/nav_04_log_off.gif"  alt="ユーザーリスト" />'), "#{conversion_promotion_logs_path}?promotion_id=#{params[:promotion_id]}", class: "log_class_header" %>
+                  </li>
+                <% end %>
+
+                <%if params[:controller] == "conversion_promotion_logs" || params[:controller] == "click_logs"%>
+                  <li><%= link_to raw('<img src="/assets/nav/nav_01_promotion_off.gif" alt="代理店リスト" />'),  "#{promotions_path}?promotion_id=#{@promotion_id}&client_id=#{@client_id}", class: "promotion_class_header" %>
+                  </li>
+
+                  <li> <%= link_to raw('<img src="/assets/nav/nav_02_account_off.gif", alt="ユーザーリスト" />'), "#{accounts_path}/new?promotion_id=#{params[:promotion_id]}", class: "account_class_header" %></li>
+
+                  <li> <%= link_to raw('<img src="/assets/nav/nav_03_conversion_off.gif" alt="代理店リスト" />'),  "#{conversions_path}?promotion_id=#{params[:promotion_id]}", class: "conversion_class_header" %>
+                  </li>
+
+                  <li class="current"> <%= link_to raw('<img src="/assets/nav/nav_04_log_off.gif"  alt="ユーザーリスト" />'), "#{conversion_promotion_logs_path}?promotion_id=#{params[:promotion_id]}", class: "log_class_header" %>
+                  </li>
+                <% end %>
+            <%elsif params[:controller] == "url_settings" || (params[:controller] == "accounts" && params[:action] == "edit") || (params[:controller] == "accounts" && params[:action] == "update") %>
+                <li <%if params[:controller] == "accounts"%>class="current"<% end %>><%= link_to raw('<img src="/assets/nav/nav_01_account_off.gif" alt="ユーザーリスト" />'), "#{accounts_path}/#{@account_id}/edit?promotion_id=#{params[:promotion_id]}", class: "account_class_header" %></li>
+                <li <%if params[:controller] == "url_settings"%>class="current"<% end %>><%= link_to raw('<img src="/assets/nav/nav_02_url_off.gif" alt="代理店リスト" />'),  "#{url_settings_path}/?promotion_id=#{params[:promotion_id]}&account_id=#{params[:id]}", class: "settings_class_header" %></li>         
+            <% end %>
+        <% end %>
+      </ul>
+    </div><!-- /.nav-->
+  </div>
+</div><!-- /#nav end -->
+<% end %>

@@ -1,23 +1,1078 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
+# Sample localization file for . Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  number:
+    human:
+      decimal_units:
+        format: "%n%u"
+        units:
+          unit: ""
+          thousand: KB
+          million: MB
   hello: "Hello world"
+  recaptcha:
+    errors:
+      incorrect-captcha-sol: "Certification letters that you have typed are different. Please re-enter them"
+  promotion_export_csv:
+    media: "Media"
+    account_name: "Account name"
+    first: "first"
+    repeat: "repeat"
+  promotions:
+    new:
+      category: ["IT/Media/App", "AV/Consumer electronics", "Food/Beverage/Consumer Goods", "Distribution/retail/mail order", "Finance", "Communication", "Real estate", "Human resources", "automobile", "Service", "Others"]
+    edit:
+      category: ["IT/Media/App", "AV/Consumer electronics", "Food/Beverage/Consumer Goods", "Distribution/retail/mail order", "Finance", "Communication", "Real estate", "Human resources", "automobile", "Service", "Others"]
+  conversions:
+    unique_definition: ["Only once", "Limitless", "Once a day", "Once every 7 days", "Once every 28 days", "Once a month"]
+  error_message_url_import:
+    ad_name_must_exist: "Ad name has not existed."
+    ad_identifier_must_match: "Ad Id and Ad name are not matched."
+    group_name_must_exist: "Group name has not existed."
+    campaign_name_must_exist: "Campaign name has not existed."
+    camp_group_ad_must_match: "Campaign name, Group name, Ad name are not matched."
+    camp_group_ad_submit_must_match: "Campaing name, Group name, Ad name, measuring URL cannot be changed."
+    not_input: "Please choose file upload."
+    volumn_over: "File's volumn must less than 300MB."
+    not_format_csv: "File format is not CSV."
+    unexpected_error: "Unexpected error: file uploading failed. Please try againg or contact the customer service.\n"
+    unexpected_error_view: "Unexpected error: file uploading failed. Please try againg or contact the customer service."
+    differrent_format: "File format is different."
+    over_row: "Maximum line is 1,000,000.\n"
+    ad_too_long: "Ad ID needs to be less than 255 letters."
+    ad_id_already_used: "The Ad ID is already used."
+    ad_id_in_promotion: "The Ad ID has not registered."
+    ad_id_invalid: "The Ad ID includes invalid letters."
+    ad_id_used_same_file: "The Ad ID is used in the same file."
+    campaign_too_long: "Campaign needs to be less than 255 letters."
+    campaign_name_not_type: "Campaign name is not typed."
+    group_name_too_long: "Group name needs to be less than 255 letters."
+    group_name_not_type: "Group name is not typed."
+    ad_name_not_type: "Ad name is not typed."
+    ad_name_too_long: "Ad name needs to be less than 255 letters."
+    ad_name_already_used: "The Ad name is already used."
+    name_overlapped: "Campaing name, Group name, and Ad name are overlapped."
+    creative_id_half_width: "Please type Creative ID with half-width characters."
+    creative_id_too_long: "Creative ID needs to be less than 20 letters."
+    creative_id_not_exist: "The Creative ID does not exist."
+    unit_click_price_half_width: "Please type unit click price with half-width characters."
+    leave_url_column_blank: "Please leave the measuring URL column blank."
+    url_not_specified: "URL is not specified in "
+    title_too_long: "Title needs to be less than 255 letters."
+    title_not_type: "Title is not typed."
+    transition_rake_half_width: "Please type Transition rate with half-width characters."
+    transition_rake_altogether: "Transition rate needs to be 100 altogether."
+    registering_complete: "Registering new URL complete."
+    edit_url_complete: "Editing URL complete."
+    line: "Line"
+    enter_key: "\n"
+  activerecord:
+    attributes:
+      client:
+    errors:
+      models:
+        client:
+          attributes:
+            client_name:
+              blank: "Client name can't be blank"
+              accepted: Client name must be accepted 
+              confirmation: Client name doesn't match confirmation 
+              empty: Client name can't be empty
+              equal_to: ! 'Client name must be equal to %{count} ' 
+              even: Client name must be even
+              exclusion: Client name is reserved
+              greater_than: ! 'Client name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Client name must be greater than or equal to %{count}'
+              inclusion: Client name is not included in the list
+              invalid: Client name is invalid
+              less_than: ! 'Client name must be less than %{count}'
+              less_than_or_equal_to: ! 'Client name must be less than or equal to %{count}'
+              not_a_number: Client name is not a number
+              not_an_integer: Client name is not a interger
+              odd: Client name must be odd
+              record_invalid: Client name バリデーションに失敗しました。 '%{errors}'
+              taken: Client name has already been registered.
+              too_long: ! 'Client name is too long (maximum is %{count} characters)'
+              too_short: ! 'Client name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Client name is the wrong length (should be %{count} characters)'
+              acceptance: Client name must be accepted
+            roman_name: 
+              blank: "Roman name can't be blank"
+              accepted: Roman name must be accepted 
+              confirmation: Roman name doesn't match confirmation 
+              empty: Roman name can't be empty
+              equal_to: ! 'Client name must be equal to %{count} ' 
+              even: Roman name must be even
+              exclusion: Roman name is reserved
+              greater_than: ! 'Roman name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Roman name must be greater than or equal to %{count}'
+              inclusion: Roman name is not included in the list
+              invalid: Roman name is invalid
+              less_than: ! 'Roman name must be less than %{count}'
+              less_than_or_equal_to: ! 'Client name must be less than or equal to %{count}'
+              not_a_number: Roman name is not a number
+              not_an_integer: Roman name is not a interger
+              odd: Roman name must be odd
+              record_invalid: Roman name バリデーションに失敗しました。 '%{errors}'
+              taken: Roman name has already been registered.
+              too_long: ! 'Roman name is too long (maximum is %{count} characters)'
+              too_short: ! 'Roman name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Roman name is the wrong length (should be %{count} characters)'
+              acceptance: Roman name must be accepted
+            tel: 
+              blank: "Contact can't be blank"
+              invalid: Contact is invalid
+            person_charge:
+              blank: "Person in charge can't be blank"
+              too_long: ! 'Person in charge is too long (maximum is %{count} characters)'
+              too_short: ! 'Person in charge is too short (minimum is %{count} characters)'
+            person_sale:
+              blank: "Person sales can't be blank"
+              too_long: ! 'Person sales is too long (maximum is %{count} characters)'
+              too_short: ! 'Person sales is too short (minimum is %{count} characters)'
+        user:
+          attributes:
+            username:
+              blank: "User name can't be blank"
+              accepted: User name must be accepted 
+              confirmation: User name doesn't match confirmation 
+              empty: User name can't be empty
+              equal_to: ! 'User name must be equal to %{count} ' 
+              even: User name must be even
+              exclusion: User name is reserved
+              greater_than: ! 'User name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'User name must be greater than or equal to %{count}'
+              inclusion: User name is not included in the list
+              invalid: User name is invalid
+              less_than: ! 'User name must be less than %{count}'
+              less_than_or_equal_to: ! 'User name must be less than or equal to %{count}'
+              not_a_number: User name is not a number
+              not_an_integer: User name is not a interger
+              odd: User name must be odd
+              record_invalid: User name バリデーションに失敗しました。 '%{errors}'
+              taken: User name has already been registered.
+              too_long: ! 'User name is too long (maximum is %{count} characters)'
+              too_short: ! 'User name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'User name is the wrong length (should be %{count} characters)'
+              acceptance: User name must be accepted
+            roman_name: 
+              blank: "Roman name can't be blank"
+              accepted: Roman name must be accepted 
+              confirmation: Roman name doesn't match confirmation 
+              empty: Roman name can't be empty
+              equal_to: ! 'Client name must be equal to %{count} ' 
+              even: Roman name must be even
+              exclusion: Roman name is reserved
+              greater_than: ! 'Roman name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Roman name must be greater than or equal to %{count}'
+              inclusion: Roman name is not included in the list
+              invalid: Roman name is invalid
+              less_than: ! 'Roman name must be less than %{count}'
+              less_than_or_equal_to: ! 'Client name must be less than or equal to %{count}'
+              not_a_number: Roman name is not a number
+              not_an_integer: Roman name is not a interger
+              odd: Roman name must be odd
+              record_invalid: Roman name バリデーションに失敗しました。 '%{errors}'
+              taken: Roman name has already been registered.
+              too_long: ! 'Roman name is too long (maximum is %{count} characters)'
+              too_short: ! 'Roman name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Roman name is the wrong length (should be %{count} characters)'
+              acceptance: Roman name must be accepted
+            email: 
+              blank: "Email address can't be blank"
+              invalid: Email address is invalid
+              taken: Email has already been registered.
+            company_id:
+              blank: "Company id can't be blank"
+              too_long: ! 'Company id is too long (maximum is %{count} characters)'
+              too_short: ! 'Company id is too short (minimum is %{count} characters)'
+            role_id:
+              blank: "Role id can't be blank"
+              too_long: ! 'Role id  is too long (maximum is %{count} characters)'
+              too_short: ! 'Role id  is too short (minimum is %{count} characters)'
+        agency:
+          attributes:
+            agency_name:
+              blank: "Agency name can't be blank"
+              accepted: Agency name must be accepted 
+              confirmation: Agency name doesn't match confirmation 
+              empty: Agency name can't be empty
+              equal_to: ! 'Agency name must be equal to %{count} ' 
+              even: Agency name must be even
+              exclusion: Agency name is reserved
+              greater_than: ! 'Agency name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Agency name must be greater than or equal to %{count}'
+              inclusion: Agency name is not included in the list
+              invalid: Agency name is invalid
+              less_than: ! 'Agency name must be less than %{count}'
+              less_than_or_equal_to: ! 'Agency name must be less than or equal to %{count}'
+              not_a_number: Agency name is not a number
+              not_an_integer: Agency name is not a interger
+              odd: Agency name must be odd
+              record_invalid: Agency name バリデーションに失敗しました。 '%{errors}'
+              taken: Agency name has already been registered.
+              too_long: ! 'Agency name is too long (maximum is %{count} characters)'
+              too_short: ! 'Agency name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Agency name is the wrong length (should be %{count} characters)'
+              acceptance: Agency name must be accepted
+            roman_name: 
+              blank: "Roman name can't be blank"
+              accepted: Roman name must be accepted 
+              confirmation: Roman name doesn't match confirmation 
+              empty: Roman name can't be empty
+              equal_to: ! 'Client name must be equal to %{count} ' 
+              even: Roman name must be even
+              exclusion: Roman name is reserved
+              greater_than: ! 'Roman name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Roman name must be greater than or equal to %{count}'
+              inclusion: Roman name is not included in the list
+              invalid: Roman name is invalid
+              less_than: ! 'Roman name must be less than %{count}'
+              less_than_or_equal_to: ! 'Client name must be less than or equal to %{count}'
+              not_a_number: Roman name is not a number
+              not_an_integer: Roman name is not a interger
+              odd: Roman name must be odd
+              record_invalid: Roman name バリデーションに失敗しました。 '%{errors}'
+              taken: Roman name has already been registered.
+              too_long: ! 'Roman name is too long (maximum is %{count} characters)'
+              too_short: ! 'Roman name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Roman name is the wrong length (should be %{count} characters)'
+              acceptance: Roman name must be accepted
+        import:
+          attributes:
+            csv:
+              blank: "Please choose file upload."
+              size: "File's volumn must less than 300MB."
+        account:
+          attributes:
+            account_name:
+              blank: "Account name can't be blank"
+              accepted: Account name must be accepted 
+              confirmation: Account name doesn't match confirmation 
+              empty: Account name can't be empty
+              equal_to: ! 'Account name must be equal to %{count} ' 
+              even: Account name must be even
+              exclusion: Account name is reserved
+              greater_than: ! 'Account name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Account name must be greater than or equal to %{count}'
+              inclusion: Account name is not included in the list
+              invalid: Account name is invalid
+              less_than: ! 'Account name must be less than %{count}'
+              less_than_or_equal_to: ! 'Account name must be less than or equal to %{count}'
+              not_a_number: Account name is not a number
+              not_an_integer: Account name is not a interger
+              odd: Account name must be odd
+              record_invalid: Account name バリデーションに失敗しました。 '%{errors}'
+              taken: Account name has already been registered.
+              too_long: ! 'Account name is too long (maximum is %{count} characters)'
+              too_short: ! 'Account name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Account name is the wrong length (should be %{count} characters)'
+              acceptance: Account name must be accepted
+            roman_name: 
+              blank: "Roman name can't be blank"
+              accepted: Roman name must be accepted 
+              confirmation: Roman name doesn't match confirmation 
+              empty: Roman name can't be empty
+              equal_to: ! 'Client name must be equal to %{count} ' 
+              even: Roman name must be even
+              exclusion: Roman name is reserved
+              greater_than: ! 'Roman name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Roman name must be greater than or equal to %{count}'
+              inclusion: Roman name is not included in the list
+              invalid: Roman name is invalid
+              less_than: ! 'Roman name must be less than %{count}'
+              less_than_or_equal_to: ! 'Client name must be less than or equal to %{count}'
+              not_a_number: Roman name is not a number
+              not_an_integer: Roman name is not a interger
+              odd: Roman name must be odd
+              record_invalid: Roman name バリデーションに失敗しました。 '%{errors}'
+              taken: Roman name has already been registered.
+              too_long: ! 'Roman name is too long (maximum is %{count} characters)'
+              too_short: ! 'Roman name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Roman name is the wrong length (should be %{count} characters)'
+              acceptance: Roman name must be accepted
+            media_id: 
+              blank: "Media name can't be blank"
+              accepted: Media name must be accepted 
+              confirmation: Media name doesn't match confirmation 
+              empty: Media name can't be empty
+              equal_to: ! 'Media name must be equal to %{count} ' 
+              even: Media name must be even
+              exclusion: Media name  is reserved
+              greater_than: ! 'Media name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Media name must be greater than or equal to %{count}'
+              inclusion: Media name is not included in the list
+              invalid: Media name  is invalid
+              less_than: ! 'Media name must be less than %{count}'
+              less_than_or_equal_to: ! 'Media name must be less than or equal to %{count}'
+              not_a_number: Media name is not a number
+              not_an_integer: Media name is not a interger
+              odd: Media name must be odd
+              record_invalid: Media name バリデーションに失敗しました。 '%{errors}'
+              taken: Media has already been registered.
+              too_long: ! 'Media name is too long (maximum is %{count} characters)'
+              too_short: ! 'Media name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Media name is the wrong length (should be %{count} characters)'
+              acceptance: Roman name must be accepted
+            margin: 
+              blank: "Margin can't be blank"
+              accepted: Margin must be accepted 
+              confirmation: Margin doesn't match confirmation 
+              empty: Margin can't be empty
+              equal_to: ! 'Margin must be equal to %{count} ' 
+              even: Margin must be even
+              exclusion: Margin is reserved
+              greater_than: ! 'Margin must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Margin must be greater than or equal to %{count}'
+              inclusion: Margin is not included in the list
+              invalid: Margin  is invalid
+              less_than: ! 'Margin must be less than %{count}'
+              less_than_or_equal_to: ! 'Margin must be less than or equal to %{count}'
+              not_a_number: Margin is not a number
+              not_an_integer: Margin is not a interger
+              odd: Margin must be odd
+              record_invalid: Margin バリデーションに失敗しました。 '%{errors}'
+              taken: Margin has already been registered.
+              too_long: ! 'Margin is too long (maximum is %{count} characters)'
+              too_short: ! 'Margin is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Margin is the wrong length (should be %{count} characters)'
+              acceptance: Margin must be accepted
+            sync_account_id: 
+              blank: "Sync account ID can't be blank"
+              accepted: Sync account ID must be accepted 
+              confirmation: Sync account ID doesn't match confirmation 
+              empty: Sync account ID can't be empty
+              equal_to: ! 'Sync account ID must be equal to %{count} ' 
+              even: Sync account ID must be even
+              exclusion: Sync account ID is reserved
+              greater_than: ! 'Sync account ID must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Sync account ID must be greater than or equal to %{count}'
+              inclusion: Sync account ID is not included in the list
+              invalid: Sync account ID is invalid
+              less_than: ! 'Sync account ID must be less than %{count}'
+              less_than_or_equal_to: ! 'Sync account ID must be less than or equal to %{count}'
+              not_a_number: Sync account ID is not a number
+              not_an_integer: Sync account ID is not a interger
+              odd: Sync account ID must be odd
+              record_invalid: Sync account ID バリデーションに失敗しました。 '%{errors}'
+              taken: Sync account ID has already been registered.
+              too_long: ! 'Sync account ID is too long (maximum is %{count} characters)'
+              too_short: ! 'Sync account ID is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Sync account ID is the wrong length (should be %{count} characters)'
+              acceptance: Sync account ID must be accepted
+            sync_account_pw: 
+              blank: "Sync account password can't be blank"
+              accepted: Sync account password must be accepted 
+              confirmation: Sync account password doesn't match confirmation 
+              empty: Sync account password can't be empty
+              equal_to: ! 'Sync account password must be equal to %{count} ' 
+              even: Sync account password must be even
+              exclusion: Sync account password is reserved
+              greater_than: ! 'Sync account password must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Sync account password must be greater than or equal to %{count}'
+              inclusion: Sync account password is not included in the list
+              invalid: Sync account password is invalid
+              less_than: ! 'Sync account password must be less than %{count}'
+              less_than_or_equal_to: ! 'Sync account password must be less than or equal to %{count}'
+              not_a_number: Sync account password is not a number
+              not_an_integer: Sync account password is not a interger
+              odd: Sync account password must be odd
+              record_invalid: Sync account password バリデーションに失敗しました。 '%{errors}'
+              taken: Sync account password has already been registered.
+              too_long: ! 'Sync account password is too long (maximum is %{count} characters)'
+              too_short: ! 'Sync account password is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Sync account password is the wrong length (should be %{count} characters)'
+              acceptance: Sync account password must be accepted
+        conversion:
+          attributes:
+            conversion_name:
+              blank: "Conversion name can't be blank"
+              accepted: Conversion name must be accepted 
+              confirmation: Conversion name doesn't match confirmation 
+              empty: Conversion name can't be empty
+              equal_to: ! 'Conversion name must be equal to %{count} ' 
+              even: Conversion name must be even
+              exclusion: Conversion name is reserved
+              greater_than: ! 'Conversion name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Conversion name must be greater than or equal to %{count}'
+              inclusion: Conversion name is not included in the list
+              invalid: Conversion name is invalid
+              less_than: ! 'Conversion name must be less than %{count}'
+              less_than_or_equal_to: ! 'Conversion name must be less than or equal to %{count}'
+              not_a_number: Conversion name is not a number
+              not_an_integer: Conversion name is not a interger
+              odd: Conversion name must be odd
+              record_invalid: Conversion name バリデーションに失敗しました。 '%{errors}'
+              taken: Conversion name has already been registered.
+              too_long: ! 'Conversion name is too long (maximum is %{count} characters)'
+              too_short: ! 'Conversion name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Conversion name is the wrong length (should be %{count} characters)'
+              acceptance: Conversion name must be accepted
+            roman_name: 
+              blank: "Roman name can't be blank"
+              accepted: Roman name must be accepted 
+              confirmation: Roman name doesn't match confirmation 
+              empty: Roman name can't be empty
+              equal_to: ! 'Client name must be equal to %{count} ' 
+              even: Roman name must be even
+              exclusion: Roman name is reserved
+              greater_than: ! 'Roman name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Roman name must be greater than or equal to %{count}'
+              inclusion: Roman name is not included in the list
+              invalid: Roman name is invalid
+              less_than: ! 'Roman name must be less than %{count}'
+              less_than_or_equal_to: ! 'Client name must be less than or equal to %{count}'
+              not_a_number: Roman name is not a number
+              not_an_integer: Roman name is not a interger
+              odd: Roman name must be odd
+              record_invalid: Roman name バリデーションに失敗しました。 '%{errors}'
+              taken: Roman name has already been registered.
+              too_long: ! 'Roman name is too long (maximum is %{count} characters)'
+              too_short: ! 'Roman name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Roman name is the wrong length (should be %{count} characters)'
+              acceptance: Roman name must be accepted
+            sale_unit_price: 
+              blank: "Sale unit price can't be blank"
+              accepted: Sale unit price must be accepted 
+              confirmation: Sale unit price doesn't match confirmation 
+              empty: Sale unit price can't be empty
+              equal_to: ! 'Sale unit price must be equal to %{count} ' 
+              even: Sale unit price must be even
+              exclusion: Sale unit price  is reserved
+              greater_than: ! 'Sale unit price must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Sale unit price must be greater than or equal to %{count}'
+              inclusion: Sale unit price is not included in the list
+              invalid: Sale unit price  is invalid
+              less_than: ! 'Sale unit price must be less than %{count}'
+              less_than_or_equal_to: ! 'Sale unit price is invalid'
+              not_a_number: Sale unit price is not a number
+              not_an_integer: Sale unit price is not a interger
+              odd: Sale unit price must be odd
+              record_invalid: Sale unit price バリデーションに失敗しました。 '%{errors}'
+              taken: Sale unit price has already been registered.
+              too_long: ! 'Sale unit price is too long (maximum is %{count} characters)'
+              too_short: ! 'Sale unit price is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Sale unit price is the wrong length (should be %{count} characters)'
+              acceptance: Sale unit price must be accepted
+            url:
+              blank: "URL can't be blank"
+              accepted: URL must be accepted 
+              confirmation: URL doesn't match confirmation 
+              empty: URL can't be empty
+              equal_to: ! 'URL must be equal to %{count} ' 
+              even: URL must be even
+              exclusion: URL  is reserved
+              greater_than: ! 'URL must be greater than %{count}'
+              greater_than_or_equal_to: ! 'URL must be greater than or equal to %{count}'
+              inclusion: URL is not included in the list
+              invalid: URL  is invalid
+              less_than: ! 'URL must be less than %{count}'
+              less_than_or_equal_to: ! 'URL must be less than or equal to %{count}'
+              not_a_number: URL is not a number
+              not_an_integer: URL is not a interger
+              odd: URL must be odd
+              record_invalid: URL バリデーションに失敗しました。 '%{errors}'
+              taken: URL has already been registered.
+              too_long: ! 'URL is too long (maximum is %{count} characters)'
+              too_short: ! 'URL is too short (minimum is %{count} characters)'
+              wrong_length: ! 'URL is the wrong length (should be %{count} characters)'
+              acceptance: URL must be accepted
+            facebook_app_id:
+              blank: "App ID (Facebook) can't be blank"
+              accepted: Facebook app must be accepted 
+              confirmation: Facebook app doesn't match confirmation 
+              empty: "App ID (Facebook) can't be empty"
+              equal_to: ! 'Facebook app must be equal to %{count} ' 
+              even: Facebook app must be even
+              exclusion: Facebook app  is reserved
+              greater_than: ! 'Facebook app must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Facebook app must be greater than or equal to %{count}'
+              inclusion: Facebook app is not included in the list
+              invalid: "App ID (Facebook) is invalid"
+              less_than: ! 'Facebook app must be less than %{count}'
+              less_than_or_equal_to: ! 'App ID (Facebook) is invalid'
+              not_a_number: "App ID (Facebook) is not a number"
+              not_an_integer: "App ID (Facebook) is not a integer"
+              odd: Facebook app must be odd
+              record_invalid: Facebook app バリデーションに失敗しました。 '%{errors}'
+              taken: Facebook app has already been registered.
+              too_long: ! 'Facebook app is too long (maximum is %{count} characters)'
+              too_short: ! 'Facebook app is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Facebook app is the wrong length (should be %{count} characters)'
+              acceptance: Facebook app must be accepted
+            session_period:
+              inclusion: "Session retention must be from 1 to 90 days"
+            conversion_combine:
+              blank: "Conversion combine can't be blank"
+        promotion:
+          attributes:
+            promotion_name:
+              blank: "Promotion name can't be blank"
+              accepted: Promotion name must be accepted 
+              confirmation: Promotion name doesn't match confirmation 
+              empty: Promotion name can't be empty
+              equal_to: ! 'Promotion name must be equal to %{count} ' 
+              even: Promotion name must be even
+              exclusion: Promotion name is reserved
+              greater_than: ! 'Promotion name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Promotion name must be greater than or equal to %{count}'
+              inclusion: Promotion name is not included in the list
+              invalid: Promotion name is invalid
+              less_than: ! 'Promotion name must be less than %{count}'
+              less_than_or_equal_to: ! 'Promotion name must be less than or equal to %{count}'
+              not_a_number: Promotion name is not a number
+              not_an_integer: Promotion name is not a interger
+              odd: Promotion name must be odd
+              record_invalid: Promotion name バリデーションに失敗しました。 '%{errors}'
+              taken: Promotion name has already been registered.
+              too_long: ! 'Promotion name is too long (maximum is %{count} characters)'
+              too_short: ! 'Promotion name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Promotion name is the wrong length (should be %{count} characters)'
+              acceptance: Promotion name must be accepted
+            roman_name: 
+              blank: "Roman name can't be blank"
+              accepted: Roman name must be accepted 
+              confirmation: Roman name doesn't match confirmation 
+              empty: Roman name can't be empty
+              equal_to: ! 'Client name must be equal to %{count} ' 
+              even: Roman name must be even
+              exclusion: Roman name is reserved
+              greater_than: ! 'Roman name must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Roman name must be greater than or equal to %{count}'
+              inclusion: Roman name is not included in the list
+              invalid: Roman name is invalid
+              less_than: ! 'Roman name must be less than %{count}'
+              less_than_or_equal_to: ! 'Client name must be less than or equal to %{count}'
+              not_a_number: Roman name is not a number
+              not_an_integer: Roman name is not a interger
+              odd: Roman name must be odd
+              record_invalid: Roman name バリデーションに失敗しました。 '%{errors}'
+              taken: Roman name has already been registered.
+              too_long: ! 'Roman name is too long (maximum is %{count} characters)'
+              too_short: ! 'Roman name is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Roman name is the wrong length (should be %{count} characters)'
+              acceptance: Roman name must be accepted
+            promotion_category_id: 
+              blank: "Category can't be blank"
+              accepted: Category must be accepted 
+              confirmation: Category doesn't match confirmation 
+              empty: Category can't be empty
+              equal_to: ! 'Category must be equal to %{count} ' 
+              even: Category must be even
+              exclusion: Category  is reserved
+              greater_than: ! 'Category must be greater than %{count}'
+              greater_than_or_equal_to: ! 'Category must be greater than or equal to %{count}'
+              inclusion: Category is not included in the list
+              invalid: Category  is invalid
+              less_than: ! 'Category must be less than %{count}'
+              less_than_or_equal_to: ! 'Category must be less than or equal to %{count}'
+              not_a_number: Category is not a number
+              not_an_integer: Category is not a interger
+              odd: Category must be odd
+              record_invalid: Category バリデーションに失敗しました。 '%{errors}'
+              taken: Category has already been registered.
+              too_long: ! 'Category is too long (maximum is %{count} characters)'
+              too_short: ! 'Category is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Category is the wrong length (should be %{count} characters)'
+              acceptance: Category must be accepted
+            tracking_period: 
+              blank: "Tracking period can't be blank"
+              accepted: Tracking period must be accepted 
+              confirmation: Tracking period doesn't match confirmation 
+              empty: Tracking period can't be empty
+              equal_to: ! 'Tracking period must be equal to %{count} ' 
+              even: Tracking period must be even
+              exclusion: Tracking period  is reserved
+              greater_than: ! 'Tracking period must be greater than %{count}'
+              greater_than_or_equal_to: Please insert tracking period less than 90 days
+              inclusion: Tracking period is not included in the list
+              invalid: Tracking period  is invalid
+              less_than: ! 'Tracking period must be less than %{count}'
+              less_than_or_equal_to: Please insert tracking period less than 90 days
+              not_a_number: Please insert tracking period less than 90 days
+              not_an_integer: Tracking period is not a interger
+              odd: Tracking period must be odd
+              record_invalid: Tracking period バリデーションに失敗しました。 '%{errors}'
+              taken: Tracking period has already been registered.
+              too_long: ! 'Tracking period is too long (maximum is %{count} characters)'
+              too_short: ! 'Tracking period is too short (minimum is %{count} characters)'
+              wrong_length: ! 'Tracking period is the wrong length (should be %{count} characters)'
+              acceptance: Tracking period must be accepted
+  layout:
+    login: "Login"
+    logout: "Logout"
+    submit:
+      create: "Create New"
+      submit: "Submit"
+      update: "Update"
+    terms_of_use: "Terms of Use"
+    privacy_policy: "Privacy Policy"
+    porporate_information: "Porporate information"
+  login:
+    title: "Login"
+    split: "."
+    email: "Email address"
+    pw: "Password"
+    choose_lang:
+      label: "Choose Language "
+      ja: "Japanese"
+      en: "English"
+    forgor_pw: "Forgot Password"
+    forgor_pw1: "Click here to login after enter Password"
+    announcements: "Announcements"
+    press_release: "Press release"
+    captcha: "Authentication"
+    notice: "Please enter the email address of the account at the time of issuance, the authentication characters that are displayed. Issue a password, and raise the guide. "
+    captcha_email_not_found: "There is no history that you have opened an account with the address "
+    captcha_error: "Certification letters that you have typed are different. Please re-enter them"
+    send_success: "We have sent the password to your e-mail adress. Please confirm it."
+    unsuccessfull: "Invalid email/password combination"
+    deactive: "You are deactive"
+    block: "You are blocked for 5 minutes. Please try again later"
+    email_empty: "Mail address is required"
+  client:
+    title:
+      show: "Client"
+      list: "Clients List"
+      edit: "Edit Client"
+      add: "Add Client"
+    user_search: "Search"
+    crumb_edit: "Edit Client"
+    crumb_add: "Add Client"
+    crumb_list: "Client list"
+    client_name: "Client name： "
+    roman_name: "Roman name： "
+    tel: "Contact： "
+    person_charge: "Person in charge： "
+    person_sale: "Person sales： "
+    contract_flg:
+      label: "Use policy： "
+      standard_plan: " Standard Plan"
+      premium_plan: " Premium Plan (¥ 50,000 per month)"
+    contract_type:
+      label: "Plan type： "
+      unrecovered: " Unrecovered"
+      been_recovered: " Been recovered"
+    user_information: "User information"
+    delete: "Delete"
+    flash_messages:
+      success: " Client is created successful"
+      update: " Client is updated successful"
+      success_error: " Can not create user for client"
+      update_error: " Can not update user for client"
+  agency:
+    title:
+      list: "Agencies List"
+      edit: "Edit Agency"
+      add: "Add Agency"
+    crumb_edit: "Edit Agency"
+    crumb_add: "Add Agency"
+    agency_name: "Agency name"
+    roman_name: "Roman name"
+    flash_messages:
+      success: " Agency is created successful"
+      update: " Agency is updated successful"
+  account:
+    title:
+      label: "Accounts List"
+      edit: "Edit Account"
+      add: "Add Account"
+    crumb_add: "Add Account"
+    crumb_edit: "Edit Account"
+    media_category: "Media category: "
+    media: "Media: "
+    account_name: "Account name:"
+    roman_name: "Roman name:"
+    margin: "Margin calculation: "
+    input_data: "Input data"
+    sync_account_id: "Sync account ID: "
+    synchronism: "Synchronize"
+    fractured: "Non-synchronize"
+    sync_account_pw: "Sync account PW: "
+    flash_messages:
+      success: " Account is created successful"
+      update: " Account is updated successful"
+  conversion:
+    title:
+      list: "Conversions Setting"
+      edit: "Edit Conversion"
+      add: "Add Conversion"
+      get_tag: "Get Tag"
+    crumb_add: "Add Conversion"
+    crumb_edit: "Edit Conversion"
+    tag_acquisition: "Get Tag"
+    conversion_setting: "Conversions setting"
+    conversion_message: "Please select the conversion you want to view."
+    user_information: "User information"
+    delete: "Delete"
+    conversion_name: "Conversion name: "
+    roman_name: "Roman name: "
+    conversion_category:
+      label: "Conversion category: "
+      web: " WEB"
+      app:
+        label: " APP"
+        track_type:
+          label: "Track type: "
+          install: " Install"
+          app_action: " Action in App"
+        os:
+          label:  "OS specification: "
+          ios: " iOS"
+          android: " Android"
+          other: "Other"
+        conversion_mode:
+          label:  "Conversion mode: "
+          all: " All"
+          facebook: " Only Facebook"
+          other: " Others"
+        duplicate:
+          label: "Duplicate: "
+          label1: " Yes"
+          label2: " No"
+        track_method:
+          label: "Track method: "
+          white: " White"
+          welcome: " Welcome"
+          custom: 
+            label: " Custom"
+            url: "URL required"
+          install_referrer: " Install Referrer"
+        app_id:
+          label: "App ID "
+          facebook: "(Facebook): "
+        option:
+          label: "<Option> "
+          judging: " Judging: "
+          configure: " Configure"
+        sale_unit_price: "Sales Unit Price: "
+        reward_form:
+          label: "Reward form: "
+          straight_line_type: " Pay periodically"
+          declining_balance_type: " Pay per usage"
+        session:
+          label: "Session retention: "
+          day: "Days"
+      combination: " Combination"
+    deduplicated:
+      label: "Deduplicated: "
+      label1: " Yes"
+      label2: " No"
+    unique_definition: "Unique definition: "
+    flash_messages:
+      success: "Conversion created"
+      update: "Conversion updated"
+      existed: "Conversion combine must not be the same"
+      
+    option1:
+      label: "<Option①>　"
+      starting_point_setting:
+        label: "Starting point setting: "
+        configure: " Configure"
+        not_configure: " Not configure"
+      sale_unit_price: "Sale unit price: "
+    option2:
+      label: "<Option②>"
+      reward_format:
+        label: "Reward format: "
+        straight_line_type: " Pay periodically"
+        declining_balance_type: " Pay per usage"
+    combination:
+      pattern: "Pattern: "
+      add: "Add"
+  log:
+    title:
+      cv_logs: "Conversions Logs"
+      click_logs: "Click Logs"
+    today_text: "Today"
+    crumb_click: "Click_logs"
+    crumb_cv_logs: "Conversion logs"
+    conversion_name: "Conversion name"
+    media_category: "Media category"
+    account_name: "Account name"
+  cv_logs:
+    label: "CV Logs"
+    cv_test: "CV test"
+    display_item: "Display item"
+    usually: "Usually"
+    show_all: "Show All"
+    all: "All"
+    listing_ad: "Listing ads"
+    display_ad: "Display ads"
+    affiliate: "Affiliate"
+    conversion_time: "Conversion Times"
+    conversion_name: "Conversion Name"
+    conversion_category: "Conversion Category"
+    tracking_type: "Tracking Type"
+    cv_type: "Conversion type"
+    media_approval: "Media Approval"
+    media: "Media"
+    account: "Account"
+    campaign: "Campaign"
+    ad_group: "Ad Group name"
+    ad_name: "Ad Name"
+    click_utime: "Click Times"
+    verify: "Verify"
+    suid: "SUID"
+    session_id: "Session ID"
+    os: "OS"
+    repeat: "Repeat"
+    log_state: "OK/NG"
+    sales: "Sales"
+    profit: "Profit"
+    volume: "Volume"
+    others: "Others"
+    error_message: "Error Message"
+    error_log_view: "Show error logs"
+    currency: "￥"
+  click_logs:
+    label: Clicks Logs
+    display_item: Display item
+    usually: Usually
+    show_all: "Show All"
+    all: "All"
+    listing_ad: "Listing ad"
+    display_ad: "Display ad"
+    affiliate: "Affiliate"
+    click_utime: "Click Time"
+    media_name: Media Name
+    account_name: Account name
+    campaign_name: Campaign Name
+    ad_group_name: Ad Group Name
+    ad_name: Ad Name
+    url: URL
+    sesid: SESID
+    os: OS
+    log_state: OK/NG
+    error_message: Error Message
+    error_log_view: Show error logs
+  promotion:
+    title:
+      list: "Promotions List"
+      edit: "Edit Promotion"
+      add: "Add Promotion"
+    media: "Media"
+    account: "Account"
+    crumb_edit: "Edit Promotion"
+    crumb_add: "Add Promotion"
+    promotion_name: "Promotion name: "
+    roman_name: "Roman Name: "
+    category: "Category: "
+    tracking_period:
+      label: "Tracking period: "
+      day: "Day"
+    dashboard: "Dashboard "
+    flash_messages:
+      success: " Promotion is created successful"
+      update: " Promotion is updated successful"
+    Done: "Done"
+    Dashboard: "Dashboard"
+    popup_table: "Table"
+    popup_metric: "Metric Results"
+    popup_result: "Results"
+    popup_showall: "Show All"
+  user:
+    title:
+      list: "Users List"
+      edit: "Edit User"
+      add: "Add User"
+    crumb_add: "Add User"
+    crumb_edit: "Edit User"
+    username: "User name: "
+    roman_name: "Roman name: "
+    email: "Email address: "
+    role:
+      label: "Role: "
+      include_blank: "Please select" 
+    company_name: "Company name: "
+    company_id:
+      include_blank: "Please select"
+    password:
+      label: "Password: "
+      info: "※Automatically create"
+    password_notification:
+      label: "Password notification: "
+      not_notified: " Not notified"
+      to_notified: " Notified"
+    disabled:
+      label: "User disabled: "
+      disable: " I want to disable"
+    flash_messages:
+      success: " User is created successfully"
+      update: " User is updated successfully"
+    user_table:
+      username: "User name"
+      roman_name: "Roman name"
+      email: "Email address"
+      role: "Role"
+      company_name: "Company name"
+  media_categories: ["Listing ad", "Display ad", "affiliate"]
+  log_track_type: ["Install", "Action in app"]
+  log_repeat_flg: ["New", "Repeat"]
+  Listing: "Listing ads"
+  Display: "Display ads"
+  Affiliate: "Affiliate" 
+  cv_kind1: "CV"
+  cv_kind2: "CV (first)"
+  cv_kind3: "CV（repeat）"
+  log_error_messages: ["[None]", "No redirect information", "Request parameters not correct", "DB error [*not yet use]", "Redirection information has been deleted"]
+  log_cv_error_messages: ["[None]", "None conversion setting", "Request parameters not correct", "DB error [*not yet use]", "No session cookie information", "None click", "Deduplication", "Unique constraint violation"]
+  popup:
+    ok: "OK"
+    cancel: "Cancel"
+    disable: "Disable"
+    delete: "Delete"
+    enable: "Enable"
+    new_first: "Screen will be transited and  contents which you inputed will lost."
+    new_second: "Click OK button to continue."
+    edit_first: "Screen will be transited and  contents which you edited will lost."
+    edit_second: "Click OK button to continue."
+  url:
+    title: "URL Setting"
+    flash_messages:
+      success: "Your edit URL request was accepted."
+      success_update: "Your update URL request was accepted."
+    no_data: "No data"
+    download_template: "Click to download the fomat of upload file"
+    edit: "Edit"
+    ad_id: "Ad Id"
+    campaign_name: "Campaign name"
+    group_name: "Group name"
+    ad_name: "Ad name"
+    creative: "Creative ID"
+    url: "URL"
+    note: "Comment"
+    last_modified: "Last Modified"
+    delete: "Delete"
+    click_price: "Click unit"
+    ad_id_check: "ad id"
+    campaign_name_check: "campaign name"
+    group_name_check: "group name"
+    ad_name_check: "ad name"
+    creative_check: "creative id"
+    url_check: "submit url"
+    note_check: "comment"
+    last_modified_check: "last modified"
+    click_price_check: "click unit"
+    upload_type: 
+      insert: " Add (new)"
+      update: "Update (existing)"
+    show_option:
+      table: "Table"
+      display_item: "Display items"
+      select_all: "Select All"
+      complete_alt: "OK"
+      cancel_alt: "Cancel"
+    redirect_url1: "redirect url 1"
+    name1: "name 1"
+    rate1: "rate 1"
+    redirect_url2: "redirect url 2"
+    name2: "name 2"
+    rate2: "rate 2"
+    redirect_url3: "redirect url 3"
+    name3: "name 3"
+    rate3: "rate 3"
+    redirect_url4: "redirect url 4"
+    name4: "name 4"
+    rate4: "rate 4"
+    redirect_url5: "redirect url 5"
+    name5: "name 5"
+    rate5: "rate 5"
+  Promotion Name: "Promotion Name"
+  Page: "Page"
+  of: "of"
+  Listing: "Listing ad"
+  Display: "Display ad"
+  Affiliate: "Affiliate ad"
+  CV(first): "CV(first)"
+  CV(repeat): "CV(repeat)"
+  CV: "CV(total)"
+  CVR: "CVR"
+  CPA: "CPA"
+  ASSIST: "ASSIST"
+  SALES: "SALES"
+  ROAS: "ROAS"
+  PROFIT: "PROFIT"
+  ROI: "ROI"
+  time_format: "%m/%d/%Y"
+  footer:
+    privacy_policy: "Privacy policy"
+    privacy_policy_link: "http://www.septeni.co.jp/en/privacy/index.html"
+    corporate_information: "Corporate information"
+    corporate_information_link: "http://www.septeni.co.jp/en/company/outline.html"
+    terms_and_conditions: "Terms And Conditions"
+    terms_and_conditions_link: "http://www.septeni.co.jp/en/terms/index.html"
+    corporate_link: "http://www.septeni.co.jp/en"
+  export_conversion_logs:
+    cv_date_time: "CV date time"
+    cv_name: "CV name"
+    cv_category: "CV category"
+    tracking_type: "Tracking type"
+    cv_type: "CV type"
+    log_id: "Log ID"
+    starting_log_id: "Starting log ID"
+    media_approval: "Media approval"
+    click_name: "Client name"
+    promotion: "Promotion"
+    media: "Media"
+    account: "Account"
+    campaign: "Campaign"
+    ad_group: "Ad group"
+    ad_name: "Ad name"
+    link_url: "Link URL"
+    click_date_time: "Click date time"
+    influx_original: "Influx original"
+    sales: "sales"
+    volume: "volume"
+    other: "Other"
+    verify: "Verify"
+    suid: "SUID"
+    sesid: "sesid"
+    os: "OS"
+    repeat: "Repeat"
+    log_state: "OK/NG"
+    user_agent: "User_Agent"
+    remote_ip: "Remote IP"
+    referrer: "Referrer"
+    media_session_id: "Media session ID"
+    mark: "mark"
+    reception_log: "Reception log"
+    send_log: "Send log"
+    send_date_time: "Send date time"
+    error_message: "Error message"
+    profit: "Profit"
+    click_utime: "Click date time"
+  export_click_logs:
+    label: Export CLick log
+    click_utime: "Click date time"
+    click_id: 'Click ID'
+    client_name: 'Client name'
+    promotion_name: 'Promotion name'
+    media_name: 'Media name'
+    account_name: 'Account name'
+    campaign_name: 'Campaign name'
+    ad_group: 'Ad group'
+    ad_name: 'Ad name'
+    request_uri: 'request_uri'
+    redirect_url: 'redirect_url'
+    session_id: 'SESSIONID'
+    media_session: 'Media session'
+    os: 'OS'
+    user_agent: 'User agent'
+    remote_ip: 'Remote IP'
+    referer: 'Referer'
+    mark: 'Mark'
+    ok_ng: 'OK/NG'
+    error_code: 'Error messages'
+  notification:
+    inprogress: 'Inprogress'
+    upload: 'Upload List'
+    download: 'Download List'
+    uploading: 'Uploading'
+    creating: 'Creating'
+    inpreparation: 'In preparation'
+    completed: 'Completed'
+    waiting_upload: 'Waiting upload'
+    show_error: 'Show error'
+

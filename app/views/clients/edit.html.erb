@@ -1,0 +1,75 @@
+<% provide(:title, I18n.t("client.title.edit")) %>
+<script type="text/javascript">
+$(function(){
+	prevent_change = "<%= @prevent %>";
+	$(".prevent_change").change(function(){
+		prevent_change = "1"
+	})
+})
+</script>
+<%= stylesheet_link_tag "css/common" %>
+<%= render "layouts/prevent_change_page_edit" %>
+<% content_for :sidebar do %>
+	<%= render partial: "layouts/sidebar", locals: {object: @clients} %>
+<% end %>
+<p class="h2"><%= I18n.t("client.crumb_edit") %></p>
+<div id="client_info">
+  <%= render "client_info_edit_form" %>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        list_ignore_user = [];
+        list_user = [];
+        user_list_html = $("#user_list_form").html();
+        <% @client.client_users.active.each do |client_user|%>
+        list_ignore_user.push({"value": "<%= client_user.user.id %>"});
+        <% end %>
+        <% User.active.order_by_roman_name.where('role_id != ?',1).each do |user|%>
+        <%
+        if user.client?
+          company = Client.find(user.company_id).client_name
+        else
+        	company = Agency.find(user.company_id).agency_name
+        end
+        %>
+        list_user.push({"label": "<%= short_ja_name(user.username) %>", "value": "<%= user.id %>", "email": "<%= short_en_name(user.email) %>", "role": "<%= user.role.role_name %>", "company": "<%= short_ja_name(company) %>"});
+        <% end %>
+        $(list_ignore_user).each(function (i, data) {
+            list_user.splice(index_of(list_user, data.value), 1);
+        });
+        $("#tags").autocomplete({
+            source: list_user,
+            select: function (event, ui) {
+            	prevent_change = "1";
+                $("#tags").val("");
+                list_user.splice(list_user.indexOf(ui.item), 1);
+                data = ui.item;
+                $("#user_list").append("<tr><th>" + data.label + "(" + data.company + ")</th>" + "<td>" + data.email + "</td><td>" + data.role
+                        + "</td><td><input type = 'hidden' name='users_id[]' value ='" + data.value +
+                        "'><input class= 'del_user' type = 'checkbox' name='del_user_" + data.value + "'></td></tr>");
+				user_list_html = $("#user_list_form").html();
+                $(this).blur();
+                return false;
+            },
+            minLength: 0,
+            focus: function (e, ui) {
+                e.preventDefault();
+                this.value = ui.item.label;
+            }
+        }).focus(function (event) {
+                    $(this).autocomplete("search");
+                    $("#tags").val("");
+                    event.preventDefault();
+                });
+        $(document).on('click', ".del_user", function(){
+        	if ($(this).is(':checked')){
+        		$(this).attr("checked","checked");
+        		user_list_html = $("#user_list_form").html();
+        	}else{
+        		$(this).removeAttr("checked");
+        		user_list_html = $("#user_list_form").html();
+        	}
+        });
+    });
+</script>

@@ -1,0 +1,25 @@
+<div id="errors">
+	<% objects.each do |error| %>
+		<% if error.class == Array %>
+			<% error.each do |msg| %>
+				<div><%= msg %></div>
+			<% end %>
+		<% else %>
+			<div><%= error %></div>
+		<% end %>
+	<% end %>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$.colorbox({
+		width: "30%",
+		inline: true,
+		escKey: false,
+		overlayClose: false,
+		href: "#errors",
+		onClosed: function(){
+			$("#errors").css("display","none");
+		}
+	});
+});
+</script>

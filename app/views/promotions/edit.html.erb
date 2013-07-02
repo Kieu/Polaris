@@ -1,0 +1,97 @@
+<% provide(:title, I18n.t("promotion.title.edit")) %>
+<script type="text/javascript">
+$(function(){
+	prevent_change = "<%= @prevent %>";
+	$(".prevent_change").change(function(){
+		prevent_change = "1"
+	})
+})
+</script>
+<%= render "layouts/prevent_change_page_edit" %>
+<%= stylesheet_link_tag "css/common" %>
+<% content_for :sidebar do %>
+    <%= render partial: "layouts/sidebar", locals: {object: @array_promotion} %>
+<% end %>
+  <ul class="contentNavi">
+    <li class="pre"><%= link_to short_ja_name(@promotion.client.client_name), clients_path(client_id: @promotion.client_id), title: "#{@promotion.client.client_name}" %></li>
+    <li> &gt; </li>
+    <li><%= I18n.t("promotion.crumb_edit")%></li>
+    <li> / </li>
+    <li><div title="<%= @promotion_name %>"><%= short_ja_name(@promotion_name) %></div></li>
+  </ul>
+  <div class="clear"></div>
+<%= form_for(@promotion) do |f| %>
+    <div class="regist_form">
+      <table class="client_info">
+        <tbody>
+        <tr>
+          <th><%= f.label I18n.t("promotion.promotion_name") %></th>
+          <td colspan="2"><%= f.text_field :promotion_name, maxlength: 255, style: "width: 250px", class: "prevent_change", tabindex: 1 %></td>
+        </tr>
+        <tr>
+          <th style="width: 200px;"><%= f.label I18n.t("promotion.roman_name") %></th>
+          <td colspan="2"><%= f.text_field :roman_name, maxlength: 255, style: "width: 250px", class: "prevent_change", tabindex: 2 %></td>
+        </tr>
+        <tr>
+          <th><%= f.label I18n.t("promotion.category") %></th>
+          <td colspan="2">
+            <%= f.select :promotion_category_id,
+				t(".category").each_with_index.map {|name, index| [name,index]}, {}, {class: "prevent_change", selected: @promotion.promotion_category_id, tabindex: 3} %>
+          </td>
+        </tr>
+        <tr style="vertical-align: top;">
+          <th><%= f.label I18n.t("promotion.tracking_period.label") %></th>
+          <td style="width: 250px"><%= f.text_field :tracking_period, maxlength: 2, style: "width: 250px", class: "prevent_change", tabindex: 4 %> </td>
+          <td style="padding-left: 0"> <%= I18n.t("promotion.tracking_period.day") %></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="submit_area2">
+      	<%= image_submit_tag("/assets/btn_done.gif", id: "btn_done", tabindex: 5) %>
+        <p><%= link_to image_tag("/assets/btn_cancel.gif", align: "right", alt: "キャンセル", tabindex: 7), promotions_path(promotion_id: @promotion.id, client_id: @client_id) %></p>
+        <p><button id="promotion_delete"><img align="right" alt="delete" src="/assets/btn_del.gif" tabindex = "6"></button></p>
+         </div>
+    </div><!-- /."regist_form end-->
+    <input type="hidden" name="client_id" value="<%= @client_id %>" />
+    <input type="hidden" name="promotion_name" value="<%= @promotion_name %>" />
+    <% end %>
+<div id="popup_delete" style="display: none">
+	<p class="del_message" style="margin-top:20px;">
+		【注意】下記、プロモーションを削除しようとしています。</br></br>
+		このまま削除をした場合、このプロモーションに関連づけられた</br>
+		全てのデータが消えてしまいますが、問題ないでしょうか。</br>
+		-----------------------------------------------</br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;クライアント名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：<%= short_ja_name(@client.client_name) %>　様 </br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;プロモーション名：<%= short_ja_name(@promotion_name) %> </br>
+		-----------------------------------------------</br>
+	</p>
+</div>
+<script type="text/javascript">
+$(function(){
+	$("#promotion_delete").click(function(e){
+		e.preventDefault();
+	  	$.confirm({
+			'message'	: $("#popup_delete").html(),
+		    'buttons'	: {
+		    	"<%= I18n.t('popup.cancel') %>"	: {
+		        	'class'	: 'popup_no',
+		            'action': function(){}	// Nothing to do in this case. You can as well omit the action property.
+				},
+		    	"<%= I18n.t('popup.delete') %>"	: {
+		        	'class'	: 'popup_yes',
+		            'action': function(){
+		            	$.ajax({
+							url: "<%= delete_promotion_promotions_path %>",
+							type: "POST",
+							data: "promotion_id=" + "<%= @promotion.id %>" + "&client_id=" + "<%= @client_id %>",
+							success: function(data){
+								location.href = "/promotions?client_id=<%= @client_id %>"
+							}
+						})
+					}
+				}
+			}
+		});
+	});
+})
+</script>

@@ -1,0 +1,13 @@
+<tr id="method_area">
+  <th><%= f.label I18n.t("conversion.conversion_category.app.track_method.label") %></th>
+  <td><label>
+    <%= f.radio_button :track_method, 2, checked: true, onclick: "check_track_method();", class: "prevent_change" %><%= I18n.t("conversion.conversion_category.app.track_method.white") %>
+  </label></td>
+  <td><label>
+    <%= f.radio_button :track_method, 3, onclick: "check_track_method();", class: "prevent_change" %><%= I18n.t("conversion.conversion_category.app.track_method.welcome") %>
+  </label></td>
+  <td colspan="2"><label>
+    <%= f.radio_button :track_method, 4, onclick: "check_track_method();", class: "prevent_change" %><%= I18n.t("conversion.conversion_category.app.track_method.custom.label") %></label>
+    <%= f.text_field :url, id: "url", class: "urlBox", disabled: (@conversion && @conversion.track_method == "4") ? false : true, placeholder: I18n.t("conversion.conversion_category.app.track_method.custom.url") %>
+  </td>
+</tr>

@@ -1,45 +1,69 @@
 source 'https://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails', '3.2.13'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Bundle edge Rails instead:
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem "rails_config"
+gem "mysql2"
+gem "bcrypt-ruby"
+gem "feedzirra"
+gem "curb", "0.8.4"
+gem "highcharts-rails",   "~> 3.0.2"
+gem "recaptcha", :require => "recaptcha/rails"
+gem "kaminari"
+gem "redis"
+gem "resque", require: 'resque/server'
+gem "resque-status"
+gem 'json'
+gem 'iconv'
+gem "cocaine"
+gem "paperclip"
+gem 'gotcha'
+gem 'zeroclipboard-rails'
+gem 'aescrypt'
 
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
-
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem "sass-rails",   "~> 3.2.3"
+  gem "coffee-rails", "~> 3.2.1"
+  gem "therubyracer", :platforms => :ruby
+  gem "uglifier", ">= 1.0.3"
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
+group :development, :test do
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem "pry"
+  gem "pry-doc"
+  gem "pry-debugger"
+  gem "pry-stack_explorer"
+  gem "pry-rails"
+  gem "growl"
+  gem "rspec-rails"
+  gem "factory_girl_rails"
+  #gem "rack-bug"
+end
+
+group :test do
+  gem "capybara"
+  gem "simplecov", require: false
+  gem "simplecov-rcov", require: false
+end
+
+gem "jquery-rails"
+
+# To use Jbuilder templates for JSON
+# gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
+gem "raindrops", ">= 0.10.0"
 
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
+# Deploy with Capistrano
+# gem 'capistrano'
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+# To use debugger
+# gem 'debugger'

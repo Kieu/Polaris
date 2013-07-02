@@ -1,0 +1,62 @@
+<% provide(:title, I18n.t("client.title.list")) %>
+<%= stylesheet_link_tag "css/common" %>
+<style type="text/css">
+	.flexigrid div.bDiv td {
+		border-right : none;
+	}
+</style>
+<% if flash[:error] %>
+    <div><%= flash[:error] %></div>
+<% end %>
+
+<% if @clients.count > 0 %>
+    <% content_for :sidebar do %>
+        <%= render partial: "layouts/sidebar", locals: {object: @clients} %>
+    <% end %>
+    <div title="<%= @client.client_name %>"><p class="h2" id="client_name"><%= short_ja_name(@client.client_name) %></p></div>
+    <% if current_user.super? %>
+        <img id='create_promotion' src="/assets/btn_promotion_regist.gif" onclick="create()" style="display: none">
+    <% end %>
+    <table class="newTable06 fixTable d-none" style="display: none"></table>
+    <script type="text/javascript">
+        $(".newTable06").flexigrid({
+            url: "<%= get_promotions_list_clients_path %>" + "?id=<%= @client.id if @client %>",
+            dataType: 'json',
+            colModel: [
+                {display: '<%= I18n.t("Promotion Name") %>', name: 'promotion_name', width: 'auto', sortable: false, align: 'left'}
+            ],
+            sortname: "promotion_name",
+            sortorder: "desc",
+            usepager: true,
+            title: 'Promotion Name',
+            useRp: true,
+            rp: 10,
+            showTableToggleBtn: true,
+            resizable: false,
+            optionGet: "1",
+            pagetext: "<%= I18n.t("Page") %>",
+			outof: "<%= I18n.t("of") %>", 
+            onSuccess: function () {
+                tableResize();
+                checkrow();
+            }
+        });
+        function checkrow(com, grid) {
+            var i = 0;
+            $('.newTable06 tr', grid).each(function () {
+                i++;
+            });
+            if (i == 0)
+                $('#create_promotion').css('display', '');
+            else
+                $('#create_promotion').css('display', 'none');
+
+        }
+        function create() {
+            var client_id = $('a[class="client_name current"]').attr('id');
+            ajaxCommon('<%= new_promotion_path() %>?client_id=' + client_id, '', '', '', '#inner');
+        }
+    </script>
+<% else %>
+    <h2 id="client_name">No data</h2>
+<% end %>

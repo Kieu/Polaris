@@ -1,0 +1,70 @@
+mailer:
+  default_from: info@septeni.jp
+  send_password_subject: 【Polaris事務局】パスワード発行完了
+login:
+  login_block_number: 3
+role:
+  SUPER: 1
+  AGENCY: 3
+  CLIENT: 2
+user:
+  deactive: '1'
+  active: '0'
+promotion:
+  deleted: '1'
+  active: '0'
+client_user:
+  deleted: '1'
+  active: '0'
+media:
+  deleted: '1'
+  active: '0'
+MAX_EN_LENGTH_NAME: 28
+MAX_JA_LENGTH_NAME: 14
+media_category:
+  1: 'Listing'
+  2: 'Display'
+  3: 'Affiliate'
+
+EXPORT_PROMOTION: 'export_promotion'
+EXPORT_URL: 'export_url'
+EXPORT_CLICK_LOGS: 'export_click_logs'
+EXPORT_CV_LOGS: 'export_cv_logs'
+MAX_LINE_URL_IMPORT_FILE: 1000000
+RECORD_NUM_PER_INSERT: 1000
+type_view:
+  UPLOAD: 'upload'
+  DOWNLOAD: 'download'
+job_status:
+  PROCESSING: '0'
+  SUCCESS: '1'
+  WRONG: '2'
+file_type:
+  CSV: '.csv'
+  TXT: ".txt"
+export_promotion_path: 'doc/promotion_export/'
+export_url_path: 'doc/url/export_url/'
+export_click_logs_path: 'doc/click_logs_export/'
+export_conversion_logs_path: 'doc/cv_logs_export/'
+error_url_path: 'doc/url/error_message/'
+promotions_options: ["imp", "click", "CTR", "COST", "CPM", "CPC"]
+conversions_options: ["CV(first)", "CV(repeat)", "CV", "CVR", "CPA", "ASSIST", "SALES", "ROAS", "PROFIT", "ROI"]
+promotions_sums: ["imp_count", "click_count", "click_through_ratio", "cost_sum", "cost_per_mille", "cost_per_click"]
+conversions_sums: ["first_cv_count", "repeat_cv_count", "total_cv_count", "conversion_rate", "click_per_action", "assist_count", "sales", "roas", "profit", "roi"]
+conversions_graph: ["CV(first)", "CV(repeat)", "CV", "CVR", "CPA", "ASSIST"]
+url_options: ["edit","last_modified", "ad_id", "campaign_name", "group_name", "ad_name", "creative", "url", "note", "click_price", "delete"]
+cv_options_part1: ["conversion_time", "conversion_name", "conversion_category", "tracking_type", "cv_type", "media_approval", "media", "account", "campaign", "ad_group", "ad_name", "click_utime"]
+cv_options_part2: ["verify", "suid", "session_id","os", "log_state", "sales", "profit", "volume", "others", "error_message"]
+click_options: ["click_utime", "media_name", "account_name","campaign_name", "ad_group_name", "ad_name", "url", "sesid", "os","log_state", "error_message"]
+conversion_kind:
+  1: 'cv_kind1'
+  2: 'cv_kind2'
+  3: 'cv_kind3'
+conversion_session_period_default: 90
+account_cost_default: 100
+URL_TEMPLATE_FILE: 
+   EN: 'doc/url/template_import_url/template_import_url_en.csv'
+   JP: 'doc/url/template_import_url/template_import_url_jp.csv'
+DOMAIN_SUBMIT_URL: 'http://track.polaris-adm.com/click/?'
+cookie_click_log_default: '11111101010'
+cookie_cv_log_default: '11111111111111100100000'

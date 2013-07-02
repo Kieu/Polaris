@@ -1,0 +1,76 @@
+<tr>
+  <th><%= f.label "", I18n.t('conversion.conversion_category.app.os.label') %></th>
+  <td colspan="2"><label>
+    <%= f.radio_button :os, 1, checked: true, disabled: ((params[:action] == "edit" || params[:action] == "update") && @conversion.os.to_i!=1) ? true : false, onclick: "render_ios();", class: "prevent_change" %><%= I18n.t("conversion.conversion_category.app.os.ios")%>
+  </label></td>
+  <td colspan="2"><label>
+    <%= f.radio_button :os, 2, disabled: ((params[:action] == "edit" || params[:action] == "update") && @conversion.os.to_i!=2) ? true : false, onclick: "render_android();", class: "prevent_change" %><%= I18n.t("conversion.conversion_category.app.os.android")%>
+  </label></td>
+</tr>
+<tr>
+  <th><%= f.label I18n.t("conversion.conversion_category.app.conversion_mode.label") %></th>
+  <td><label>
+    <%= f.radio_button :conversion_mode, 0, checked: true, onclick: "render_fb_app_id();", class: "prevent_change" %><%= I18n.t("conversion.conversion_category.app.conversion_mode.all") %>
+    </label></td>
+    <td><label>
+    <%= f.radio_button :conversion_mode, 1, onclick: "remove_track_method();", class: "prevent_change" %><%= I18n.t("conversion.conversion_category.app.conversion_mode.facebook")%>
+    </label></td>
+    <td><label>
+    <%= f.radio_button :conversion_mode, 2, onclick: "remove_fb_app_id();", class: "prevent_change" %><%=I18n.t("conversion.conversion_category.app.conversion_mode.other")%>
+    </label></td>
+  <td>&nbsp;</td>
+</tr>
+<tr id="app_duplicate">
+  <th><a href="#"><img src="/assets/icon_help.gif" /></a><%= f.label I18n.t("conversion.conversion_category.app.duplicate.label") %></th>
+  <td>
+    <%= f.radio_button :duplicate, 1, checked: true, class: "prevent_change" %><%=I18n.t("conversion.conversion_category.app.duplicate.label1")%>
+ </td>
+  <td>
+    <%= f.radio_button :duplicate, 0, class: "prevent_change" %><%=I18n.t("conversion.conversion_category.app.duplicate.label2")%>
+ </td>
+  <td colspan="2">&nbsp;</td>
+</tr>
+<%=
+  if @conversion.conversion_mode.to_i != 1
+    if @conversion.os.to_i == 2
+      render "app_install_android", f: f
+    else	
+      render "app_install_ios", f: f 
+    end
+  end
+%>
+<%= 
+  if @conversion.conversion_mode.to_i != 2
+    render "app_install_fb_app_id", f: f 
+  end
+%>
+<tr>
+  <th><%= f.label t("conversion.unique_definition") %></th>
+  <td colspan="4">
+    <%= f.select :unique_def, t("conversions.unique_definition").each_with_index.map {|name, index| [name, index + 1]}, {}, {class: "prevent_change"} %>
+  </td>
+</tr>
+<tr id="app_option">
+  <th><%= I18n.t("conversion.conversion_category.app.option.label")%></th>
+  <td colspan="4">&nbsp;</td>
+</tr>
+<%= 
+  if @conversion.os.to_i != 2
+    render "app_install_judging", f: f 
+  end
+%>
+<tr>
+  <th><%= f.label I18n.t("conversion.conversion_category.app.sale_unit_price") %></th>
+  <td colspan="4">
+    <%= f.text_field :sale_unit_price, maxlength: 10, placeholder: "￥", class: "input-text prevent_change" %>
+  </td>
+</tr>
+<tr>
+  <th><%= f.label I18n.t("conversion.conversion_category.app.reward_form.label") %></th>
+  <td colspan="2"><label>
+    <%= f.radio_button :reward_form, 1, checked: true, class: "prevent_change" %><%= I18n.t("conversion.conversion_category.app.reward_form.straight_line_type") %>
+  </label></td>
+  <td colspan="2"><label>
+    <%= f.radio_button :reward_form, 2, class: "prevent_change" %><%= I18n.t("conversion.conversion_category.app.reward_form.declining_balance_type") %>
+  </label></td>
+</tr>

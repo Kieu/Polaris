@@ -1,0 +1,42 @@
+<% provide(:title, I18n.t("agency.title.list")) %>
+<%= stylesheet_link_tag "css/agency2", :media => "all" %>
+<%= stylesheet_link_tag "css/common", :media => "all" %>
+<% if flash[:error] %>
+	<div><%= flash[:error] %></div>
+<% end %>
+<div id="agencies_list">
+</div>
+<%= link_to raw('<img src="/assets/btn_agent_regist.jpg">'), "javascript:void(0)", class: "new_agency",onclick: "ajaxCommon('#{new_agency_path}', '', '', '','#inner')" %>
+<table style="display:none" class="newTable04 fixTable d-none"></table>
+<script type="text/javascript">
+	$(".newTable04").flexigrid({
+		url: "<%= get_agencies_list_agencies_path %>",
+    editOption : true,
+    deleteOption : true,
+    onSuccess : function(){tableResize();},
+    resizable : false,
+    striped : true,
+    pagetext: "<%= I18n.t("Page") %>",
+    outof: "<%= I18n.t("of") %>", 
+		dataType: 'json',
+		colModel: [
+      {display: '', name : 'link', width : '60', sortable : false, align: 'center'},
+      {display: "<%= I18n.t('agency.roman_name') %>", name : 'roman_name', width : 'auto', sortable : false, align: 'left'},
+      {display: "<%= I18n.t('agency.agency_name') %>", name : 'agency_name', width : 'auto', sortable : false, align: 'left'}],
+    sortname: "roman_name",
+    sortorder: "desc",
+		usepager: true,
+		title: 'Agency list',
+		useRp: true,
+		rp: 10,
+		showTableToggleBtn: true,
+		height: 200
+	});
+</script>
+<script>
+    $(window).resize(function() {
+        tableResize();
+    });
+
+</script>
+<div style="clear:both"></div>

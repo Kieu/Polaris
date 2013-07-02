@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Polaris</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <title><%= full_title(yield(:title)) %></title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= stylesheet_link_tag "css/#{params[:controller]}" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= yield :stylesheet_includes %>
+  <%= yield :javascript_includes %>
 </head>
 <body>
-
-<%= yield %>
-
+<script type="text/javascript">
+  $(document).ready(function(){
+  	//prevent = false;
+	$('input#keywords').quicksearch('div#clients_list tr', {
+    	"selector": "a.client_name"
+	});
+    $('input#keywords').quicksearch('div#promotions_list tr', {
+    	"selector": "a.promotion_name"
+	});
+    $('input#keywords').quicksearch('div#conversions_list tr', {
+    	"selector": "a.conversion_name"
+	});
+  })
+</script>
+<div style="display:none" id="dvloader"><img src="/assets/ajax-loader.gif" /></div>
+<div id="wrapper">
+  <%= render "layouts/header" %>
+  <div id="container">
+    <div id="contents">
+      <% if signed_in? %>
+          <div id="inner">
+            <%= yield %>
+          </div>
+      <% else %>
+          <%= yield %>
+      <% end %>
+    </div>
+  </div>
+  <% if signed_in? %>
+	<%= yield :sidebar %> 
+  <% else %>
+	<%= render "layouts/login" %>
+  <% end %>
+  <%= render "layouts/footer" %>
+</div>
 </body>
 </html>

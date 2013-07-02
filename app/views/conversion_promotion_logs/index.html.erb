@@ -1,0 +1,360 @@
+<% provide(:title, I18n.t("log.title.cv_logs")) %>
+<%= stylesheet_link_tag "css/logs" %>
+<%= stylesheet_link_tag "css/colorbox" %>
+<%= stylesheet_link_tag "css/common" %>
+<%= stylesheet_link_tag "css/box_inner_log" %>
+<% content_for :sidebar do %>
+    <%= render partial: "layouts/sidebar", locals: {object: @promotions} %>
+<% end %>
+<%= render partial: "layouts/option_cv_log_page" %>
+<style>
+    .flexigrid div.hDiv th, div.colCopy {
+      padding-left: 5px !important;
+        padding-right: 5px !important;
+  }
+        #cvlogs {
+            width: 100% !important;
+        }
+</style>
+<ul class="contentNavi">
+  <div class = "crumb_logs">
+	<% unless current_user.client? %>
+		<li class="pre"><%= link_to short_ja_name(@promotion.client.client_name), clients_path(client_id: @promotion.client.id) %> </li>
+	<% else %>
+		<li class="pre"><%= short_ja_name(@promotion.client.client_name) %></li>
+	<% end %>
+	<li>&gt;</li>
+	<li><%= link_to short_ja_name(@promotion.promotion_name), promotions_path(promotion_id: @promotion.id, client_id: @promotion.client.id) %></li>
+	<li>&gt;</li>
+	<li><%= I18n.t("log.crumb_cv_logs")%></li>
+  </div>
+</ul>
+<div  style='float:right'>
+	<div class="selectarea">
+		<ul>
+			<li> <%= I18n.t("log.conversion_name")%>
+				<%= select_tag 'conversion_id', content_tag(:option,I18n.t("cv_logs.all"),:value=>"") + options_from_collection_for_select(@array_conversion, 'id', 'conversion_name'), class: "input-text"%>
+			</li>
+			<li> <%= I18n.t("log.media_category")%>
+				<%= select_tag 'media_category_id', "<option value = "">#{I18n.t("cv_logs.all")}</option><option value = 1 >#{I18n.t("cv_logs.listing_ad")}</option><option value = 2 >#{I18n.t("cv_logs.display_ad")}</option><option value = 3 >#{I18n.t("cv_logs.affiliate")}</option>".html_safe, class: "input-text" %>
+			</li>
+			<li> <%= I18n.t("log.account_name")%>
+				<%= select_tag 'account_id',content_tag(:option,I18n.t("cv_logs.all"),:value=>"")+ options_from_collection_for_select(@array_account, 'id', 'account_name'), class: "input-text" %>
+			</li>
+		</ul>
+	</div>
+	<div class="date" id="date_area"><%= I18n.t("log.today_text")%><br />
+		<input id="datepicker" type="text" readonly="readonly" value="<%= @start_date +" ~ "+ @end_date %>" name="datepicker">&#9660;
+      <div class="fl-r-log">
+        <p><a class='inline_cv_logs' href="#inline_cv_logs"><img src="/assets/btn_dl_option.gif"  /></a>
+        <a id="download_csv"><img src="/assets/btn_dl_report.gif"  /></a></p>
+      </div>
+	</div>
+</div>
+<div class="clear"></div>
+<div id="conversion_inner">
+	<!--タブ切り替え-->
+	<ul class="ui-tabs-nav">
+		<li class="ui-tabs-selected">
+			<%= link_to(conversion_promotion_logs_path(promotion_id: @promotion.id)) do %>
+			  <span><%= I18n.t("cv_logs.label")%></span>
+			<% end %>
+		</li>
+		<li class="">
+			<%= link_to(click_logs_path(promotion_id: @promotion.id)) do %>
+			  <span><%= I18n.t("click_logs.label")%></span>
+			<% end %>
+		</li>
+	</ul>
+	<div id="ui-tab">
+		<div id="fragment-1" class="ui-tabs-panel">
+			<div id="graph">
+			</div>
+			<table id="cvlogs"class="fixcolumn" style="background: grey" ></table>
+			
+		</div>
+		<div id="fragment-2" class="ui-tabs-panel ui-tabs-hide">
+			<div id="graph">
+				<div class="fl-r">
+					<p><a id = "show_option"><img src="/assets/btn_dl_option.gif" /></a></p>
+					<p><a href="#"><img src="/assets/btn_dl_report.gif"  /></a></p>
+				</div>
+			</div>
+			
+
+			
+			
+		</div>
+		
+	</div>
+	<!--/タブ切り替え-->
+</div>
+<script type="text/javascript">
+	$("#date_area").click(function(){
+    	$("#datepicker").click();
+	})
+	var term = $('#datepicker').val();
+    var d = term.split(' ~ ');
+    if (d[0])
+    	start_date = d[0];
+    else
+    	start_date = <%= @start_date %>
+    if (d[1])
+    	end_date = d[1];
+    else
+    	end_date = <%= @end_date %>
+
+   function showColumn(tbl, colIndex, visible) {
+        $(tbl).flexToggleCol(colIndex, visible);
+    }
+    $('#download_csv').click(function(){
+        $.ajax({
+            url: "<%= download_csv_conversion_promotion_logs_path %>",
+            data: {"promotion_id" : "<%= @promotion.id if @promotion %>",
+                "media_category_id": $("#media_category_id").val(),
+                "account_id": $("#account_id").val(),
+                "conversion_id": $("#conversion_id").val(),
+                "start_date": start_date,
+            	"end_date": end_date},
+            type: "post",
+            success: function(data){
+            }
+
+        })
+    })
+	$("#cvlogs").flexigrid({
+		url: "<%= get_conversion_logs_list_conversion_promotion_logs_path %>?media_category_id=" + $('#media_category_id').val() + "&account_id=" + $('#media_category_id').val() + "&media_id=" + $('#media_id').val() + "&start_date=<%= @start_date %>"  + "&end_date=<%= @end_date %>",
+		dataType: 'json',
+		colModel : [ 
+	{display: '<%= I18n.t("cv_logs.conversion_time")%>', name : 'conversion_utime', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[0] == "1") ? false : true,  attribute: {title:"add"}},
+	{display: '<%= I18n.t("cv_logs.conversion_name")%>', name : 'conversion_id', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[1] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.conversion_category")%>', name : 'conversion_category', width : '200', sortable : true, align: 'left', hide: ($.cookie("cv_options")[2] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.tracking_type")%>', name : 'tracking_type', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[3] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.cv_type")%>', name : 'cv_type', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[4] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.media_approval")%>', name : 'approval_status', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[5] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.media")%>', name : 'media_id', width : '200', sortable : true, align: 'left', hide: ($.cookie("cv_options")[6] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.account")%>', name : 'account_id', width : '200', sortable : true, align: 'left', hide: ($.cookie("cv_options")[7] == "1") ? false : true},
+	{display: '<%= I18n.t("cv_logs.campaign")%>', name : 'campaign_id', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[8] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.ad_group")%>', name : 'group_id', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[9] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.ad_name")%>', name : 'unit_id', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[10] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.click_utime")%>', name : 'click_utime', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[11] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.verify")%>', name : 'verify', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[12] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.suid")%>', name : 'suid', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[13] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.session_id")%>', name : 'session_id', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[14] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.os")%>', name : 'os', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[15] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.log_state")%>', name : 'log_state', width : '200', sortable : true, align: 'center',hide: ($.cookie("cv_options")[17] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.sales")%>', name : 'sales', width : '200', sortable : true, align: 'right',hide: ($.cookie("cv_options")[18] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.profit")%>', name : 'profit', width : '200', sortable : true, align: 'right',hide: ($.cookie("cv_options")[19] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.volume")%>', name : 'volume', width : '200', sortable : true, align: 'right',hide: ($.cookie("cv_options")[20] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.others")%>', name : 'others', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[21] == "1") ? false : true},
+    {display: '<%= I18n.t("cv_logs.error_message")%>', name : 'error_code', width : '200', sortable : true, align: 'left',hide: ($.cookie("cv_options")[22] == "1") ? false : true}
+			],
+				preProcess : function (json) {
+	            var results = new Array();
+	            jQuery.each(json.rows, function(idx, v) {
+	                if (idx==0) {
+	                	var gid = 1000;
+	               			if (v.cell.media_category_id != 'null') {
+	               				gid = v.cell.media_category_id;
+	               			}
+	                	results.push({id: "-" + gid, cell: {conversion_utime: "", conversion_id: "",volume: "", others: "",error_message: "",
+	                					conversion_category: "", tracking_type: "", cv_type: "", approval_status: "", media_id: "", account_id: "",campaign_id: "", ad_group_id: "", ad_id: "",
+	                					click_time: "", sales: "", verify: "", suid: "", session_id: "", os: "", log_state: "", sales: ""}});
+	               	} else {
+	               		if (json.rows[idx-1].cell.media_category_id != v.cell.media_category_id) {
+	               			var gid = 1000;
+	               			if (v.cell.media_category_id != "null")
+	               				gid = v.cell.media_category_id
+	               				
+	               			results.push({id: "-" + gid, cell: {conversion_utime: "", conversion_id: "",volume: "", others: "",error_message: "",
+	                					conversion_category: "", tracking_type: "", cv_type: "", approval_status: "", media_id: "", account_id: "",campaign_id: "", ad_group_id: "", ad_id: "",
+	                					click_time: "", sales: "", verify: "", suid: "", session_id: "", os: "", log_state: "", sales: ""}});
+	                	}
+	               	}
+              
+              results.push(this);
+	            });
+	            return {
+	                rows : results,
+	                page : json.page,
+	                total : json.total
+	            };
+	        },
+		usepager: true,
+		useRp: true,
+		rp: 10,
+		sortname: 'conversion_utime',
+		sortorder: 'desc',
+        resizable : false,
+        optionGet : "5",
+		query: "<%= params[:promotion_id] %>",
+		showTableToggleBtn: true,
+		onSuccess: function() {
+            if ($.cookie("cv_options") == '00000000000000000000000') {
+                	$('tr#row-1 td:nth-child('+(1+'n-'+(24))+')').remove();
+                	$('tr#row-2 td:nth-child('+(1+'n-'+(24))+')').remove();
+                	$('tr#row-3 td:nth-child('+(1+'n-'+(24))+')').remove();
+                	$('tr#row-1000 td:nth-child('+(1+'n-'+(24))+')').remove();
+                	$('tr#row-null td:nth-child('+(1+'n-'+(24))+')').remove();
+                } else {
+					$('tr#row-1 td:nth-child('+(1+'n-'+(24))+')').remove();
+		            $('tr#row-1').after("<div class='group_header'><%= I18n.t(Settings.media_category[1])%></div>");
+		
+					$('tr#row-2 td:nth-child('+(1+'n-'+(24))+')').remove();
+		            $('tr#row-2').after("<div class='group_header'><%= I18n.t(Settings.media_category[2])%></div>");
+		
+					$('tr#row-3 td:nth-child('+(1+'n-'+(24))+')').remove();
+		            $('tr#row-3').after("<div class='group_header'><%= I18n.t(Settings.media_category[3])%></div>");
+		
+					$('tr#row-1000 td:nth-child('+(1+'n-'+(24))+')').remove();
+		            $('tr#row-1000').after("<div class='group_header'>Organic</div>");
+		            $('tr#row-null td:nth-child('+(1+'n-'+(24))+')').remove();
+		            $('tr#row-null').after("<div class='group_header'>Organic</div>");
+	           }
+	           
+			
+		}
+	});
+	var colums = ["conversion_utime", "conversion_id", "conversion_category","tracking_type",
+	 "cv_type", "approval_status", "media_id", "account_id", "campaign_id", "group_id", "unit_id", "click_time", "verify", "suid", "session_id", "os", "log_state", "sales", "profit", "volume", "others", "error_message"]
+
+	var cookies_options = $.cookie("cv_options");
+
+	update_cookie = function(data,ele){
+		options = cookies_options.split("");
+		options[data] = (options[data] == "1") ? "0" : "1";
+		text = (options[data] == "1") ?  "<img src='/assets/btn_box_dl.gif' >" : "<img src='/assets/btn_box_add.gif' >";
+		$(ele).html(text);
+		options = options.join("");
+		cookies_options = options;
+
+		
+	}
+	show_page = function(ele){
+		$(".cv_options").each(function(){
+			if ("#" + $(this).attr("id") == $(ele).attr("href")){
+				$(this).show();
+			}else{
+				$(this).hide();
+			}
+		})
+	}
+
+	function showColumn(tbl, colIndex, visible) {
+	    $(tbl).flexToggleCol(colIndex, visible);
+	}
+	$("#change_cookie").click(function(){
+		$.cookie("cv_options",cookies_options);
+		for (var i=0;i<colums.length;i++){
+			if (cookies_options[i] == "1"){
+				showColumn("#cvlogs", i, true);
+			}else{
+				showColumn("#cvlogs", i, false);
+			}
+		}
+		if ($("#error_table").is(':checked')) {
+	    	$.cookie("ser",1);
+	    	
+	    } else {
+	    	$.cookie("ser",0);
+	    }
+	    reloadFlex1("#cvlogs","<%= get_conversion_logs_list_conversion_promotion_logs_path %>?cv_id=" + $("#conversion_id").val() + "&account_id=" + $("#account_id").val() + "&media_category_id=" + $("#media_category_id").val() + "&start_date=" + start_date + "&end_date=" + end_date);
+		$("#cvlogs").colorbox.close();
+	});
+	$("#not_change_cookie").click(function(){
+		$('#current_box').html('<%=j render "layouts/option_cv_default" %>');
+		cookies_options = $.cookie("cv_options");
+		//location.href = location.href;
+		$("#cvlogs").colorbox.close();
+	})
+	$(document).on('click', "#display_all", function(){
+		$.cookie("cv_options", '11111111111111111111111');
+		cookies_options = $.cookie("cv_options");
+		//$("#cv_logs_0").attr("src","/assets/btn_box_add.gif");
+		//location.href = location.href;
+		$('#current_box').html('<%=j render "layouts/option_cv_checkall" %>');
+		reloadFlex1("#cvlogs","<%= get_conversion_logs_list_conversion_promotion_logs_path %>?cv_id=" + $("#conversion_id").val() + "&account_id=" + $("#account_id").val() + "&media_category_id=" + $("#media_category_id").val() + "&start_date=" + start_date + "&end_date=" + end_date);
+
+	})
+	$(document).on('click', "#redisplay_all", function(){
+		$.cookie("cv_options", '11111111111111111111111');
+		cookies_options = $.cookie("cv_options");
+		//$("#cv_logs_0").attr("src","/assets/btn_box_add.gif");
+		//location.href = location.href;
+		$('#current_box').html('<%=j render "layouts/option_cv_checkall" %>');
+		reloadFlex1("#cvlogs","<%= get_conversion_logs_list_conversion_promotion_logs_path %>?cv_id=" + $("#conversion_id").val() + "&account_id=" + $("#account_id").val() + "&media_category_id=" + $("#media_category_id").val() + "&start_date=" + start_date + "&end_date=" + end_date);
+	})
+
+	$("#delete_all").click(function(){
+		$.cookie("cv_options", '11111111111111100100000');
+		cookies_options = $.cookie("cv_options");
+		//$("#cv_logs_0").attr("src","/assets/btn_box_add.gif");
+		//location.href = location.href;
+		$('#current_box').hide();
+		$('#checkall_box').show();
+		reloadFlex1("#cvlogs","<%= get_conversion_logs_list_conversion_promotion_logs_path %>?cv_id=" + $("#conversion_id").val() + "&account_id=" + $("#account_id").val() + "&media_category_id=" + $("#media_category_id").val() + "&start_date=" + start_date + "&end_date=" + end_date);
+		
+	})
+
+</script>
+
+<table id="paging" class="flexme4" style="display:none"></table>
+
+<div style="clear:both"></div>
+<script type="text/javascript">
+
+	$("#conversion_id").change(function(){
+		conversion_id = $(this).val();
+		reloadFlex1("#cvlogs","<%= get_conversion_logs_list_conversion_promotion_logs_path %>?cv_id=" + $(this).val() + "&account_id=" + $("#account_id").val() + "&media_category_id=" + $("#media_category_id").val() + "&start_date=" + start_date + "&end_date=" + end_date);
+	})
+
+	$("#media_category_id").change(function(){
+		$.ajax({
+	        type: "POST",
+	        url: "<%= change_accounts_list_conversion_promotion_logs_path %>?cid=" + $(this).val() + "&promotion_id=<%= @promotion.id%>",
+	        data: "cid=" + $(this).val(),
+	        success: function (data) {
+	            $("#account_id").html("");
+            	option = "<option value=''><%= I18n.t("click_logs.all") %></option>";
+                $("#account_id").append(option);
+	            for (var i = 0; i < data.length; i++) {
+	                option = "<option value='" + data[i].id + "'>" + data[i].account_name + "</option>";
+	                $("#account_id").append(option);
+	            }
+	        }
+	    });
+		media_category_id = $(this).val();
+		reloadFlex1("#cvlogs","<%= get_conversion_logs_list_conversion_promotion_logs_path %>?cv_id=" + $("#conversion_id").val() + "&account_id=" + $("#account_id").val() + "&media_category_id=" + $(this).val() + "&start_date=" + start_date + "&end_date=" + end_date);
+	})
+
+	$("#account_id").change(function(){
+		reloadFlex1("#cvlogs","<%= get_conversion_logs_list_conversion_promotion_logs_path %>?cv_id=" + $("#conversion_id").val() + "&account_id=" + $(this).val() + "&media_category_id=" + $("#media_category_id").val() + "&start_date=" + start_date + "&end_date=" + end_date);
+	})
+	jQuery(document).ready(function($) {
+		// ------datepicker-------
+		function formatDate(year, month, day){
+		 if (year < 2000) { year = parseInt(year) + 1900; }
+		 if (month.length == 1) { month = "0" + parseInt(month); }
+		 if (day.length == 1) { day = "0" + parseInt(day); }
+		 return year + month + day;
+		}
+		$('#datepicker').daterangepicker({
+			rangeSplitter: ' ~ ', 
+			lang: $.cookie("locale") == "ja" ? 1 : 2,
+	        onDone: function() {
+	            var term = $('#datepicker').val();
+	            var d = term.split(' ~ ');
+	            start_date = d[0];
+	            end_date = d[1];
+	            
+	            $("#datepicker").text(start_date + " ~ " + end_date + "▼");
+	            
+	            reloadFlex1("#cvlogs", "<%= get_conversion_logs_list_conversion_promotion_logs_path %>?cv_id=" + $("#conversion_id").val() + "&account_id=" + $("#account_id").val() + "&media_category_id=" + $("#media_category_id").val() + "&start_date=" + start_date + "&end_date=" + end_date);
+	        }
+	    });
+	 });
+</script>
+
+<table>
+</table>
+

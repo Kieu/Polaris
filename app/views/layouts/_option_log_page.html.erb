@@ -1,0 +1,155 @@
+<div style='display:none'>
+<div id="inline_logs">
+<div class="f_box">
+<p class="f_box_title"><%= I18n.t("click_logs.label")%></p>
+<p class="f_category_title1"><%= I18n.t("click_logs.display_item")%></p>
+<div class="box02">
+  <ul id="tab_logs">
+    <li class="present"><p class="f_arrow"><%= I18n.t("click_logs.usually")%></p></li>
+  </ul>
+</div>
+<div id="page1">
+<div class="box031">
+  <p class="box3_txt">
+  	<div id="display_all"><%= I18n.t("click_logs.show_all")%></div></p>
+	  <!-- チェックボックス -->
+  <div class="check-group clearfix">
+    <table width="90%">
+      <% Settings.click_options.each_with_index do |option, index| %>
+      <tr>
+        <td class="check_txt"><%= I18n.t("click_logs.#{option}")%></td>
+         <td align=right>
+            <%= link_to cookies[:coptions][index] == "0" ? image_tag("/assets/btn_box_add.gif") : image_tag("/assets/btn_box_dl.gif"), "javascript:void(0)", onclick: "update_cookie('#{index}',this)"%>
+          </td>
+      </tr>
+      <% end %>
+      <tr>
+        <td class="check_txt"><%= I18n.t("click_logs.error_log_view")%></td>
+        <td align=right>
+          <input type="checkbox" name="error_table" id="error_table" checked="checked">
+        </td>
+      </tr>
+      
+    </table>
+  </div>
+  <!-- /チェックボックス -->
+</div>
+
+</div>
+
+<div id="page11" style="display: none">
+<div class="box031">
+  <p class="box3_txt">
+  	<div id="display_all"><%= I18n.t("click_logs.show_all")%></div>
+  	 </p>
+  <!-- チェックボックス -->
+  <div class="check-group clearfix">
+    <table width="90%">
+      <% Settings.click_options.each_with_index do |option, index| %>
+      <tr>
+        <td class="check_txt"><%= I18n.t("click_logs.#{option}")%></td>
+         <td align=right>
+            <%= link_to cookies[:coptions][index] == "0" ? image_tag("/assets/btn_box_add.gif") : image_tag("/assets/btn_box_dl.gif"), "javascript:void(0)", onclick: "update_cookie('#{index}',this)"%>
+          </td>
+      </tr>
+      <% end %>
+      <tr>
+        <td class="check_txt"><%= I18n.t("click_logs.error_log_view")%></td>
+        <td align=right>
+          <input type="checkbox" name="error_table" id="error_table" checked="checked">
+        </td>
+      </tr>
+      
+    </table>
+  </div>
+  <!-- /チェックボックス -->
+</div>
+
+</div>
+
+<div id="page12" style="display: none">
+<div class="box031">
+  <p class="box3_txt">
+  	<div id="display_all"><%= I18n.t("click_logs.show_all")%></div>
+  </p>
+  <!-- チェックボックス -->
+  <div class="check-group clearfix">
+    <table width="90%">
+      <% Settings.click_options.each_with_index do |option, index| %>
+      <tr>
+        <td class="check_txt"><%= I18n.t("click_logs.#{option}")%></td>
+         <td align=right>
+            <%= link_to image_tag("/assets/btn_box_dl.gif"), "javascript:void(0)", onclick: "update_cookie('#{index}',this)"%>
+          </td>
+      </tr>
+      <% end %>
+      <tr>
+        <td class="check_txt"><%= I18n.t("click_logs.error_log_view")%></td>
+        <td align=right>
+          <input type="checkbox" name="error_table" id="error_table" checked="checked">
+        </td>
+      </tr>
+      
+    </table>
+  </div>
+  <!-- /チェックボックス -->
+</div>
+
+</div>
+<div class="submit_area2">
+  <button id="change_cookie" style="border: 0px"><img src="/assets/btn_done.gif" alt="完成"></button>
+  <button id="not_change_cookie" style="border: 0px"><img src="/assets/btn_cancel.gif" alt="完成"></button>
+</div>
+</div>
+</div>
+</div>
+<script>
+    $(document).ready(function(){
+        $(".inline_logs").colorbox({inline:true, width:"515", height:"650" });
+    });
+var tab = {
+init:
+function(){
+var tabs = this.setup.tabs;
+var pages = this.setup.pages;
+
+for(i=0; i<pages.length; i++) {
+if(i !== 0) pages[i].style.display = 'none';
+tabs[i].onclick = function(){tab.showpage(this); return false; };
+}
+},
+
+showpage: function(obj){
+var tabs = this.setup.tabs;
+var pages = this.setup.pages;
+var num;
+
+for(num=0; num<tabs.length; num++) {
+if(tabs[num] === obj) break;
+}
+
+for(var i=0; i<pages.length; i++) {
+if(i == num) {
+pages[num].style.display = 'block';
+tabs[num].className = 'present';
+}
+else{
+pages[i].style.display = 'none';
+tabs[i].className = null;
+}
+}
+}
+}
+
+// <![CDATA[
+
+tab.setup = {
+    tabs: document.getElementById('tab_logs').getElementsByTagName('li'),
+
+    pages: [
+        document.getElementById('page1')
+    ]
+} //オブジェクトをセット
+tab.init(); //起動！
+// ]]>
+</script>

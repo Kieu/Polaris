@@ -1,0 +1,132 @@
+<% provide(:title, I18n.t("account.title.edit")) %>
+<script type="text/javascript">
+$(function(){
+	prevent_change = "<%= @prevent %>";
+	$(".prevent_change").change(function(){
+		prevent_change = "1"
+	})
+})
+</script>
+<%= render "layouts/prevent_change_page_edit" %>
+<%= stylesheet_link_tag "css/common" %>
+<%= stylesheet_link_tag "css/accounts" %>
+<ul class="contentNavi">
+  <div class = "crumb">
+    <li class="pre"><%= link_to short_ja_name(@promotion.client.client_name), clients_path(client_id: @promotion.client.id), title: @promotion.client.client_name %></li>
+    <li>&gt;</li>
+    <li class="pre"><%= link_to short_ja_name(@promotion.promotion_name), promotions_path(client_id: @promotion.client.id, promotion_id: @promotion.id), title: @promotion.promotion_name %>
+    <li>&gt;</li>
+    <li><%= I18n.t("account.crumb_edit") %>/<%= @account.media.media_name%> </li>
+    <li>&gt;</li>
+    <li><div title= "<%=@account_name%>"><%= short_ja_name(@account_name)%></div></li>
+  </div>
+</ul>
+        
+<% if flash[:success] %>
+  <div><%= flash[:success] %></div>
+<% end %>
+<div id="account_form">
+<%= form_for(@account) do |f| %>
+    <div class="regist_form">
+      <table class="account_info">
+        <tbody>
+        <tr>
+          <th> <%= f.label t("account.media_category") %></th>
+          <td colspan="2">
+          	<input class="input-select prevent_change" type="hidden" name="media_category_id" id="media_category_id" value="<%= @account.media_category_id %>" />
+          	<input class="input-select prevent_change" type="text" name="media_category" value="<%= t(Settings.media_category[@account.media_category_id])%>" disabled="disabled"></td>
+        </tr>
+        <tr>
+          <th><%= f.label t("account.media") %></th>
+          <td colspan="2">
+          	<input class="input-select prevent_change" type="hidden" name="media_id" id="media_id" value="<%= @account.media_id %>" />
+          	<input class="input-select prevent_change" type="text" name="xmedia_id" value="<%= @account.media.media_name%>" disabled="disabled">
+            </td>
+        </tr>
+        <tr>
+          <th ><%= f.label t("account.account_name") %></th>
+          <td colspan="2"> <%= f.text_field :account_name, maxlength: 255, style: "width: 280px", class: "prevent_change" %>  </td>
+        </tr>
+        <tr>
+          <th><%= f.label t("account.roman_name") %></th>
+          <td colspan="2"><%= f.text_field :roman_name, maxlength: 255, style: "width: 280px", class: "prevent_change" %></td>
+        </tr>
+        <tr>
+          <th><%= f.label I18n.t("account.margin") %></th>
+          <td colspan="2"><%= I18n.t("account.input_data") %> &nbsp; × <%= f.text_field :margin, maxlength: 255, value: @account.margin, style: "width: 80px", class: "prevent_change" %></td><td id="percent" style="margin-left: -100px; position: absolute; margin-top: 13px;">%</td>
+        </tr>
+      </tbody>
+      <tbody id="account_sync_box">
+        <tr>
+          <th><%= f.label t("account.sync_account_id") %></th>
+          <td><%= f.radio_button :sync_flg, 1, checked: true, onclick: "active_sync_box();", class: "prevent_change" %> <%= I18n.t("account.synchronism") %></td>
+          <td><%= f.radio_button :sync_flg, 0, onclick: "disable_sync_box();", class: "prevent_change" %> <%= I18n.t("account.fractured") %></td>
+        </tr>
+        <tr>
+          <th></th>
+          <td colspan="2" >
+            <%= f.text_field :sync_account_id, maxlength: 255, style: "width: 280px", placeholder: " ID: ", class: "prevent_change" %>
+          </td>
+        </tr>
+        <tr>
+        <th></th>
+        <td colspan="2">
+        	<%= f.password_field :sync_account_pw, maxlength: 255, value: @account.sync_account_pw, style: "width: 280px", placeholder: " PW: ", class: "prevent_change", autocomplete: "off" %>
+        </tr> 
+        <tbody>
+      </table>
+      <div class="submit_area">
+        <input type="image" id="btn_submit" src="/assets/btn_done.gif" >
+        <%= link_to raw('<img align="right" alt="キャンセル" src="/assets/btn_cancel.gif">'), promotions_path(promotion_id: @promotion.id, client_id: @promotion.client.id) %>
+      </div>
+    </div>
+    <input type="hidden" name="promotion_id" value="<%= @promotion.id %>">
+<script type="text/javascript">
+  <% if @account.errors[:margin].count > 0%>
+    $("#percent").css("margin-top","3px");
+  <% end %>
+function disable_sync_box() {
+	$("#account_sync_account_id").attr('disabled', true);
+	$("#account_sync_account_pw").attr('disabled', true);
+}
+function active_sync_box() {
+	$("#account_sync_account_id").removeAttr('disabled');
+	$("#account_sync_account_pw").removeAttr('disabled');
+}
+
+jQuery(document).ready(function($) {
+	$("#account_sync_flg_0").click(function() {
+		if ($("#account_sync_flg_0").is(':checked')) {
+			$("#account_sync_account_id").attr('disabled','disabled');
+			$("#account_sync_account_pw").attr('disabled','disabled');
+		}	
+	});
+	$("#account_sync_flg_1").click(function() {
+		if ($("#account_sync_flg_1").is(':checked')) {
+			$("#account_sync_account_id").removeAttr('disabled');
+			$("#account_sync_account_pw").removeAttr('disabled');
+		}	
+	});
+	
+	
+if ($("#media_category_id").val() < 3) {
+    		$("#account_sync_box").html('<%=j render "sync_box", f: f%>');
+    } else {
+    	$("#account_sync_box").html("");
+    }
+    
+if ($("#media_id").val() < 7) {
+		$("#account_sync_box").html('<%=j render "sync_box", f:f%>');
+} else {
+	$("#account_sync_box").html("");
+}
+if ($("#account_sync_flg_1").is(':checked')) {
+		
+		$("#account_sync_account_id").attr('disabled','disabled');
+		$("#account_sync_account_pw").attr('disabled','disabled');
+	}	
+});	
+</script>    
+<% end %>
+</div>
+	

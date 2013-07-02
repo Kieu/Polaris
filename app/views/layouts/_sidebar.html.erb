@@ -1,0 +1,127 @@
+<% object = object.all unless object.class == Array %>
+<div id="sidebar">
+  <div id="clienetlist_box">
+    <dl>
+      <dt></dt>
+      <dd>
+        <div  id="searchform" name="searchform">
+          <input type="text" placeholder="<%= I18n.t('client.user_search') %>" id="keywords" name="keywords" maxlength="255">
+          <img id="searchBtn" name="searchBtn" alt="<%= I18n.t('client.user_search') %>" src="/assets/img_loupe.gif">
+        </div>
+      </dd>
+    </dl>
+    <div style="border-top:1px solid #c1c1c1;"></div>
+    <% if params[:controller] == "clients" %>
+    	<% if @client.id %>
+	    	<script type="text/javascript">
+	    	$(function() {
+	    		$("#clients_list").scrollTo("#<%= @client.id if @client%>");
+	    		
+	    	});
+	    	</script>
+	    <% end %>
+        <div id="clients_list">
+          <table class="sidebar">
+            <%
+             if object && object.count >0
+             object.each_with_index do |client, index| %>
+                <tr>
+                  <th class="edit"><%= link_to "", "#{edit_client_path(client)}", class: "edit", id: "edit#{client.id}" if current_user.super? %></th>
+                  <% if params[:action] == "index" %>
+                      <% if (params[:client_id] && client.id == params[:client_id].to_i) || (!params[:client_id] && index == 0) %>
+                          <td><div style="width: 220px;"><%= link_to short_ja_name(client.client_name), "#{clients_path(client_id: client.id)}", class: "client_name current", title: "#{client.client_name}", id: "#{client.id}" %>
+                         	<%= link_to short_ja_name(client.client_name), "#{clients_path(client_id: client.id)}", class: "client_name_search", id: "search#{client.id}" %></div>
+                          </td>
+                      <% else %>
+                          <td><div style="width: 220px;"><%= link_to short_ja_name(client.client_name), "#{clients_path(client_id: client.id)}", class: "client_name", title: "#{client.client_name}", id: "#{client.id}" %>
+								<%= link_to short_ja_name(client.client_name), "#{clients_path(client_id: client.id)}", class: "client_name_search", id: "search#{client.id}" %></div>
+                          </td>
+                      <% end %>
+                  <% else %>
+                      <% if (params[:id] && client.id == params[:id].to_i) || (!params[:id] && index == 0) %>
+
+                          <td><div style="width: 220px;"><%= link_to short_ja_name(client.client_name), "#{clients_path(client_id: client.id)}", title: "#{client.client_name}", class: "client_name current", id: "#{client.id}" %></div></td>
+                      <% else %>
+                          <td><div style="width: 220px;"><%= link_to short_ja_name(client.client_name), "#{clients_path(client_id: client.id)}", title: "#{client.client_name}", class: "client_name", id: "#{client.id}" %></div></td>
+                      <% end %>
+                  <% end %>
+                </tr>
+            <% end 
+            end %>
+          </table>
+        </div>
+    <% elsif params[:controller] == "promotions" || params[:controller] == "click_logs" || params[:controller] == "conversion_promotion_logs" %>
+        <div id="promotions_list">
+          <table class="sidebar">
+            <% object.each_with_index do |promotion, index| %>
+                <tr>
+                  <th class="edit"><%= link_to "", "#{edit_promotion_path(promotion)}?client_id=#{@client_id}", class: "edit", id: "edit#{promotion['id']}" if current_user.super? || current_user.agency? %></th>
+                  <% if (params[:promotion_id] && promotion.id == params[:promotion_id].to_i) || (!params[:promotion_id] && index == 0) %>
+                      <td><div style="width: 220px;">
+                        <% if params[:controller] == "click_logs" %>
+                            <%= link_to short_ja_name(promotion.promotion_name), "#{click_logs_path(promotion_id: promotion['id'])}", title: "#{promotion.promotion_name}", class: "promotion_name current", id: "#{promotion['id']}" %>
+                        <% elsif params[:controller] == "conversion_promotion_logs" %>
+                            <%= link_to short_ja_name(promotion.promotion_name), "#{conversion_promotion_logs_path(promotion_id: promotion.id)}", title: "#{promotion.promotion_name}", class: "promotion_name current", id: "#{promotion.id}" %>
+                        <% else %>
+                            <%= link_to short_ja_name(promotion.promotion_name), "#{promotions_path(promotion_id: promotion['id'], client_id: params[:client_id])}", title: "#{promotion.promotion_name}", class: "promotion_name current", id: "#{promotion['id']}" %>
+                        <% end %>
+                        </div>
+                      </td>
+                  <% else %>
+                      <td>
+                      	<div style="width: 220px;">
+                        <% if params[:controller] == "click_logs" %>
+                            <%= link_to short_ja_name(promotion.promotion_name), "#{click_logs_path(promotion_id: promotion['id'])}", title: "#{promotion.promotion_name}", class: "promotion_name", id: "#{promotion['id']}" %>
+                        <% elsif params[:controller] == "conversion_promotion_logs" %>
+                            <%= link_to short_ja_name(promotion.promotion_name), "#{conversion_promotion_logs_path(promotion_id: promotion.id)}", title: "#{promotion.promotion_name}", class: "promotion_name", id: "#{promotion.id}" %>
+                        <% else %>
+                            <%= link_to short_ja_name(promotion.promotion_name), "#{promotions_path(promotion_id: promotion['id'], client_id: params[:client_id])}", title: "#{promotion.promotion_name}", class: "promotion_name", id: "#{promotion['id']}" %>
+                        <% end %></div></td>
+                  <% end %>
+                </tr>
+            <% end %>
+          </table>
+        </div>
+        <% unless (@promotion_id.blank? ? params[:promotion_id] : @promotion_id).blank? %>
+        <script type="text/javascript">
+    	$(function() {
+    		$("#promotions_list").scrollTo("#<%= @promotion_id.blank? ? params[:promotion_id] : @promotion_id %>");
+    	});
+    	</script>
+    	<% end %>
+    <% elsif params[:controller] == "conversions" %>
+        <div id="conversions_list">
+          <table class="sidebar">
+            <% 
+            if object && object.count > 0
+            object.each_with_index do |conversion, index| %>
+                <tr>
+                  <th class="edit"><%= link_to "", "#{edit_conversion_path(conversion)}?promotion_id=#{params[:promotion_id]}", class: "edit", id: "edit#{conversion.id}" if current_user.super? || current_user.agency? %></th>
+                  <% if (params[:id] && conversion.id == params[:id].to_i) || (!params[:id] && index == 0) %>
+
+                      <td><div style="width: 220px;"><%= link_to short_ja_name(conversion.conversion_name), "#{edit_conversion_path(conversion)}?promotion_id=#{params[:promotion_id]}", title: "#{conversion.conversion_name}", class: "conversion_name current", id: "#{conversion.id}" %></div></td>
+                  <% else %>
+                      <td><div style="width: 220px;"><%= link_to short_ja_name(conversion.conversion_name), "#{edit_conversion_path(conversion)}?promotion_id=#{params[:promotion_id]}", title: "#{conversion.conversion_name}", class: "conversion_name", id: "#{conversion.id}" %></div></td>
+                  <% end %>
+                </tr>
+            <% end
+            end%>
+          </table>
+        </div>
+        <% unless params[:promotion_id].blank? %>
+	        <script type="text/javascript">
+	    	$(function() {
+	    		$("#conversions_list").scrollTo("#<%= params[:promotion_id] %>");
+	    	});
+	    	</script>
+	    <% end %>
+    <% end %>
+  </div>
+  <% if params[:controller] == "clients" && current_user.super? %>
+      <%= link_to raw('<img src="/assets/btn_client_regist.gif">'), "#{new_client_path}", class: "new_client_name" %>
+  <% elsif (current_user.super? || current_user.agency?) && params[:controller] == "promotions" %>
+      <%= link_to raw('<img src="/assets/btn_promotion_regist.gif">'), "#{new_promotion_path(client_id: @client_id)}", class: "new_promotion_name"  %>
+  <% elsif (current_user.super? || current_user.agency?) && params[:controller] == "conversions" %>
+      <%= link_to raw('<img src="/assets/btn_conversion_regist.gif">'), "#{new_conversion_path(client_id: @client_id, promotion_id: params[:promotion_id])}", class: "new_conversion_name" %>
+  <% end %>
+</div>
